@@ -28,7 +28,10 @@ public abstract class Organization {
         Lab("Lab Organization"), Army("Army Organization"), 
         Navy("Navy Organization"), AirForce("AirForce Organization"),
         PatentAndLicenses("PatentAndLicenses Organization"),
-        BureauOfEconomicAnalysis("BureauOfEconomicAnalysis Organization");
+        BureauOfEconomicAnalysis("BureauOfEconomicAnalysis Organization"),
+        Certificate("Certificate Organization"),
+        FBI("FBI Organization"),
+        OfficeOfJustice("OfficeOfJustice Organization");
         private String value;
         private Type(String value) {
             this.value = value;
