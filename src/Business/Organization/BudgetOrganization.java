@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 
-package Business.Enterprise;
+package Business.Organization;
 
+import Business.Role.AdminRole;
 import Business.Role.Role;
 import java.util.ArrayList;
 
@@ -13,12 +14,15 @@ import java.util.ArrayList;
  *
  * @author Preetham Reddy
  */
-public class TreasuryEnterprise extends Enterprise {
-   public TreasuryEnterprise(String name){
-        super(name,Enterprise.EnterpriseType.Treasury);
-    }
-    @Override
+public class BudgetOrganization extends Organization {
+    public BudgetOrganization(){
+   super(Type.Budget.getValue());
+   }
+   
+   @Override
     public ArrayList<Role> getSupportedRole() {
-        return null;
-    } 
+        ArrayList<Role> roles = new ArrayList();
+        roles.add(new AdminRole());
+        return roles;
+    }
 }

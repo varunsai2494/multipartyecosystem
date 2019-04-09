@@ -49,6 +49,14 @@ public class OrganizationDirectory {
             organization = new BureauOfEconomicAnalysisOrganization();
             organizationList.add(organization);
         }
+        else if (type.getValue().equals(Type.Revenue.getValue())){
+            organization = new BureauOfEconomicAnalysisOrganization();
+            organizationList.add(organization);
+        }
+        else if (type.getValue().equals(Type.Budget.getValue())){
+            organization = new BureauOfEconomicAnalysisOrganization();
+            organizationList.add(organization);
+        }
         return organization;
     }
 }
