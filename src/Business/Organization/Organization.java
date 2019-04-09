@@ -31,7 +31,8 @@ public abstract class Organization {
         BureauOfEconomicAnalysis("BureauOfEconomicAnalysis Organization"),
         Certificate("Certificate Organization"),
         FBI("FBI Organization"),
-        OfficeOfJustice("OfficeOfJustice Organization");
+        OfficeOfJustice("OfficeOfJustice Organization"), Revenue("Revenue Organization"),
+        Budget("Budget Organization");
         private String value;
         private Type(String value) {
             this.value = value;
