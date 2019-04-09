@@ -12,9 +12,9 @@ package Business.Enterprise;
 import Business.Role.Role;
 import Business.Enterprise.Enterprise.EnterpriseType;
 import java.util.ArrayList;
-public class DOJ extends Enterprise {
-    public DOJ(String name){
-        super(name,EnterpriseType.DOJ);
+public class Justice extends Enterprise {
+    public Justice(String name){
+        super(name,EnterpriseType.Justice);
     }
     @Override
     public ArrayList<Role> getSupportedRole() {

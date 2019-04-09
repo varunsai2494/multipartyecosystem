@@ -25,7 +25,7 @@ public abstract class Enterprise extends Organization{
         Hospital("Hospital"),
         Defence("Defence"),
         Commerce("Commerce"),
-        DOJ("DOJ"),
+        Justice("Justice"),
         Energy("Energy"),
         Treasury("Treasury");
         
