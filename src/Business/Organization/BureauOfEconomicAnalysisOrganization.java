@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class BureauOfEconomicAnalysisOrganization extends Organization{
     public BureauOfEconomicAnalysisOrganization() {
-        super(Organization.Type.PatentAndLicenses.getValue());
+        super(Organization.Type.BureauOfEconomicAnalysis.getValue());
     }
     
     @Override
