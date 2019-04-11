@@ -5,13 +5,12 @@
  */
 package userInterface;
 
-
 import Business.EcoSystem;
 import Business.DB4OUtil.DB4OUtil;
-//import Business.Enterprise.Enterprise;
-//import Business.Network.Network;
-//import Business.Organization.Organization;
-//import Business.UserAccount.UserAccount;
+import Business.Enterprise.Enterprise;
+import Business.Network.Network;
+import Business.Organization.Organization;
+import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -56,10 +55,6 @@ public class MainJFrame extends javax.swing.JFrame {
         jSplitPane1.setDividerLocation(150);
         jSplitPane1.setDividerSize(15);
 
-        userNameJTextField.setText("jTextField1");
-
-        passwordField.setText("jPasswordField1");
-
         jLabel3.setText("username");
 
         jLabel4.setText("password");
@@ -78,57 +73,38 @@ public class MainJFrame extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(userNameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3))
-                        .addGap(43, 43, 43))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(12, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(loginJButton))
-                            .addComponent(logoutJButton))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                    .addComponent(logoutJButton)
+                    .addComponent(loginJButton)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(passwordField, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel3)
+                        .addComponent(userNameJTextField)))
+                .addGap(0, 25, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(106, 106, 106)
+                .addGap(85, 85, 85)
                 .addComponent(jLabel3)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(userNameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(loginJButton)
                 .addGap(18, 18, 18)
                 .addComponent(logoutJButton)
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addContainerGap(177, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(jPanel1);
 
-        javax.swing.GroupLayout containerLayout = new javax.swing.GroupLayout(container);
-        container.setLayout(containerLayout);
-        containerLayout.setHorizontalGroup(
-            containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 544, Short.MAX_VALUE)
-        );
-        containerLayout.setVerticalGroup(
-            containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 464, Short.MAX_VALUE)
-        );
-
+        container.setLayout(new java.awt.CardLayout());
         jSplitPane1.setRightComponent(container);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -157,53 +133,53 @@ public class MainJFrame extends javax.swing.JFrame {
         String password = String.valueOf(passwordCharArray);
         
         //Step1: Check in the system admin user account directory if you have the user
-////        UserAccount userAccount=system.getUserAccountDirectory().authenticateUser(userName, password);
-////        
-////        Enterprise inEnterprise=null;
-////        Organization inOrganization=null;
-////        
-////        if(userAccount==null){
-////            //Step 2: Go inside each network and check each enterprise
-////            for(Network network:system.getNetworkList()){
-////                //Step 2.a: check against each enterprise
-////                for(Enterprise enterprise:network.getEnterpriseDirectory().getEnterpriseList()){
-////                    userAccount=enterprise.getUserAccountDirectory().authenticateUser(userName, password);
-////                    if(userAccount==null){
-////                       //Step 3:check against each organization for each enterprise
-////                       for(Organization organization:enterprise.getOrganizationDirectory().getOrganizationList()){
-////                           userAccount=organization.getUserAccountDirectory().authenticateUser(userName, password);
-////                           if(userAccount!=null){
-////                               inEnterprise=enterprise;
-////                               inOrganization=organization;
-////                               break;
-////                           }
-////                       }
-////                        
-////                    }
-////                    else{
-////                       inEnterprise=enterprise;
-////                       break;
-////                    }
-////                    if(inOrganization!=null){
-////                        break;
-////                    }  
-////                }
-////                if(inEnterprise!=null){
-////                    break;
-////                }
-////            }
-////        }
-//        
-//        if(userAccount==null){
-//            JOptionPane.showMessageDialog(null, "Invalid credentials");
-//            return;
-//        }
-//        else{
-//            CardLayout layout=(CardLayout)container.getLayout();
-//            container.add("workArea",userAccount.getRole().createWorkArea(container, userAccount, inOrganization, inEnterprise, system));
-//            layout.next(container);
-//        }
-//        
+        UserAccount userAccount=system.getUserAccountDirectory().authenticateUser(userName, password);
+        
+        Enterprise inEnterprise=null;
+        Organization inOrganization=null;
+        
+        if(userAccount==null){
+            //Step 2: Go inside each network and check each enterprise
+            for(Network network:system.getNetworkList()){
+                //Step 2.a: check against each enterprise
+                for(Enterprise enterprise:network.getEnterpriseDirectory().getEnterpriseList()){
+                    userAccount=enterprise.getUserAccountDirectory().authenticateUser(userName, password);
+                    if(userAccount==null){
+                       //Step 3:check against each organization for each enterprise
+                       for(Organization organization:enterprise.getOrganizationDirectory().getOrganizationList()){
+                           userAccount=organization.getUserAccountDirectory().authenticateUser(userName, password);
+                           if(userAccount!=null){
+                               inEnterprise=enterprise;
+                               inOrganization=organization;
+                               break;
+                           }
+                       }
+                        
+                    }
+                    else{
+                       inEnterprise=enterprise;
+                       break;
+                    }
+                    if(inOrganization!=null){
+                        break;
+                    }  
+                }
+                if(inEnterprise!=null){
+                    break;
+                }
+            }
+        }
+        
+        if(userAccount==null){
+            JOptionPane.showMessageDialog(null, "Invalid credentials");
+            return;
+        }
+        else{
+            CardLayout layout=(CardLayout)container.getLayout();
+            container.add("workArea",userAccount.getRole().createWorkArea(container, userAccount, inOrganization, inEnterprise, system));
+            layout.next(container);
+        }
+        
         loginJButton.setEnabled(false);
         logoutJButton.setEnabled(true);
         userNameJTextField.setEnabled(false);
