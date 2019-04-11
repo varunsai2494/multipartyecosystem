@@ -6,6 +6,9 @@
 package userInterface.Army;
 
 import Business.Enterprise.Enterprise;
+import Business.Network.Network;
+import Business.Organization.ArmyOrganization;
+import Business.UserAccount.UserAccount;
 import javax.swing.JPanel;
 
 /**
@@ -17,7 +20,7 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form NavyWorkAreaJPanel
      */
-    public ArmyWorkAreaJPanel(JPanel userProcessContainer, Enterprise enterprise) {
+    public ArmyWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, ArmyOrganization organization,  Enterprise enterprise, Network network) {
         initComponents();
     }
 

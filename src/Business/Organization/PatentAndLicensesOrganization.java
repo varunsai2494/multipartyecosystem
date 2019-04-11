@@ -5,7 +5,7 @@
  */
 package Business.Organization;
 
-import Business.Role.AdminRole;
+import Business.Role.PatentAndLicenseRole;
 import Business.Role.Role;
 import java.util.ArrayList;
 
@@ -21,7 +21,7 @@ public class PatentAndLicensesOrganization extends Organization{
     @Override
     public ArrayList<Role> getSupportedRole() {
         ArrayList<Role> roles = new ArrayList();
-        roles.add(new AdminRole());
+        roles.add(new PatentAndLicenseRole());
         return roles;
     }
 }
