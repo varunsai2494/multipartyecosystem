@@ -5,7 +5,7 @@
  */
 package Business.Organization;
 
-import Business.Role.AdminRole;
+import Business.Role.BureauOfEconomicCommerceRole;
 import Business.Role.Role;
 import java.util.ArrayList;
 
@@ -21,7 +21,7 @@ public class BureauOfEconomicAnalysisOrganization extends Organization{
     @Override
     public ArrayList<Role> getSupportedRole() {
         ArrayList<Role> roles = new ArrayList();
-        roles.add(new AdminRole());
+        roles.add(new BureauOfEconomicCommerceRole());
         return roles;
     }
 }
