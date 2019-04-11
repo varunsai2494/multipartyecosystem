@@ -67,6 +67,11 @@ public class MainJFrame extends javax.swing.JFrame {
         });
 
         logoutJButton.setText("logout");
+        logoutJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutJButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -185,6 +190,24 @@ public class MainJFrame extends javax.swing.JFrame {
         userNameJTextField.setEnabled(false);
         passwordField.setEnabled(false);
     }//GEN-LAST:event_loginJButtonActionPerformed
+
+    private void logoutJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutJButtonActionPerformed
+        // TODO add your handling code here:
+        logoutJButton.setEnabled(false);
+        userNameJTextField.setEnabled(true);
+        passwordField.setEnabled(true);
+        loginJButton.setEnabled(true);
+
+        userNameJTextField.setText("");
+        passwordField.setText("");
+
+        container.removeAll();
+        JPanel blankJP = new JPanel();
+        container.add("blank", blankJP);
+        CardLayout crdLyt = (CardLayout) container.getLayout();
+        crdLyt.next(container);
+        dB4OUtil.storeSystem(system);
+    }//GEN-LAST:event_logoutJButtonActionPerformed
 
     /**
      * @param args the command line arguments
