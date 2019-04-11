@@ -39,6 +39,10 @@ public class EnterpriseDirectory {
             enterprise=new DefenceEnterprise(name);
             enterpriseList.add(enterprise);
         }
+        else if(type==Enterprise.EnterpriseType.Justice){
+            enterprise=new Justice(name);
+            enterpriseList.add(enterprise);
+        }
         else if(type==Enterprise.EnterpriseType.Treasury){
             enterprise=new DefenceEnterprise(name);
             enterpriseList.add(enterprise);
