@@ -5,7 +5,7 @@
  */
 package Business.Organization;
 
-import Business.Role.AdminRole;
+import Business.Role.PatentAndTradeMarkRole;
 import Business.Role.Role;
 import java.util.ArrayList;
 
@@ -13,15 +13,15 @@ import java.util.ArrayList;
  *
  * @author root
  */
-public class PatentAndLicensesOrganization extends Organization{
-    public PatentAndLicensesOrganization() {
+public class PatentAndTradeMarkOrganization extends Organization{
+    public PatentAndTradeMarkOrganization() {
         super(Organization.Type.PatentAndLicenses.getValue());
     }
     
     @Override
     public ArrayList<Role> getSupportedRole() {
         ArrayList<Role> roles = new ArrayList();
-        roles.add(new AdminRole());
+        roles.add(new PatentAndTradeMarkRole());
         return roles;
     }
 }
