@@ -10,17 +10,17 @@ import Business.Network.Network;
 import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
-import Business.Organization.BureauOfEconomicAnalysisOrganization;
-import userInterface.BureauOfEconomicCommerce.BureauOfEconomicCommerceWorkAreaJPanel;
+import Business.Organization.PatentAndTradeMarkOrganization;
+import userInterface.PatentAndTrademark.PatentAndTradeMarkWorkAreaJPanel;
 import javax.swing.JPanel;
 
 /**
  *
  * @author root
  */
-public class PatentAndLicenseRole extends Role{
+public class PatentAndTradeMarkRole extends Role{
       @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise,Network network, EcoSystem business) {
-        return new BureauOfEconomicCommerceWorkAreaJPanel(userProcessContainer, account, (BureauOfEconomicAnalysisOrganization)organization, enterprise, network);
+        return new PatentAndTradeMarkWorkAreaJPanel(userProcessContainer, account, (PatentAndTradeMarkOrganization) organization, enterprise, network);
     }
 }

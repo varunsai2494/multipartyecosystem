@@ -42,7 +42,7 @@ public class OrganizationDirectory {
             organizationList.add(organization);
         }
          else if (type.getValue().equals(Type.PatentAndLicenses.getValue())){
-            organization = new PatentAndLicensesOrganization();
+            organization = new PatentAndTradeMarkOrganization();
             organizationList.add(organization);
         }
          else if (type.getValue().equals(Type.BureauOfEconomicAnalysis.getValue())){
