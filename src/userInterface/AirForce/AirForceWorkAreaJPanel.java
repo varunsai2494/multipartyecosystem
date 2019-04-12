@@ -6,6 +6,9 @@
 package userInterface.AirForce;
 
 import Business.Enterprise.Enterprise;
+import Business.Network.Network;
+import Business.Organization.AirForceOrganization;
+import Business.UserAccount.UserAccount;
 import javax.swing.JPanel;
 
 /**
@@ -17,7 +20,7 @@ public class AirForceWorkAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form NavyWorkAreaJPanel
      */
-    public AirForceWorkAreaJPanel(JPanel userProcessContainer, Enterprise enterprise) {
+    public AirForceWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, AirForceOrganization organization,  Enterprise enterprise, Network network) {
         initComponents();
     }
 

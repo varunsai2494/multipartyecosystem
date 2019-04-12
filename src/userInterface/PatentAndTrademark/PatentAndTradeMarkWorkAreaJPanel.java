@@ -7,22 +7,22 @@ package userInterface.PatentAndTrademark;
 import Business.Network.Network;
 import Business.Enterprise.Enterprise;
 import Business.UserAccount.UserAccount;
-import Business.Organization.PatentAndLicensesOrganization;
+import Business.Organization.PatentAndTradeMarkOrganization;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 /**
  *
  * @author root
  */
-public class PatentAndTradeMarchWorkAreaJPanel extends javax.swing.JPanel {
+public class PatentAndTradeMarkWorkAreaJPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
-    private PatentAndLicensesOrganization organization;
+    private PatentAndTradeMarkOrganization organization;
     private Network network;
     private UserAccount userAccount;
     /**
      * Creates new form PatentAndTradeMarchWorkAreaJPanel
      */
-    public PatentAndTradeMarchWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, PatentAndLicensesOrganization organization, Enterprise enterprise, Network network) {
+    public PatentAndTradeMarkWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, PatentAndTradeMarkOrganization organization, Enterprise enterprise, Network network) {
         this.userProcessContainer = userProcessContainer;
         this.organization = organization;
         this.network = network;
