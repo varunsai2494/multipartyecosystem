@@ -29,7 +29,15 @@ public class OrganizationDirectory {
             organization = new AdminOrganization();
             organizationList.add(organization);
         }
-        if (type.getValue().equals(Type.Army.getValue())){
+        else if (type.getValue().equals(Type.Certificate.getValue())){
+            organization = new CertificateOrganization();
+            organizationList.add(organization);
+        }
+        else if (type.getValue().equals(Type.FBI.getValue())){
+            organization = new FBI();
+            organizationList.add(organization);
+        }
+        else if (type.getValue().equals(Type.Army.getValue())){
             organization = new ArmyOrganization();
             organizationList.add(organization);
         }
