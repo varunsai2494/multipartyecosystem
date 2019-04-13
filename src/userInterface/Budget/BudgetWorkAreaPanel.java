@@ -10,6 +10,8 @@ import Business.Enterprise.Enterprise;
 import Business.Network.Network;
 import Business.Organization.ArmyOrganization;
 import Business.Organization.BudgetOrganization;
+import Business.Organization.BureauOfEconomicAnalysisOrganization;
+import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.LabTestWorkRequest;
@@ -31,6 +33,7 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
     private BudgetOrganization organization;
     private Enterprise enterprise;
     private UserAccount userAccount;
+    private Network network;
     public BudgetWorkAreaPanel(JPanel userProcessContainer, UserAccount account, BudgetOrganization organization,  Enterprise enterprise, Network network) {
         this.userProcessContainer = userProcessContainer;
         this.organization = organization;
@@ -50,7 +53,7 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        assignButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         BudetTable = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
@@ -58,10 +61,10 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Budget Panel");
 
-        jButton1.setText("accept to do");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        assignButton.setText("assign to me");
+        assignButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                assignButtonActionPerformed(evt);
             }
         });
 
@@ -83,7 +86,7 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(BudetTable);
 
-        jButton2.setText("reject to do");
+        jButton2.setText("get approval");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -96,7 +99,7 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(assignButton)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
                 .addGap(114, 114, 114))
@@ -119,7 +122,7 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(78, 78, 78)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(assignButton)
                     .addComponent(jButton2))
                 .addContainerGap(188, Short.MAX_VALUE))
         );
@@ -144,18 +147,51 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
     }
     
     
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void assignButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignButtonActionPerformed
+        int selectedRow = BudetTable.getSelectedRow();
+        
+        if (selectedRow < 0){
+            return;
+        }
+        
+        WorkRequest request = (WorkRequest)BudetTable.getValueAt(selectedRow, 0);
+        request.setReceiver(userAccount);
+        request.setStatus("Pending");
+        populateTable();
+        
+        
+        
+    }//GEN-LAST:event_assignButtonActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        
+        int selectedRow = BudetTable.getSelectedRow();
+        
+        if (selectedRow < 0){
+            return;
+        }
+        
+        WorkRequest request = (WorkRequest)BudetTable.getValueAt(selectedRow, 0);
+        Organization org = null;
+        for(Enterprise ent: network.getEnterpriseDirectory().getEnterpriseList()){
+            for (Organization organization : ent.getOrganizationDirectory().getOrganizationList()){
+                if (organization instanceof BureauOfEconomicAnalysisOrganization){
+                    org = organization;
+                    break;
+                }
+            }
+        }
+        if (org!=null){
+            org.getWorkQueue().getWorkRequestList().add(request);
+            userAccount.getWorkQueue().getWorkRequestList().add(request);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable BudetTable;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton assignButton;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
