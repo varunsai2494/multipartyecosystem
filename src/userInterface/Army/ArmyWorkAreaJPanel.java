@@ -36,19 +36,20 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
         this.enterprise = enterprise;
         this.userAccount = account;
         initComponents();
+        populateRequestTable();
     }
     public void populateRequestTable(){
         DefaultTableModel model = (DefaultTableModel) armyJTabel.getModel();
 
         model.setRowCount(0);
         for (WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()){
-            Object[] row = new Object[4];
+            Object[] row = new Object[6];
             row[0] = request.getCategory();
             row[1] = request.getMessage();
             row[2] = request.getDescription();
             row[3] = ((BudgetWorkRequest) request).getTotalBudgetRequest();
-            Integer result = ((BudgetWorkRequest) request).getAllocatedBudgetRequest();
-            row[4] = result == null ? "Waiting" : result;
+            Integer aa = ((BudgetWorkRequest) request).getAllocatedBudgetRequest();
+            row[4] = aa.toString();
             row[5] = request.getStatus();
 
             model.addRow(row);
@@ -60,13 +61,6 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
         populateRequestTable();
 
     }        
-         private void requestTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                   
-
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("RequestLabTestJPanel", new createBudgetRequest(userProcessContainer, userAccount, enterprise, network));
-        layout.next(userProcessContainer);
-
-    }  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -99,7 +93,12 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
 
         viewRequest.setText("View");
 
-        createbtn.setText("create");
+        createbtn.setText("Create budget Request");
+        createbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createbtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -109,9 +108,9 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(createbtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(viewRequest))
+                        .addComponent(viewRequest)
+                        .addGap(18, 18, 18)
+                        .addComponent(createbtn))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(61, 61, 61)
@@ -135,6 +134,12 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
                 .addGap(34, 34, 34))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void createbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createbtnActionPerformed
+         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add("RequestLabTestJPanel", new createBudgetRequest(userProcessContainer, userAccount, enterprise, network));
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_createbtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

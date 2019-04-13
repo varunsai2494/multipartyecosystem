@@ -10,7 +10,7 @@ import Business.Network.Network;
 import Business.Organization.BudgetOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
-import Business.WorkQueue.LabTestWorkRequest;
+import Business.WorkQueue.BudgetWorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.logging.Level;
@@ -106,7 +106,7 @@ public class RequestBudgetJPanel extends javax.swing.JPanel {
         
         String message = messageJTextField.getText();
         
-        LabTestWorkRequest request = new LabTestWorkRequest();
+        BudgetWorkRequest request = new BudgetWorkRequest();
         request.setMessage(message);
         request.setSender(userAccount);
         request.setStatus("Sent");

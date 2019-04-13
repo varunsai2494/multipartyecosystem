@@ -58,11 +58,11 @@ public class OrganizationDirectory {
             organizationList.add(organization);
         }
         else if (type.getValue().equals(Type.Revenue.getValue())){
-            organization = new BureauOfEconomicAnalysisOrganization();
+            organization = new RevenueOrganization();
             organizationList.add(organization);
         }
         else if (type.getValue().equals(Type.Budget.getValue())){
-            organization = new BureauOfEconomicAnalysisOrganization();
+            organization = new BudgetOrganization();
             organizationList.add(organization);
         }
         return organization;
