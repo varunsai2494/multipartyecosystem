@@ -128,7 +128,7 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         
         DefaultTableModel dtm = (DefaultTableModel)BudetTable.getModel();
         dtm.setRowCount(0);
-        for (WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()){
+        for (WorkRequest request : organization.getWorkQueue().getWorkRequestList()){
             Object[] row = new Object[5];
             row[0] = request.getMessage();
             row[1] = request.getDescription();
