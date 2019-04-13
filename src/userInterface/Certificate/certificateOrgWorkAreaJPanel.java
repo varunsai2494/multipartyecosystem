@@ -13,7 +13,8 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
-import userInterface.Certificate.certificateUserWorkAreaJPanel;
+import Business.WorkQueue.certificateWorkRequest;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -56,13 +57,13 @@ public class certificateOrgWorkAreaJPanel extends javax.swing.JPanel {
 
         certificateWQTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "message", "description", "status"
+                "organization", "message", "description", "requestedbudget", "allocatedbudget", "status"
             }
         ));
         jScrollPane1.setViewportView(certificateWQTable);
@@ -129,7 +130,23 @@ public class certificateOrgWorkAreaJPanel extends javax.swing.JPanel {
         populateRequestTable();
     }//GEN-LAST:event_assignToMeBtnActionPerformed
 
-    public void populateRequestTable(){}
+    public void populateRequestTable(){
+    DefaultTableModel dtm = (DefaultTableModel)certificateWQTable.getModel();
+        dtm.setRowCount(0);
+   for (WorkRequest request : organization.getWorkQueue().getWorkRequestList()){
+            Object[] row = new Object[6];
+            row[0] =  ((certificateWorkRequest) request).getSenderOrganization();
+            row[1]=request;
+            row[2] = request.getDescription();
+            row[3] = request.getStatus();
+            int alloc = ((certificateWorkRequest) request).getAllocatedBudgetRequest();
+            row[4] = alloc;
+            int total = ((certificateWorkRequest) request).getTotalBudgetRequest();
+            row[5] = total;
+            
+            dtm.addRow(row);
+    
+    }}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton assignToMeBtn;
     private javax.swing.JTable certificateWQTable;
