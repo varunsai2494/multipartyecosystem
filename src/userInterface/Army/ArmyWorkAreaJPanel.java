@@ -9,21 +9,64 @@ import Business.Enterprise.Enterprise;
 import Business.Network.Network;
 import Business.Organization.ArmyOrganization;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.BudgetWorkRequest;
+import Business.WorkQueue.WorkRequest;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+import userInterface.Army.createBudgetRequest;
 
 /**
  *
  * @author root
  */
 public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
-
+    private JPanel userProcessContainer;
+    private ArmyOrganization organization;
+    private Network network;
+    private Enterprise enterprise;
+    private UserAccount userAccount;
     /**
      * Creates new form NavyWorkAreaJPanel
      */
     public ArmyWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, ArmyOrganization organization,  Enterprise enterprise, Network network) {
+        this.userProcessContainer = userProcessContainer;
+        this.organization = organization;
+        this.network = network;
+        this.enterprise = enterprise;
+        this.userAccount = account;
         initComponents();
     }
+    public void populateRequestTable(){
+        DefaultTableModel model = (DefaultTableModel) armyJTabel.getModel();
 
+        model.setRowCount(0);
+        for (WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()){
+            Object[] row = new Object[4];
+            row[0] = request.getCategory();
+            row[1] = request.getMessage();
+            row[2] = request.getDescription();
+            row[3] = ((BudgetWorkRequest) request).getTotalBudgetRequest();
+            Integer result = ((BudgetWorkRequest) request).getAllocatedBudgetRequest();
+            row[4] = result == null ? "Waiting" : result;
+            row[5] = request.getStatus();
+
+            model.addRow(row);
+        }
+    }
+    
+       private void refreshTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                   
+
+        populateRequestTable();
+
+    }        
+         private void requestTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                   
+
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add("RequestLabTestJPanel", new createBudgetRequest(userProcessContainer, userAccount, enterprise, network));
+        layout.next(userProcessContainer);
+
+    }  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,23 +77,23 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        navySpending = new javax.swing.JTable();
+        armyJTabel = new javax.swing.JTable();
         titleLabel = new javax.swing.JLabel();
         viewRequest = new javax.swing.JButton();
         createbtn = new javax.swing.JButton();
 
-        navySpending.setModel(new javax.swing.table.DefaultTableModel(
+        armyJTabel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Category", "Message", "Description", "Price", "Status"
+                "Category", "Message", "Description", "Total Fund Request", "Allocated Funds", "Status"
             }
         ));
-        jScrollPane1.setViewportView(navySpending);
+        jScrollPane1.setViewportView(armyJTabel);
 
         titleLabel.setText("Army Work Area");
 
@@ -95,9 +138,9 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable armyJTabel;
     private javax.swing.JButton createbtn;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable navySpending;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JButton viewRequest;
     // End of variables declaration//GEN-END:variables
