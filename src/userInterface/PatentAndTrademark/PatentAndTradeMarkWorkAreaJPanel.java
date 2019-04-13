@@ -1,15 +1,20 @@
+package userInterface.PatentAndTrademark;
+import userInterface.BureauOfEconomicCommerce.*;
+import Business.Network.Network;
+import Business.Enterprise.Enterprise;
+import Business.UserAccount.UserAccount;
+import Business.Organization.PatentAndTradeMarkOrganization;
+import Business.WorkQueue.LabTestWorkRequest;
+import Business.WorkQueue.WorkRequest;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package userInterface.PatentAndTrademark;
-import Business.Network.Network;
-import Business.Enterprise.Enterprise;
-import Business.UserAccount.UserAccount;
-import Business.Organization.PatentAndTradeMarkOrganization;
-import java.awt.CardLayout;
-import javax.swing.JPanel;
+
 /**
  *
  * @author root
@@ -18,14 +23,16 @@ public class PatentAndTradeMarkWorkAreaJPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private PatentAndTradeMarkOrganization organization;
     private Network network;
+    private Enterprise enterprise;
     private UserAccount userAccount;
     /**
-     * Creates new form PatentAndTradeMarchWorkAreaJPanel
+     * Creates new form BureauOfEconomicCommerceWorkAreaJPanel
      */
-    public PatentAndTradeMarkWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, PatentAndTradeMarkOrganization organization, Enterprise enterprise, Network network) {
+    public PatentAndTradeMarkWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, PatentAndTradeMarkOrganization organization,  Enterprise enterprise, Network network) {
         this.userProcessContainer = userProcessContainer;
         this.organization = organization;
         this.network = network;
+        this.enterprise = enterprise;
         this.userAccount = account;
         initComponents();
     }
@@ -45,23 +52,24 @@ public class PatentAndTradeMarkWorkAreaJPanel extends javax.swing.JPanel {
         refreshTestJButton = new javax.swing.JButton();
         enterpriseLabel = new javax.swing.JLabel();
         valueLabel = new javax.swing.JLabel();
+        assignbtn = new javax.swing.JButton();
 
         workRequestJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Message", "Receiver", "Status", "Result"
+                "Message", "Description", "Receiver", "Total Budget Request", "Allocated Budget", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -74,7 +82,7 @@ public class PatentAndTradeMarkWorkAreaJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(workRequestJTable);
 
-        requestTestJButton.setText("Request Test");
+        requestTestJButton.setText("Request Budget");
         requestTestJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 requestTestJButtonActionPerformed(evt);
@@ -93,19 +101,17 @@ public class PatentAndTradeMarkWorkAreaJPanel extends javax.swing.JPanel {
 
         valueLabel.setText("<value>");
 
+        assignbtn.setText("assign to me");
+        assignbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                assignbtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(165, 165, 165))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(requestTestJButton)
-                        .addGap(86, 86, 86))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -114,6 +120,17 @@ public class PatentAndTradeMarkWorkAreaJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(refreshTestJButton)
                 .addGap(103, 103, 103))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(assignbtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(requestTestJButton)
+                        .addGap(86, 86, 86))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,25 +144,65 @@ public class PatentAndTradeMarkWorkAreaJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45)
-                .addComponent(requestTestJButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(requestTestJButton)
+                    .addComponent(assignbtn))
                 .addContainerGap(54, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void requestTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestTestJButtonActionPerformed
+        int selectedRow = workRequestJTable.getSelectedRow();
+        
+        if (selectedRow < 0){
+            return;
+        }
+        
+        WorkRequest request = (WorkRequest)workRequestJTable.getValueAt(selectedRow, 0);
+        request.setStatus("Approved");
+//        populateRequestTable();
+//        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+//        userProcessContainer.add("RequestLabTestJPanel", new RequestBudgetJPanel(userProcessContainer, userAccount, enterprise, network));
+//        layout.next(userProcessContainer);
 
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("RequestLabTestJPanel", new RequestLabTestJPanel(userProcessContainer, userAccount, enterprise));
-        layout.next(userProcessContainer);
     }//GEN-LAST:event_requestTestJButtonActionPerformed
+    public void populateRequestTable(){
+            DefaultTableModel model = (DefaultTableModel) workRequestJTable.getModel();
 
+            model.setRowCount(0);
+            for (WorkRequest request : organization.getWorkQueue().getWorkRequestList()){
+                Object[] row = new Object[4];
+                row[0] = request.getMessage();
+                row[1] = request.getReceiver();
+                row[2] = request.getStatus();
+                String result = ((LabTestWorkRequest) request).getTestResult();
+                row[3] = result == null ? "Waiting" : result;
+
+                model.addRow(row);
+            }
+        }
     private void refreshTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshTestJButtonActionPerformed
 
-//        populateRequestTable();
+        populateRequestTable();
+
     }//GEN-LAST:event_refreshTestJButtonActionPerformed
+
+    private void assignbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignbtnActionPerformed
+        int selectedRow = workRequestJTable.getSelectedRow();
+        
+        if (selectedRow < 0){
+            return;
+        }
+        
+        WorkRequest request = (WorkRequest)workRequestJTable.getValueAt(selectedRow, 0);
+        request.setReceiver(userAccount);
+        request.setStatus("Pending");
+        populateRequestTable();
+    }//GEN-LAST:event_assignbtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton assignbtn;
     private javax.swing.JLabel enterpriseLabel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton refreshTestJButton;

@@ -29,6 +29,8 @@
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
+                      <Component id="assignbtn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="requestTestJButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
                   </Group>
@@ -54,7 +56,10 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="97" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-              <Component id="requestTestJButton" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="requestTestJButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="assignbtn" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace pref="54" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -149,6 +154,14 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&lt;value&gt;"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="assignbtn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="assign to me"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="assignbtnActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
