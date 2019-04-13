@@ -173,6 +173,8 @@ public class createBudgetRequest extends javax.swing.JPanel {
         request.setSender(userAccount);
         request.setStatus("Sent");
         
+        request.setCategory(categoryVal.getSelectedItem().toString());
+        
         Organization org = null;
         for(Enterprise ent: network.getEnterpriseDirectory().getEnterpriseList()){
             for (Organization organization : ent.getOrganizationDirectory().getOrganizationList()){
