@@ -4,18 +4,25 @@
  * and open the template in the editor.
  */
 
-package userInterface.BudgetRole;
+package userInterface.OfficeOfNuclearEnergy;
+
+import Business.Enterprise.Enterprise;
+import Business.Network.Network;
+import Business.Organization.ArmyOrganization;
+import Business.Organization.OfficeOfNuclearEnergyOrganization;
+import Business.UserAccount.UserAccount;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Preetham Reddy
  */
-public class budgetPanel extends javax.swing.JPanel {
+public class OfficeOfNuclearEnergyWorkAreaPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form budgetPanel
+     * Creates new form OfficeOfNuclearEnergyRole
      */
-    public budgetPanel() {
+    public OfficeOfNuclearEnergyWorkAreaPanel(JPanel userProcessContainer, UserAccount account, OfficeOfNuclearEnergyOrganization organization,  Enterprise enterprise, Network network) {
         initComponents();
     }
 
