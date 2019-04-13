@@ -5,19 +5,40 @@
  */
 package userInterface.AirForce;
 
+import userInterface.AirForce.*;
+import Business.Enterprise.Enterprise;
+import Business.Network.Network;
+import Business.Organization.BudgetOrganization;
+import Business.Organization.Organization;
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.BudgetWorkRequest;
+import java.awt.CardLayout;
+import java.awt.Component;
+import javax.swing.JPanel;
+import userInterface.BureauOfEconomicCommerce.BureauOfEconomicCommerceWorkAreaJPanel;
+
 /**
  *
  * @author root
  */
 public class createBudgetRequest extends javax.swing.JPanel {
-
+    private JPanel userProcessContainer;
+    private Enterprise enterprise;
+    private Network network;
+    private UserAccount userAccount;
     /**
      * Creates new form createBudgetRequest
      */
-    public createBudgetRequest() {
+    public createBudgetRequest(JPanel userProcessContainer, UserAccount account, Enterprise enterprise, Network network) {
         initComponents();
+                
+        this.userProcessContainer = userProcessContainer;
+        this.enterprise = enterprise;
+        this.network = network;
+        this.userAccount = account;
+//        valueLabel.setText(enterprise.getName());
         categoryVal.addItem("Operations");
-        categoryVal.addItem("Army Personnel");
+        categoryVal.addItem("AirForce Personnel");
         categoryVal.addItem("Procurement");
         categoryVal.addItem("Machine Manufacturing");
         categoryVal.addItem("Research & Development");
@@ -43,9 +64,10 @@ public class createBudgetRequest extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         descriptionVal = new javax.swing.JTextPane();
         jScrollPane3 = new javax.swing.JScrollPane();
-        priceVal = new javax.swing.JTextPane();
+        totalFundVal = new javax.swing.JTextPane();
         categoryVal = new javax.swing.JComboBox<>();
         createbtn = new javax.swing.JButton();
+        backbtn = new javax.swing.JButton();
 
         titleLabel.setText("Create Budget Request");
 
@@ -55,17 +77,27 @@ public class createBudgetRequest extends javax.swing.JPanel {
 
         descriptionLabel.setText("Description:");
 
-        priceLabel.setText("Price:");
+        priceLabel.setText("Total Fund Request:");
 
         jScrollPane1.setViewportView(messageVal);
 
         jScrollPane2.setViewportView(descriptionVal);
 
-        jScrollPane3.setViewportView(priceVal);
-
-        categoryVal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jScrollPane3.setViewportView(totalFundVal);
 
         createbtn.setText("create");
+        createbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createbtnActionPerformed(evt);
+            }
+        });
+
+        backbtn.setText("back");
+        backbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backbtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -95,10 +127,12 @@ public class createBudgetRequest extends javax.swing.JPanel {
                                         .addComponent(categoryVal, 0, 107, Short.MAX_VALUE)
                                         .addComponent(jScrollPane1)))))))
                 .addContainerGap(127, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(86, 86, 86)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(backbtn)
+                .addGap(32, 32, 32)
                 .addComponent(createbtn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(139, 139, 139))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,14 +155,53 @@ public class createBudgetRequest extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(priceLabel)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
-                .addComponent(createbtn)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(createbtn)
+                    .addComponent(backbtn))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void createbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createbtnActionPerformed
+        String message = messageVal.getText();
+        String description = descriptionVal.getText();
+        String totalFundRequest = totalFundVal.getText();
+        BudgetWorkRequest request = new BudgetWorkRequest();
+        request.setMessage(message);
+        request.setDescription(description);
+        request.setTotalBudgetRequest(Integer.parseInt(totalFundRequest));
+        request.setSender(userAccount);
+        request.setStatus("Sent");
+        
+        Organization org = null;
+        for(Enterprise ent: network.getEnterpriseDirectory().getEnterpriseList()){
+            for (Organization organization : ent.getOrganizationDirectory().getOrganizationList()){
+                if (organization instanceof BudgetOrganization){
+                    org = organization;
+                    break;
+                }
+            }
+        }
+        if (org!=null){
+            org.getWorkQueue().getWorkRequestList().add(request);
+            userAccount.getWorkQueue().getWorkRequestList().add(request);
+        }
+    }//GEN-LAST:event_createbtnActionPerformed
+
+    private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        AirForceWorkAreaJPanel dwjp = (AirForceWorkAreaJPanel) component;
+        dwjp.populateRequestTable();
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_backbtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backbtn;
     private javax.swing.JLabel categoryLabel;
     private javax.swing.JComboBox<String> categoryVal;
     private javax.swing.JButton createbtn;
@@ -140,7 +213,7 @@ public class createBudgetRequest extends javax.swing.JPanel {
     private javax.swing.JLabel messageLabel;
     private javax.swing.JTextPane messageVal;
     private javax.swing.JLabel priceLabel;
-    private javax.swing.JTextPane priceVal;
     private javax.swing.JLabel titleLabel;
+    private javax.swing.JTextPane totalFundVal;
     // End of variables declaration//GEN-END:variables
 }
