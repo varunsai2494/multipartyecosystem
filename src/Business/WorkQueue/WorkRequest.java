@@ -14,6 +14,8 @@ import java.util.Date;
 public abstract class WorkRequest {
 
     private String message;
+    private String description;
+    private String category;
     private UserAccount sender;
     private UserAccount receiver;
     private String status;
@@ -31,7 +33,21 @@ public abstract class WorkRequest {
     public void setMessage(String message) {
         this.message = message;
     }
+public String getDescription() {
+        return description;
+    }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
     public UserAccount getSender() {
         return sender;
     }
