@@ -44,9 +44,9 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
         model.setRowCount(0);
         for (WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()){
             Object[] row = new Object[6];
-            row[0] = request.getCategory();
-            row[1] = request.getMessage();
-            row[2] = request.getDescription();
+            row[2] = request.getCategory();
+            row[0] = request;
+            row[1] = request.getDescription();
             row[3] = ((BudgetWorkRequest) request).getTotalBudgetRequest();
             Integer aa = ((BudgetWorkRequest) request).getAllocatedBudgetRequest();
             row[4] = aa.toString();
@@ -84,7 +84,7 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Category", "Message", "Description", "Total Fund Request", "Allocated Funds", "Status"
+                "Message", "Description", "Category", "Total Fund Request", "Allocated Funds", "Status"
             }
         ));
         jScrollPane1.setViewportView(armyJTabel);

@@ -3,6 +3,7 @@ import Business.Network.Network;
 import Business.Enterprise.Enterprise;
 import Business.UserAccount.UserAccount;
 import Business.Organization.BureauOfEconomicAnalysisOrganization;
+import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.LabTestWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
@@ -34,6 +35,7 @@ public class BureauOfEconomicCommerceWorkAreaJPanel extends javax.swing.JPanel {
         this.enterprise = enterprise;
         this.userAccount = account;
         initComponents();
+        populateRequestTable();
     }
 
     /**
@@ -170,12 +172,14 @@ public class BureauOfEconomicCommerceWorkAreaJPanel extends javax.swing.JPanel {
 
             model.setRowCount(0);
             for (WorkRequest request : organization.getWorkQueue().getWorkRequestList()){
-                Object[] row = new Object[4];
-                row[0] = request.getMessage();
-                row[1] = request.getReceiver();
-                row[2] = request.getStatus();
-                String result = ((LabTestWorkRequest) request).getTestResult();
-                row[3] = result == null ? "Waiting" : result;
+               Object[] row = new Object[6];
+                row[2] = request.getCategory();
+                row[0] = request;
+                row[1] = request.getDescription();
+                row[3] = ((BudgetWorkRequest) request).getTotalBudgetRequest();
+                Integer aa = ((BudgetWorkRequest) request).getAllocatedBudgetRequest();
+                row[4] = aa.toString();
+                row[5] = request.getStatus();
 
                 model.addRow(row);
             }

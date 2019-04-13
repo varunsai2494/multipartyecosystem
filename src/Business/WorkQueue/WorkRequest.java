@@ -87,4 +87,8 @@ public String getDescription() {
     public void setResolveDate(Date resolveDate) {
         this.resolveDate = resolveDate;
     }
+    @Override
+    public String toString(){
+        return message;
+    }
 }
