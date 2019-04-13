@@ -3,8 +3,11 @@ import Business.Network.Network;
 import Business.Enterprise.Enterprise;
 import Business.UserAccount.UserAccount;
 import Business.Organization.BureauOfEconomicAnalysisOrganization;
+import Business.WorkQueue.LabTestWorkRequest;
+import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -19,6 +22,7 @@ public class BureauOfEconomicCommerceWorkAreaJPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private BureauOfEconomicAnalysisOrganization organization;
     private Network network;
+    private Enterprise enterprise;
     private UserAccount userAccount;
     /**
      * Creates new form BureauOfEconomicCommerceWorkAreaJPanel
@@ -27,6 +31,7 @@ public class BureauOfEconomicCommerceWorkAreaJPanel extends javax.swing.JPanel {
         this.userProcessContainer = userProcessContainer;
         this.organization = organization;
         this.network = network;
+        this.enterprise = enterprise;
         this.userAccount = account;
         initComponents();
     }
@@ -136,14 +141,28 @@ public class BureauOfEconomicCommerceWorkAreaJPanel extends javax.swing.JPanel {
     private void requestTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestTestJButtonActionPerformed
 
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("RequestLabTestJPanel", new RequestLabTestJPanel(userProcessContainer, userAccount, enterprise));
+        userProcessContainer.add("RequestLabTestJPanel", new RequestBudgetJPanel(userProcessContainer, userAccount, enterprise, network));
         layout.next(userProcessContainer);
 
     }//GEN-LAST:event_requestTestJButtonActionPerformed
+    public void populateRequestTable(){
+            DefaultTableModel model = (DefaultTableModel) workRequestJTable.getModel();
 
+            model.setRowCount(0);
+            for (WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()){
+                Object[] row = new Object[4];
+                row[0] = request.getMessage();
+                row[1] = request.getReceiver();
+                row[2] = request.getStatus();
+                String result = ((LabTestWorkRequest) request).getTestResult();
+                row[3] = result == null ? "Waiting" : result;
+
+                model.addRow(row);
+            }
+        }
     private void refreshTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshTestJButtonActionPerformed
 
-//        populateRequestTable();
+        populateRequestTable();
 
     }//GEN-LAST:event_refreshTestJButtonActionPerformed
 
