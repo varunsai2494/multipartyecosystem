@@ -4,18 +4,27 @@
  * and open the template in the editor.
  */
 
-package userInterface.RevenueRole;
+package userInterface.Revenue;
+
+import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
+import Business.Network.Network;
+import Business.Organization.ArmyOrganization;
+import Business.Organization.Organization;
+import Business.Organization.RevenueOrganization;
+import Business.UserAccount.UserAccount;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Preetham Reddy
  */
-public class RevenuePanel extends javax.swing.JPanel {
+public class RevenueWorkAreaPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form RevenuePanel
      */
-    public RevenuePanel() {
+    public RevenueWorkAreaPanel(JPanel userProcessContainer, UserAccount account, RevenueOrganization organization,  Enterprise enterprise, Network network) {
         initComponents();
     }
 

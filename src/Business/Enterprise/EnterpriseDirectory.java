@@ -44,11 +44,11 @@ public class EnterpriseDirectory {
             enterpriseList.add(enterprise);
         }
         else if(type==Enterprise.EnterpriseType.Treasury){
-            enterprise=new DefenceEnterprise(name);
+            enterprise=new TreasuryEnterprise(name);
             enterpriseList.add(enterprise);
         }
         else if(type==Enterprise.EnterpriseType.Energy){
-            enterprise=new DefenceEnterprise(name);
+            enterprise=new EnergyEnterprise(name);
             enterpriseList.add(enterprise);
         }
         
