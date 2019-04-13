@@ -10,7 +10,10 @@ import Business.Enterprise.Enterprise;
 import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.WorkRequest;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
+import userInterface.Certificate.certificateUserWorkAreaJPanel;
 
 /**
  *
@@ -46,19 +49,91 @@ public class certificateOrgWorkAreaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        certificateWQTable = new javax.swing.JTable();
+        workareaBtn = new javax.swing.JButton();
+        assignToMeBtn = new javax.swing.JButton();
+
+        certificateWQTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "message", "description", "status"
+            }
+        ));
+        jScrollPane1.setViewportView(certificateWQTable);
+
+        workareaBtn.setText("proceedtoworkarea");
+        workareaBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                workareaBtnActionPerformed(evt);
+            }
+        });
+
+        assignToMeBtn.setText("assigntome");
+        assignToMeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                assignToMeBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(assignToMeBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(workareaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(145, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(assignToMeBtn)
+                    .addComponent(workareaBtn))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void workareaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_workareaBtnActionPerformed
+        // TODO add your handling code here:
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add("certificateUserJpanel", new certificateUserWorkAreaJPanel(userProcessContainer, account, enterprise, network));
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_workareaBtnActionPerformed
 
+    private void assignToMeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignToMeBtnActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = certificateWQTable.getSelectedRow();
+        
+        if (selectedRow < 0){
+            return;
+        }
+        
+        WorkRequest request = (WorkRequest)certificateWQTable.getValueAt(selectedRow, 0);
+        request.setReceiver(account);
+        request.setStatus("Pending");
+        populateRequestTable();
+    }//GEN-LAST:event_assignToMeBtnActionPerformed
+
+    public void populateRequestTable(){}
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton assignToMeBtn;
+    private javax.swing.JTable certificateWQTable;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton workareaBtn;
     // End of variables declaration//GEN-END:variables
 }

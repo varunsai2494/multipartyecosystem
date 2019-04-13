@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package Business.Organization;
-
 import Business.Role.AdminRole;
 import Business.Role.Role;
 import Business.Role.certificateOrgRole;

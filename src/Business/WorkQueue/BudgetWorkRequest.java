@@ -30,6 +30,4 @@ public class BudgetWorkRequest extends WorkRequest{
         this.allocatedBudgetRequest = allocatedBudgetRequest;
     }
     
-    
-    
 }
