@@ -50,15 +50,16 @@ public class RequestBudgetJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         requestTestJButton = new javax.swing.JButton();
-        messageJTextField = new javax.swing.JTextField();
         backJButton = new javax.swing.JButton();
         valueLabel = new javax.swing.JLabel();
         enterpriseLabel = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        messageJTextField1 = new javax.swing.JTextField();
-        messageJTextField2 = new javax.swing.JTextField();
+        messageJTextField = new javax.swing.JTextField();
+        totalFundJTextField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        descriptionJTextField = new javax.swing.JTextField();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -68,8 +69,7 @@ public class RequestBudgetJPanel extends javax.swing.JPanel {
                 requestTestJButtonActionPerformed(evt);
             }
         });
-        add(requestTestJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 140, -1, -1));
-        add(messageJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 37, 89, -1));
+        add(requestTestJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 210, -1, -1));
 
         backJButton.setText("<<Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -77,7 +77,7 @@ public class RequestBudgetJPanel extends javax.swing.JPanel {
                 backJButtonActionPerformed(evt);
             }
         });
-        add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(69, 138, -1, -1));
+        add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, -1, -1));
 
         valueLabel.setText("<value>");
         add(valueLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 130, -1));
@@ -88,14 +88,18 @@ public class RequestBudgetJPanel extends javax.swing.JPanel {
 
         jLabel2.setText("Message");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 40, -1, -1));
-        add(messageJTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 37, 89, -1));
-        add(messageJTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 89, -1));
+        add(messageJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, 89, -1));
+        add(totalFundJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 89, -1));
 
         jLabel3.setText("Message");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 40, -1, -1));
 
         jLabel4.setText("Description");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, -1, -1));
+
+        jLabel1.setText("Total Fund Request");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, -1, -1));
+        add(descriptionJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 89, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void requestTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestTestJButtonActionPerformed
@@ -137,14 +141,15 @@ public class RequestBudgetJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backJButton;
+    private javax.swing.JTextField descriptionJTextField;
     private javax.swing.JLabel enterpriseLabel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField messageJTextField;
-    private javax.swing.JTextField messageJTextField1;
-    private javax.swing.JTextField messageJTextField2;
     private javax.swing.JButton requestTestJButton;
+    private javax.swing.JTextField totalFundJTextField;
     private javax.swing.JLabel valueLabel;
     // End of variables declaration//GEN-END:variables
 }
