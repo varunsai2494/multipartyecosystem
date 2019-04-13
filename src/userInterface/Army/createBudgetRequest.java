@@ -84,8 +84,6 @@ public class createBudgetRequest extends javax.swing.JPanel {
 
         jScrollPane3.setViewportView(totalFundVal);
 
-        categoryVal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         createbtn.setText("create");
         createbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
