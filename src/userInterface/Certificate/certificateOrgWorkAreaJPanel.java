@@ -110,7 +110,7 @@ public class certificateOrgWorkAreaJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void workareaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_workareaBtnActionPerformed
-        // TODO add your handling code here:
+      // TODO add your handling code here:
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         userProcessContainer.add("certificateUserJpanel", new certificateUserWorkAreaJPanel(userProcessContainer, account, enterprise, network));
         layout.next(userProcessContainer);
