@@ -9,9 +9,12 @@ import Business.Enterprise.Enterprise;
 import Business.Network.Network;
 import Business.Organization.ArmyOrganization;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
 import javax.swing.JPanel;
+import Business.WorkQueue.certificateWorkRequest;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -34,7 +37,7 @@ public class certificateUserWorkAreaJPanel extends javax.swing.JPanel {
         this.network = network;
         this.enterprise = enterprise;
         this.userAccount = account;
-        
+        populateTable();
     }
 
     /**
@@ -46,14 +49,19 @@ public class certificateUserWorkAreaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton4 = new javax.swing.JButton();
+        viewworkRDetails = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         certificateUserworkareaTable = new javax.swing.JTable();
 
-        jButton4.setText("view details");
+        viewworkRDetails.setText("view details");
+        viewworkRDetails.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewworkRDetailsActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("assigntome");
 
@@ -95,7 +103,7 @@ public class certificateUserWorkAreaJPanel extends javax.swing.JPanel {
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jButton3)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton4))
+                            .addComponent(viewworkRDetails))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(55, Short.MAX_VALUE))
         );
@@ -109,7 +117,7 @@ public class certificateUserWorkAreaJPanel extends javax.swing.JPanel {
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton4))
+                    .addComponent(viewworkRDetails))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton5)
                 .addGap(37, 37, 37))
@@ -127,13 +135,44 @@ public class certificateUserWorkAreaJPanel extends javax.swing.JPanel {
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backBtnActionPerformed
 
+    private void viewworkRDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewworkRDetailsActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = certificateUserworkareaTable.getSelectedRow();
+        
+        if (selectedRow < 0){
+            return;
+        }
+        certificateWorkRequest c= (certificateWorkRequest)certificateUserworkareaTable.getValueAt(selectedRow, 1);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add("certificateviewJpanel", new certificateViewJPanel(userProcessContainer,c,userAccount,enterprise,network));
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_viewworkRDetailsActionPerformed
+    
+    public void populateTable(){
+        DefaultTableModel dtm = (DefaultTableModel)certificateUserworkareaTable.getModel();
+        dtm.setRowCount(0);
+   for (WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()){
+            Object[] row = new Object[6];
+            row[0] =  ((certificateWorkRequest) request).getSenderOrganization();
+            row[1]=request;
+            row[2] = request.getDescription();
+            row[3] = request.getStatus();
+            int alloc = ((certificateWorkRequest) request).getAllocatedBudgetRequest();
+            row[4] = alloc;
+            int total = ((certificateWorkRequest) request).getTotalBudgetRequest();
+            row[5] = total;
+            
+            dtm.addRow(row);
+   }
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
     private javax.swing.JTable certificateUserworkareaTable;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton viewworkRDetails;
     // End of variables declaration//GEN-END:variables
 }
