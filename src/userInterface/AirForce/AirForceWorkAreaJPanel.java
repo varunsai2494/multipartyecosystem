@@ -5,7 +5,6 @@
  */
 package userInterface.AirForce;
 
-import userInterface.AirForce.*;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
 import Business.Organization.AirForceOrganization;
@@ -13,9 +12,11 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.io.File;
+import java.util.ArrayList;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
-import userInterface.AirForce.createBudgetRequest;
 
 /**
  *
@@ -41,19 +42,31 @@ public class AirForceWorkAreaJPanel extends javax.swing.JPanel {
     }
     public void populateRequestTable(){
         DefaultTableModel model = (DefaultTableModel) armyJTabel.getModel();
-
+        ArrayList<Object[]> result = new ArrayList<>();
+        ArrayList<Object[]> certificateObj = new ArrayList<>();
         model.setRowCount(0);
         for (WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()){
             Object[] row = new Object[6];
             row[0] = request.getCategory();
-            row[1] = request.getMessage();
+            row[1] = request;
             row[2] = request.getDescription();
             row[3] = ((BudgetWorkRequest) request).getTotalBudgetRequest();
             Integer aa = ((BudgetWorkRequest) request).getAllocatedBudgetRequest();
             row[4] = aa.toString();
             row[5] = request.getStatus();
+            result.add(row); 
+            if(request.getCertificate()!=null){
+                certificateObj.add(row);
+            }
+        }
+        for(Object[] i : certificateObj){
+            int index = result.indexOf(i);
+            result.remove(index);
+            result.add(0, i);
+        }
 
-            model.addRow(row);
+        for(Object[] i : result){
+            model.addRow(i);
         }
     }
     
@@ -74,7 +87,7 @@ public class AirForceWorkAreaJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         armyJTabel = new javax.swing.JTable();
         titleLabel = new javax.swing.JLabel();
-        viewRequest = new javax.swing.JButton();
+        reportRequest = new javax.swing.JButton();
         createbtn = new javax.swing.JButton();
 
         armyJTabel.setModel(new javax.swing.table.DefaultTableModel(
@@ -102,7 +115,17 @@ public class AirForceWorkAreaJPanel extends javax.swing.JPanel {
 
         titleLabel.setText("Air Force Work Area");
 
-        viewRequest.setText("View");
+        reportRequest.setText("Upload Report");
+        reportRequest.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                reportRequestMouseClicked(evt);
+            }
+        });
+        reportRequest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportRequestActionPerformed(evt);
+            }
+        });
 
         createbtn.setText("Create budget Request");
         createbtn.addActionListener(new java.awt.event.ActionListener() {
@@ -116,31 +139,30 @@ public class AirForceWorkAreaJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(viewRequest)
-                        .addGap(18, 18, 18)
-                        .addComponent(createbtn))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(61, 61, 61)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(187, 187, 187)
-                            .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(83, Short.MAX_VALUE))
+                        .addGap(187, 187, 187)
+                        .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(61, 61, 61)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(reportRequest)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(createbtn))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 615, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
+                .addContainerGap(35, Short.MAX_VALUE)
                 .addComponent(titleLabel)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(viewRequest)
+                    .addComponent(reportRequest)
                     .addComponent(createbtn))
                 .addGap(34, 34, 34))
         );
@@ -148,7 +170,7 @@ public class AirForceWorkAreaJPanel extends javax.swing.JPanel {
 
     private void createbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createbtnActionPerformed
          CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("createBudgetRequest", new createBudgetRequest(userProcessContainer, userAccount, enterprise, network));
+        userProcessContainer.add("createBudgetRequest", new createBudgetRequest(userProcessContainer, userAccount, organization, enterprise, network));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_createbtnActionPerformed
 
@@ -160,7 +182,7 @@ public class AirForceWorkAreaJPanel extends javax.swing.JPanel {
         }
         
         WorkRequest request = (WorkRequest)armyJTabel.getValueAt(selectedRow, 0);
-        viewRequest.setEnabled(false);
+        reportRequest.setEnabled(false);
     }//GEN-LAST:event_armyJTabelMouseClicked
 
     private void armyJTabelFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_armyJTabelFocusGained
@@ -168,12 +190,41 @@ public class AirForceWorkAreaJPanel extends javax.swing.JPanel {
         System.out.println(evt);
     }//GEN-LAST:event_armyJTabelFocusGained
 
+    private void reportRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportRequestActionPerformed
+        int selectedRow = armyJTabel.getSelectedRow();
+        
+        if (selectedRow < 0){
+            return;
+        }
+        
+        WorkRequest request = (WorkRequest)armyJTabel.getValueAt(selectedRow, 1);
+        JFileChooser location=new JFileChooser();
+        location.showOpenDialog(null); 
+        File file=location.getSelectedFile();
+        String absolutePath=file.getAbsolutePath();
+        request.getCertificate().setReports(absolutePath);
+    }//GEN-LAST:event_reportRequestActionPerformed
+
+    private void reportRequestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportRequestMouseClicked
+        int selectedRow = armyJTabel.getSelectedRow();
+        
+        if (selectedRow < 0){
+            return;
+        }
+        
+        WorkRequest request = (WorkRequest)armyJTabel.getValueAt(selectedRow, 1);
+        reportRequest.setEnabled(false);
+        if(request.getCertificate()!=null){
+                reportRequest.setEnabled(true);
+            }
+    }//GEN-LAST:event_reportRequestMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable armyJTabel;
     private javax.swing.JButton createbtn;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton reportRequest;
     private javax.swing.JLabel titleLabel;
-    private javax.swing.JButton viewRequest;
     // End of variables declaration//GEN-END:variables
 }
