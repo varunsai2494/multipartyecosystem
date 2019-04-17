@@ -8,10 +8,12 @@ package userInterface.AirForce;
 import userInterface.AirForce.*;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
+import Business.Organization.AirForceOrganization;
 import Business.Organization.BudgetOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BudgetWorkRequest;
+import Business.WorkQueue.certificateWorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
 import javax.swing.JPanel;
@@ -24,16 +26,18 @@ import userInterface.BureauOfEconomicCommerce.BureauOfEconomicCommerceWorkAreaJP
 public class createBudgetRequest extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private Enterprise enterprise;
+    private AirForceOrganization organization;
     private Network network;
     private UserAccount userAccount;
     /**
      * Creates new form createBudgetRequest
      */
-    public createBudgetRequest(JPanel userProcessContainer, UserAccount account, Enterprise enterprise, Network network) {
+    public createBudgetRequest(JPanel userProcessContainer, UserAccount account, AirForceOrganization organization, Enterprise enterprise, Network network) {
         initComponents();
                 
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
+        this.organization = organization;
         this.network = network;
         this.userAccount = account;
 //        valueLabel.setText(enterprise.getName());
@@ -173,7 +177,10 @@ public class createBudgetRequest extends javax.swing.JPanel {
         request.setTotalBudgetRequest(Integer.parseInt(totalFundRequest));
         request.setSender(userAccount);
         request.setStatus("Sent");
-        
+        request.setCategory(categoryVal.getSelectedItem().toString());
+        certificateWorkRequest c=new certificateWorkRequest();
+        c.setSenderOrganization(organization);
+        request.setCertificate(c);
         Organization org = null;
         for(Enterprise ent: network.getEnterpriseDirectory().getEnterpriseList()){
             for (Organization organization : ent.getOrganizationDirectory().getOrganizationList()){

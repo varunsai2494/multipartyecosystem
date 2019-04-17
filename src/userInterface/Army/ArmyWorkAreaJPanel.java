@@ -54,7 +54,7 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
             Integer aa = ((BudgetWorkRequest) request).getAllocatedBudgetRequest();
             row[4] = aa.toString();
             row[5] = request.getStatus();
-            if(request.getCertificate()!=null){
+            if(request.getCertificate().getReports()!=null){
                 certificateObj.add(row);
             }
             model.addRow(row);
@@ -87,7 +87,7 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         armyJTabel = new javax.swing.JTable();
         titleLabel = new javax.swing.JLabel();
-        viewRequest = new javax.swing.JButton();
+        reportRequest = new javax.swing.JButton();
         createbtn = new javax.swing.JButton();
 
         armyJTabel.setModel(new javax.swing.table.DefaultTableModel(
@@ -118,10 +118,10 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
 
         titleLabel.setText("Army Work Area");
 
-        viewRequest.setText("Upload Report");
-        viewRequest.addActionListener(new java.awt.event.ActionListener() {
+        reportRequest.setText("Upload Report");
+        reportRequest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewRequestActionPerformed(evt);
+                reportRequestActionPerformed(evt);
             }
         });
 
@@ -139,29 +139,29 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(viewRequest)
-                        .addGap(18, 18, 18)
+                        .addGap(0, 89, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(reportRequest)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(createbtn))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(61, 61, 61)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(187, 187, 187)
-                            .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(83, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(187, 187, 187)
+                        .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
+                .addContainerGap(36, Short.MAX_VALUE)
                 .addComponent(titleLabel)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(viewRequest)
+                    .addComponent(reportRequest)
                     .addComponent(createbtn))
                 .addGap(34, 34, 34))
         );
@@ -169,7 +169,7 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
 
     private void createbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createbtnActionPerformed
          CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("RequestLabTestJPanel", new createBudgetRequest(userProcessContainer, userAccount, enterprise, network));
+        userProcessContainer.add("RequestLabTestJPanel", new createBudgetRequest(userProcessContainer, userAccount,organization,enterprise, network));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_createbtnActionPerformed
 
@@ -181,11 +181,14 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
             return;
         }
         
-        WorkRequest request = (WorkRequest)armyJTabel.getValueAt(selectedRow, 0);
-        viewRequest.setEnabled(false);
+        WorkRequest request = (WorkRequest)armyJTabel.getValueAt(selectedRow, 1);
+        reportRequest.setEnabled(false);
+        if(request.getCertificate().getReports()!=null){
+                reportRequest.setEnabled(true);
+            }
     }//GEN-LAST:event_armyJTabelMouseClicked
 
-    private void viewRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewRequestActionPerformed
+    private void reportRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportRequestActionPerformed
         int selectedRow = armyJTabel.getSelectedRow();
         
         if (selectedRow < 0){
@@ -198,14 +201,14 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
         File file=location.getSelectedFile();
         String absolutePath=file.getAbsolutePath();
         request.getCertificate().setReports(absolutePath);
-    }//GEN-LAST:event_viewRequestActionPerformed
+    }//GEN-LAST:event_reportRequestActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable armyJTabel;
     private javax.swing.JButton createbtn;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton reportRequest;
     private javax.swing.JLabel titleLabel;
-    private javax.swing.JButton viewRequest;
     // End of variables declaration//GEN-END:variables
 }
