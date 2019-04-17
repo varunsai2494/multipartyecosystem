@@ -11,11 +11,14 @@ import Business.Network.Network;
 import Business.Organization.ArmyOrganization;
 import Business.Organization.BudgetOrganization;
 import Business.Organization.BureauOfEconomicAnalysisOrganization;
+import Business.Organization.CertificateOrganization;
 import Business.Organization.Organization;
+import Business.Role.certificateOrgRole;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.LabTestWorkRequest;
 import Business.WorkQueue.WorkRequest;
+import Business.WorkQueue.certificateWorkRequest;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -176,7 +179,7 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         Organization org = null;
         for(Enterprise ent: network.getEnterpriseDirectory().getEnterpriseList()){
             for (Organization organization : ent.getOrganizationDirectory().getOrganizationList()){
-                if (organization instanceof BureauOfEconomicAnalysisOrganization){
+                if (organization instanceof CertificateOrganization){
                     org = organization;
                     break;
                 }
@@ -184,7 +187,7 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         }
         if (org!=null){
             org.getWorkQueue().getWorkRequestList().add(request);
-            userAccount.getWorkQueue().getWorkRequestList().add(request);
+            //CertificateOrganization.getWorkQueue().getWorkRequestList().add(request);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
