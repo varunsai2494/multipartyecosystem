@@ -86,7 +86,20 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
             new String [] {
                 "Category", "Message", "Description", "Total Fund Request", "Allocated Funds", "Status"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        armyJTabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                armyJTabelMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(armyJTabel);
 
         titleLabel.setText("Army Work Area");
@@ -140,6 +153,18 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
         userProcessContainer.add("RequestLabTestJPanel", new createBudgetRequest(userProcessContainer, userAccount, enterprise, network));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_createbtnActionPerformed
+
+    private void armyJTabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_armyJTabelMouseClicked
+        // TODO add your handling code here:
+        int selectedRow = armyJTabel.getSelectedRow();
+        
+        if (selectedRow < 0){
+            return;
+        }
+        
+        WorkRequest request = (WorkRequest)armyJTabel.getValueAt(selectedRow, 0);
+        viewRequest.setEnabled(false);
+    }//GEN-LAST:event_armyJTabelMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

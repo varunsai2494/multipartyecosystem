@@ -88,6 +88,16 @@ public class AirForceWorkAreaJPanel extends javax.swing.JPanel {
                 "Category", "Message", "Description", "Total Fund Request", "Allocated Funds", "Status"
             }
         ));
+        armyJTabel.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                armyJTabelFocusGained(evt);
+            }
+        });
+        armyJTabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                armyJTabelMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(armyJTabel);
 
         titleLabel.setText("Air Force Work Area");
@@ -141,6 +151,22 @@ public class AirForceWorkAreaJPanel extends javax.swing.JPanel {
         userProcessContainer.add("createBudgetRequest", new createBudgetRequest(userProcessContainer, userAccount, enterprise, network));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_createbtnActionPerformed
+
+    private void armyJTabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_armyJTabelMouseClicked
+        int selectedRow = armyJTabel.getSelectedRow();
+        
+        if (selectedRow < 0){
+            return;
+        }
+        
+        WorkRequest request = (WorkRequest)armyJTabel.getValueAt(selectedRow, 0);
+        viewRequest.setEnabled(false);
+    }//GEN-LAST:event_armyJTabelMouseClicked
+
+    private void armyJTabelFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_armyJTabelFocusGained
+        // TODO add your handling code here:
+        System.out.println(evt);
+    }//GEN-LAST:event_armyJTabelFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
