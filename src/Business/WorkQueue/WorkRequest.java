@@ -21,7 +21,8 @@ public abstract class WorkRequest {
     private String status;
     private Date requestDate;
     private Date resolveDate;
-    
+    private certificateWorkRequest certificate;
+
     public WorkRequest(){
         requestDate = new Date();
     }
@@ -87,4 +88,17 @@ public String getDescription() {
     public void setResolveDate(Date resolveDate) {
         this.resolveDate = resolveDate;
     }
+    
+    public certificateWorkRequest getCertificate() {
+        return certificate;
+    }
+
+    public void setCertificate(certificateWorkRequest certificate) {
+        this.certificate = certificate;
+    }
+    
+    @Override
+    public String toString() { 
+        return this.message; 
+    }  
 }

@@ -13,7 +13,7 @@ import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
 import javax.swing.JPanel;
-import Business.WorkQueue.certificateWorkRequest;
+import Business.WorkQueue.BudgetWorkRequest;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -30,13 +30,15 @@ public class certificateUserWorkAreaJPanel extends javax.swing.JPanel {
     private Network network;
     private Enterprise enterprise;
     private UserAccount userAccount;
-    public certificateUserWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise, Network network) {
+    private BudgetWorkRequest workrequest;
+    public certificateUserWorkAreaJPanel(JPanel userProcessContainer,BudgetWorkRequest workrequest, UserAccount account, Enterprise enterprise, Network network) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.organization = organization;
         this.network = network;
         this.enterprise = enterprise;
         this.userAccount = account;
+        this.workrequest=workrequest;
         populateTable();
     }
 
@@ -142,9 +144,9 @@ public class certificateUserWorkAreaJPanel extends javax.swing.JPanel {
         if (selectedRow < 0){
             return;
         }
-        certificateWorkRequest c= (certificateWorkRequest)certificateUserworkareaTable.getValueAt(selectedRow, 1);
+        BudgetWorkRequest c= (BudgetWorkRequest)certificateUserworkareaTable.getValueAt(selectedRow, 1);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("certificateviewJpanel", new certificateViewJPanel(userProcessContainer,c,userAccount,enterprise,network));
+        userProcessContainer.add("certificateviewJpanel", new certificateViewJPanel(userProcessContainer,workrequest,userAccount,enterprise,network));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_viewworkRDetailsActionPerformed
     
@@ -153,13 +155,13 @@ public class certificateUserWorkAreaJPanel extends javax.swing.JPanel {
         dtm.setRowCount(0);
    for (WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()){
             Object[] row = new Object[6];
-            row[0] =  ((certificateWorkRequest) request).getSenderOrganization();
+            row[0] =  ((BudgetWorkRequest) request).getCertificate().getSenderOrganization();
             row[1]=request;
             row[2] = request.getDescription();
             row[3] = request.getStatus();
-            int alloc = ((certificateWorkRequest) request).getAllocatedBudgetRequest();
+            int alloc = ((BudgetWorkRequest) request).getAllocatedBudgetRequest();
             row[4] = alloc;
-            int total = ((certificateWorkRequest) request).getTotalBudgetRequest();
+            int total = ((BudgetWorkRequest) request).getTotalBudgetRequest();
             row[5] = total;
             
             dtm.addRow(row);

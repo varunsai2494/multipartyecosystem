@@ -42,6 +42,7 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         this.organization = organization;
         this.enterprise = enterprise;
         this.userAccount = account;
+        this.network=network;
         initComponents();
         populateTable();
     }
@@ -136,7 +137,7 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         dtm.setRowCount(0);
         for (WorkRequest request : organization.getWorkQueue().getWorkRequestList()){
             Object[] row = new Object[5];
-            row[0] = request.getMessage();
+            row[0] = request;
             row[1] = request.getDescription();
             row[4] = request.getStatus();
             int alloc = ((BudgetWorkRequest) request).getAllocatedBudgetRequest();
@@ -175,7 +176,7 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
             return;
         }
         
-        WorkRequest request = (WorkRequest)BudetTable.getValueAt(selectedRow, 0);
+        BudgetWorkRequest request = (BudgetWorkRequest)BudetTable.getValueAt(selectedRow, 0);
         Organization org = null;
         for(Enterprise ent: network.getEnterpriseDirectory().getEnterpriseList()){
             for (Organization organization : ent.getOrganizationDirectory().getOrganizationList()){
@@ -186,6 +187,10 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
             }
         }
         if (org!=null){
+//            request.setSenderOrganization();
+            certificateWorkRequest c=new certificateWorkRequest();
+            request.setCertificate(c);
+            c.setSenderOrganization(org);
             org.getWorkQueue().getWorkRequestList().add(request);
             //CertificateOrganization.getWorkQueue().getWorkRequestList().add(request);
         }

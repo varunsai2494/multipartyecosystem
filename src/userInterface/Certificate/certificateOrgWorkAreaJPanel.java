@@ -13,6 +13,7 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
+import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.certificateWorkRequest;
 import javax.swing.table.DefaultTableModel;
 
@@ -39,6 +40,7 @@ public class certificateOrgWorkAreaJPanel extends javax.swing.JPanel {
         this.enterprise=enterprise;
         this.network=network;
         this.ecosystem=ecosystem;
+        populateRequestTable();
     }
 
     /**
@@ -112,7 +114,13 @@ public class certificateOrgWorkAreaJPanel extends javax.swing.JPanel {
     private void workareaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_workareaBtnActionPerformed
       // TODO add your handling code here:
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("certificateUserJpanel", new certificateUserWorkAreaJPanel(userProcessContainer, account, enterprise, network));
+        int selectedRow = certificateWQTable.getSelectedRow();
+        
+        if (selectedRow < 0){
+            return;
+        }
+        BudgetWorkRequest workrequest= (BudgetWorkRequest)certificateWQTable.getValueAt(selectedRow, 1);
+        userProcessContainer.add("certificateUserJpanel", new certificateUserWorkAreaJPanel(userProcessContainer,workrequest, account, enterprise, network));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_workareaBtnActionPerformed
 
@@ -135,13 +143,14 @@ public class certificateOrgWorkAreaJPanel extends javax.swing.JPanel {
         dtm.setRowCount(0);
    for (WorkRequest request : organization.getWorkQueue().getWorkRequestList()){
             Object[] row = new Object[6];
-            row[0] =  ((certificateWorkRequest) request).getSenderOrganization();
+            row[0] =  ((BudgetWorkRequest) request).getCertificate().getSenderOrganization();
+
             row[1]=request;
             row[2] = request.getDescription();
             row[3] = request.getStatus();
-            int alloc = ((certificateWorkRequest) request).getAllocatedBudgetRequest();
+            int alloc = ((BudgetWorkRequest) request).getAllocatedBudgetRequest();
             row[4] = alloc;
-            int total = ((certificateWorkRequest) request).getTotalBudgetRequest();
+            int total = ((BudgetWorkRequest) request).getTotalBudgetRequest();
             row[5] = total;
             
             dtm.addRow(row);
