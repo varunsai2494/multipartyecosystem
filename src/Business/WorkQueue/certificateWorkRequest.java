@@ -4,21 +4,31 @@
  * and open the template in the editor.
  */
 package Business.WorkQueue;
-import Business.Organization.Organization.Type;
+import Business.Organization.Organization;
 
 /**
  *
  * @author imperio2494
  */
-public class certificateWorkRequest extends BudgetWorkRequest {
-    private Type senderOrganization;
+public class certificateWorkRequest{
+    private Organization senderOrganization;
 
-    public Type getSenderOrganization() {
+    public Organization getSenderOrganization() {
         return senderOrganization;
     }
 
-    public void setSenderOrganization(Type senderOrganization) {
+    public void setSenderOrganization(Organization senderOrganization) {
         this.senderOrganization = senderOrganization;
+    }
+    private String reports;
+
+    
+    public String getReports() {
+        return reports;
+    }
+
+    public void setReports(String reports) {
+        this.reports = reports;
     }
     
     

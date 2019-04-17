@@ -10,7 +10,7 @@ import Business.Network.Network;
 import Business.Organization.FBI;
 import Business.Organization.Organization;
 import javax.swing.JPanel;
-import Business.WorkQueue.certificateWorkRequest;
+import Business.WorkQueue.BudgetWorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
 import Business.Organization.Organization.Type;
@@ -26,11 +26,11 @@ public class certificateViewJPanel extends javax.swing.JPanel {
      * Creates new form certificateViewJPanel
      */
     private JPanel userProcessContainer;
-    private certificateWorkRequest workrequest;
+    private BudgetWorkRequest workrequest;
     private UserAccount account;
     private Network network;
     private Enterprise enterprise;
-    public certificateViewJPanel(JPanel userProcessContainer,certificateWorkRequest workrequest,UserAccount account,Enterprise enterprise, Network network) {
+    public certificateViewJPanel(JPanel userProcessContainer,BudgetWorkRequest workrequest,UserAccount account,Enterprise enterprise, Network network) {
         initComponents();
         this.userProcessContainer=userProcessContainer;
         this.workrequest=workrequest;
@@ -151,8 +151,8 @@ public class certificateViewJPanel extends javax.swing.JPanel {
         int totalFundRequest = workrequest.getTotalBudgetRequest();
         String Status=workrequest.getStatus();
         int AllocatedBudget=workrequest.getAllocatedBudgetRequest();
-        Type organization=workrequest.getSenderOrganization();
-        certificateWorkRequest request = new certificateWorkRequest();
+        
+        BudgetWorkRequest request = new BudgetWorkRequest();
         
         request.setMessage(message);
         request.setDescription(description);
