@@ -171,7 +171,7 @@ public class BureauOfEconomicCommerceWorkAreaJPanel extends javax.swing.JPanel {
             model.setRowCount(0);
             for (WorkRequest request : organization.getWorkQueue().getWorkRequestList()){
                 Object[] row = new Object[4];
-                row[0] = request.getMessage();
+                row[0] = request;
                 row[1] = request.getReceiver();
                 row[2] = request.getStatus();
                 String result = ((LabTestWorkRequest) request).getTestResult();

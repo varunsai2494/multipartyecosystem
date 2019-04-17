@@ -20,7 +20,7 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="viewRequest" min="-2" max="-2" attributes="0"/>
+                      <Component id="reportRequest" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="createbtn" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -48,7 +48,7 @@
               <Component id="jScrollPane1" min="-2" pref="224" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="viewRequest" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="reportRequest" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="createbtn" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
@@ -126,10 +126,14 @@
         <Property name="text" type="java.lang.String" value="Air Force Work Area"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="viewRequest">
+    <Component class="javax.swing.JButton" name="reportRequest">
       <Properties>
-        <Property name="text" type="java.lang.String" value="View"/>
+        <Property name="text" type="java.lang.String" value="Report"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="reportRequestMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="reportRequestActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="createbtn">
       <Properties>

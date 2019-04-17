@@ -127,8 +127,11 @@
     </Component>
     <Component class="javax.swing.JButton" name="viewRequest">
       <Properties>
-        <Property name="text" type="java.lang.String" value="View"/>
+        <Property name="text" type="java.lang.String" value="Upload Report"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewRequestActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="createbtn">
       <Properties>

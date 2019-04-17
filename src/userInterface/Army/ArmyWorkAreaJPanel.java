@@ -12,9 +12,11 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.io.File;
+import java.util.ArrayList;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
-import userInterface.Army.createBudgetRequest;
 
 /**
  *
@@ -40,19 +42,31 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
     }
     public void populateRequestTable(){
         DefaultTableModel model = (DefaultTableModel) armyJTabel.getModel();
-
+        ArrayList<Object[]> result = new ArrayList<>();
+        ArrayList<Object[]> certificateObj = new ArrayList<>();
         model.setRowCount(0);
         for (WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()){
             Object[] row = new Object[6];
             row[0] = request.getCategory();
-            row[1] = request.getMessage();
+            row[1] = request;
             row[2] = request.getDescription();
             row[3] = ((BudgetWorkRequest) request).getTotalBudgetRequest();
             Integer aa = ((BudgetWorkRequest) request).getAllocatedBudgetRequest();
             row[4] = aa.toString();
             row[5] = request.getStatus();
-
+            if(request.getCertificate()!=null){
+                certificateObj.add(row);
+            }
             model.addRow(row);
+        }
+        for(Object[] i : certificateObj){
+            int index = result.indexOf(i);
+            result.remove(index);
+            result.add(0, i);
+        }
+
+        for(Object[] i : result){
+            model.addRow(i);
         }
     }
     
@@ -104,7 +118,12 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
 
         titleLabel.setText("Army Work Area");
 
-        viewRequest.setText("View");
+        viewRequest.setText("Upload Report");
+        viewRequest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewRequestActionPerformed(evt);
+            }
+        });
 
         createbtn.setText("Create budget Request");
         createbtn.addActionListener(new java.awt.event.ActionListener() {
@@ -165,6 +184,21 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
         WorkRequest request = (WorkRequest)armyJTabel.getValueAt(selectedRow, 0);
         viewRequest.setEnabled(false);
     }//GEN-LAST:event_armyJTabelMouseClicked
+
+    private void viewRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewRequestActionPerformed
+        int selectedRow = armyJTabel.getSelectedRow();
+        
+        if (selectedRow < 0){
+            return;
+        }
+        
+        WorkRequest request = (WorkRequest)armyJTabel.getValueAt(selectedRow, 1);
+        JFileChooser location=new JFileChooser();
+        location.showOpenDialog(null); 
+        File file=location.getSelectedFile();
+        String absolutePath=file.getAbsolutePath();
+        request.getCertificate().setReports(absolutePath);
+    }//GEN-LAST:event_viewRequestActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
