@@ -30,15 +30,15 @@ public class certificateUserWorkAreaJPanel extends javax.swing.JPanel {
     private Network network;
     private Enterprise enterprise;
     private UserAccount userAccount;
-    private BudgetWorkRequest workrequest;
-    public certificateUserWorkAreaJPanel(JPanel userProcessContainer,BudgetWorkRequest workrequest, UserAccount account, Enterprise enterprise, Network network) {
+    
+    public certificateUserWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise, Network network) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.organization = organization;
         this.network = network;
         this.enterprise = enterprise;
         this.userAccount = account;
-        this.workrequest=workrequest;
+        
         populateTable();
     }
 
@@ -52,7 +52,6 @@ public class certificateUserWorkAreaJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         viewworkRDetails = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -65,8 +64,6 @@ public class certificateUserWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton5.setText("assigntome");
-
         jButton3.setText("view certificates");
 
         backBtn.setText("back");
@@ -78,13 +75,13 @@ public class certificateUserWorkAreaJPanel extends javax.swing.JPanel {
 
         certificateUserworkareaTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "message", "description", "status"
+                "organization", "message", "description", "requestedbudget", "allocatedbudget", "status"
             }
         ));
         jScrollPane1.setViewportView(certificateUserworkareaTable);
@@ -99,14 +96,12 @@ public class certificateUserWorkAreaJPanel extends javax.swing.JPanel {
                 .addGap(19, 19, 19))
             .addGroup(layout.createSequentialGroup()
                 .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton5)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jButton3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(viewworkRDetails))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(viewworkRDetails))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(55, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -120,9 +115,7 @@ public class certificateUserWorkAreaJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(viewworkRDetails))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton5)
-                .addGap(37, 37, 37))
+                .addGap(78, 78, 78))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -146,7 +139,7 @@ public class certificateUserWorkAreaJPanel extends javax.swing.JPanel {
         }
         BudgetWorkRequest c= (BudgetWorkRequest)certificateUserworkareaTable.getValueAt(selectedRow, 1);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("certificateviewJpanel", new certificateViewJPanel(userProcessContainer,workrequest,userAccount,enterprise,network));
+        userProcessContainer.add("certificateviewJpanel", new certificateViewJPanel(userProcessContainer,c,userAccount,enterprise,network));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_viewworkRDetailsActionPerformed
     
@@ -173,7 +166,6 @@ public class certificateUserWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JButton backBtn;
     private javax.swing.JTable certificateUserworkareaTable;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton viewworkRDetails;
     // End of variables declaration//GEN-END:variables

@@ -113,14 +113,10 @@ public class certificateOrgWorkAreaJPanel extends javax.swing.JPanel {
 
     private void workareaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_workareaBtnActionPerformed
       // TODO add your handling code here:
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        int selectedRow = certificateWQTable.getSelectedRow();
         
-        if (selectedRow < 0){
-            return;
-        }
-        BudgetWorkRequest workrequest= (BudgetWorkRequest)certificateWQTable.getValueAt(selectedRow, 1);
-        userProcessContainer.add("certificateUserJpanel", new certificateUserWorkAreaJPanel(userProcessContainer,workrequest, account, enterprise, network));
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        
+        userProcessContainer.add("certificateUserJpanel", new certificateUserWorkAreaJPanel(userProcessContainer, account, enterprise, network));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_workareaBtnActionPerformed
 
@@ -132,9 +128,13 @@ public class certificateOrgWorkAreaJPanel extends javax.swing.JPanel {
             return;
         }
         
-        WorkRequest request = (WorkRequest)certificateWQTable.getValueAt(selectedRow, 0);
+        WorkRequest request = (WorkRequest)certificateWQTable.getValueAt(selectedRow, 1);
+        
+        
+        organization.getWorkQueue().getWorkRequestList().remove(request);
         request.setReceiver(account);
         request.setStatus("Pending");
+        account.getWorkQueue().getWorkRequestList().add(request);
         populateRequestTable();
     }//GEN-LAST:event_assignToMeBtnActionPerformed
 
