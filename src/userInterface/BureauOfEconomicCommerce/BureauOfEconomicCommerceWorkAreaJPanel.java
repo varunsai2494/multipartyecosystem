@@ -34,6 +34,7 @@ public class BureauOfEconomicCommerceWorkAreaJPanel extends javax.swing.JPanel {
         this.enterprise = enterprise;
         this.userAccount = account;
         initComponents();
+        populateRequestTable();
     }
 
     /**
@@ -170,13 +171,13 @@ public class BureauOfEconomicCommerceWorkAreaJPanel extends javax.swing.JPanel {
 
             model.setRowCount(0);
             for (WorkRequest request : organization.getWorkQueue().getWorkRequestList()){
-                Object[] row = new Object[4];
+                Object[] row = new Object[6];
                 row[0] = request.getMessage();
                 row[1] = request.getReceiver();
                 row[2] = request.getStatus();
-                String result = ((LabTestWorkRequest) request).getTestResult();
-                row[3] = result == null ? "Waiting" : result;
-
+                //String result = ((LabTestWorkRequest) request).getTestResult();
+                //row[3] = result == null ? "Waiting" : result;
+                //row[3] = request.getRequestDate();
                 model.addRow(row);
             }
         }

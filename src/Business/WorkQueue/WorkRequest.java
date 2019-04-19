@@ -4,6 +4,7 @@
  */
 package Business.WorkQueue;
 
+import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import java.util.Date;
 
@@ -22,10 +23,13 @@ public abstract class WorkRequest {
     private Date requestDate;
     private Date resolveDate;
     private certificateWorkRequest certificate;
+    
 
     public WorkRequest(){
         requestDate = new Date();
     }
+
+    
 
     public String getMessage() {
         return message;

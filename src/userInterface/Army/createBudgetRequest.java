@@ -7,6 +7,7 @@ package userInterface.Army;
 
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
+import Business.Organization.ArmyOrganization;
 import Business.Organization.BudgetOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
@@ -172,6 +173,7 @@ public class createBudgetRequest extends javax.swing.JPanel {
         request.setTotalBudgetRequest(Integer.parseInt(totalFundRequest));
         request.setSender(userAccount);
         request.setStatus("Sent");
+        
         
         Organization org = null;
         for(Enterprise ent: network.getEnterpriseDirectory().getEnterpriseList()){

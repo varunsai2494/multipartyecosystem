@@ -13,6 +13,7 @@ import Business.Organization.BudgetOrganization;
 import Business.Organization.BureauOfEconomicAnalysisOrganization;
 import Business.Organization.CertificateOrganization;
 import Business.Organization.Organization;
+import Business.Organization.RevenueOrganization;
 import Business.Role.certificateOrgRole;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BudgetWorkRequest;
@@ -45,6 +46,7 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         this.network=network;
         initComponents();
         populateTable();
+        
     }
 
     /**
@@ -60,7 +62,8 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         assignButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         BudetTable = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
+        revenueApprovaljButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Budget Panel");
@@ -77,11 +80,11 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "messgae", "description", "total budget request", "allocated budget", "status"
+                "messgae", "description", "total budget request", "allocated budget", "status", "sender organization"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false, false, true
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -90,10 +93,17 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(BudetTable);
 
-        jButton2.setText("get approval");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        revenueApprovaljButton.setText("get approval from revenue");
+        revenueApprovaljButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                revenueApprovaljButtonActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Refresh");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -104,9 +114,9 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(assignButton)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addGap(114, 114, 114))
+                .addGap(220, 220, 220)
+                .addComponent(revenueApprovaljButton)
+                .addGap(99, 99, 99))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -114,8 +124,11 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(73, 73, 73)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(130, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 678, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(109, 109, 109)
+                        .addComponent(jButton1)))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,8 +140,10 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
                 .addGap(78, 78, 78)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(assignButton)
-                    .addComponent(jButton2))
-                .addContainerGap(188, Short.MAX_VALUE))
+                    .addComponent(revenueApprovaljButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(89, 89, 89))
         );
     }// </editor-fold>//GEN-END:initComponents
     public void populateTable(){
@@ -136,7 +151,7 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         DefaultTableModel dtm = (DefaultTableModel)BudetTable.getModel();
         dtm.setRowCount(0);
         for (WorkRequest request : organization.getWorkQueue().getWorkRequestList()){
-            Object[] row = new Object[5];
+            Object[] row = new Object[6];
             row[0] = request;
             row[1] = request.getDescription();
             row[4] = request.getStatus();
@@ -144,6 +159,7 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
             row[3] = alloc;
             int total = ((BudgetWorkRequest) request).getTotalBudgetRequest();
             row[2] = total;
+            row[5] = request.getMessage();
             
             dtm.addRow(row);
         }
@@ -167,41 +183,42 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         
     }//GEN-LAST:event_assignButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void revenueApprovaljButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_revenueApprovaljButtonActionPerformed
         // TODO add your handling code here:
-        
         int selectedRow = BudetTable.getSelectedRow();
         
         if (selectedRow < 0){
             return;
         }
         
-        BudgetWorkRequest request = (BudgetWorkRequest)BudetTable.getValueAt(selectedRow, 0);
+        WorkRequest request = (BudgetWorkRequest)BudetTable.getValueAt(selectedRow, 0);
         Organization org = null;
         for(Enterprise ent: network.getEnterpriseDirectory().getEnterpriseList()){
             for (Organization organization : ent.getOrganizationDirectory().getOrganizationList()){
-                if (organization instanceof CertificateOrganization){
+                if (organization instanceof BureauOfEconomicAnalysisOrganization){
                     org = organization;
                     break;
                 }
             }
         }
+        
         if (org!=null){
-//            request.setSenderOrganization();
-            certificateWorkRequest c=new certificateWorkRequest();
-            request.setCertificate(c);
-            c.setSenderOrganization(org);
             org.getWorkQueue().getWorkRequestList().add(request);
-            //CertificateOrganization.getWorkQueue().getWorkRequestList().add(request);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+        
+    }//GEN-LAST:event_revenueApprovaljButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+            populateTable();  
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable BudetTable;
     private javax.swing.JButton assignButton;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton revenueApprovaljButton;
     // End of variables declaration//GEN-END:variables
 }
