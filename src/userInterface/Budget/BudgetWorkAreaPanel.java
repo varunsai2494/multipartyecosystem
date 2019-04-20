@@ -176,11 +176,11 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
             return;
         }
         
-        BudgetWorkRequest request = (BudgetWorkRequest)BudetTable.getValueAt(selectedRow, 0);
+        WorkRequest request = (WorkRequest)BudetTable.getValueAt(selectedRow, 0);
         Organization org = null;
         for(Enterprise ent: network.getEnterpriseDirectory().getEnterpriseList()){
             for (Organization organization : ent.getOrganizationDirectory().getOrganizationList()){
-                if (organization instanceof CertificateOrganization){
+                if (organization instanceof BureauOfEconomicAnalysisOrganization){
                     org = organization;
                     break;
                 }
