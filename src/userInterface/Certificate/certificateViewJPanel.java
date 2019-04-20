@@ -159,19 +159,8 @@ public class certificateViewJPanel extends javax.swing.JPanel {
 
     private void investigateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_investigateActionPerformed
         // TODO add your handling code here:
-        
-        
-        String message = workrequest.getMessage();
-        String description = workrequest.getDescription();
-        int totalFundRequest = workrequest.getTotalBudgetRequest();
-        String Status=workrequest.getStatus();
-        int AllocatedBudget=workrequest.getAllocatedBudgetRequest();
-        
-        BudgetWorkRequest request = new BudgetWorkRequest();
-        
-        request.setMessage(message);
-        request.setDescription(description);
-        request.setTotalBudgetRequest(totalFundRequest);
+
+        BudgetWorkRequest request=workrequest;
         request.setSender(account);
         request.setStatus("Sent");
         
@@ -186,7 +175,7 @@ public class certificateViewJPanel extends javax.swing.JPanel {
         }
         if (org!=null){
             org.getWorkQueue().getWorkRequestList().add(request);
-            account.getWorkQueue().getWorkRequestList().add(request);
+//            account.getWorkQueue().getWorkRequestList().add(request);
         }
     }//GEN-LAST:event_investigateActionPerformed
 

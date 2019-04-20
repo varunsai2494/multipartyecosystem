@@ -8,6 +8,7 @@ package userInterface.Certificate;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
 import Business.Organization.ArmyOrganization;
+import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
@@ -26,7 +27,7 @@ public class certificateUserWorkAreaJPanel extends javax.swing.JPanel {
      * Creates new form certificateUserWorkAreaJPanel
      */
     private JPanel userProcessContainer;
-    private ArmyOrganization organization;
+    private Organization organization;
     private Network network;
     private Enterprise enterprise;
     private UserAccount userAccount;
@@ -147,6 +148,7 @@ public class certificateUserWorkAreaJPanel extends javax.swing.JPanel {
         DefaultTableModel dtm = (DefaultTableModel)certificateUserworkareaTable.getModel();
         dtm.setRowCount(0);
    for (WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()){
+            if(request.getMessage()!=null){
             Object[] row = new Object[6];
             row[0] =  ((BudgetWorkRequest) request).getCertificate().getSenderOrganization();
             row[1]=request;
@@ -157,7 +159,7 @@ public class certificateUserWorkAreaJPanel extends javax.swing.JPanel {
             int total = ((BudgetWorkRequest) request).getTotalBudgetRequest();
             row[5] = total;
             
-            dtm.addRow(row);
+            dtm.addRow(row);}
    }
         
     }

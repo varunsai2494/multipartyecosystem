@@ -9,15 +9,27 @@ import Business.Role.AdminRole;
 import Business.Role.FBIRole;
 import Business.Role.Role;
 import java.util.ArrayList;
+import Business.WorkQueue.BudgetWorkRequest;
 
 /**
  *
  * @author imperio2494
  */
 public class FBI extends Organization{
+    private ArrayList<BudgetWorkRequest> frauds;
     public FBI(){
+        
    super(Type.FBI.getValue());
+   frauds=new ArrayList<BudgetWorkRequest>();
    }
+
+    public ArrayList<BudgetWorkRequest> getFrauds() {
+        return frauds;
+    }
+
+    public void setFrauds(ArrayList<BudgetWorkRequest> frauds) {
+        this.frauds = frauds;
+    }
    
    @Override
     public ArrayList<Role> getSupportedRole() {
