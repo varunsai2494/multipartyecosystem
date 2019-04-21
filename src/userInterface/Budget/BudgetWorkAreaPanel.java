@@ -13,12 +13,14 @@ import Business.Organization.BudgetOrganization;
 import Business.Organization.BureauOfEconomicAnalysisOrganization;
 import Business.Organization.CertificateOrganization;
 import Business.Organization.Organization;
+import Business.Organization.RevenueOrganization;
 import Business.Role.certificateOrgRole;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.LabTestWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import Business.WorkQueue.certificateWorkRequest;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -61,6 +63,8 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         BudetTable = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
+        certificateButton = new javax.swing.JButton();
+        revenueButton = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Budget Panel");
@@ -90,10 +94,24 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(BudetTable);
 
-        jButton2.setText("get approval");
+        jButton2.setText("get approval from Commerce");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        certificateButton.setText("get approval from certifiacte");
+        certificateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                certificateButtonActionPerformed(evt);
+            }
+        });
+
+        revenueButton.setText("get approval from revenue");
+        revenueButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                revenueButtonActionPerformed(evt);
             }
         });
 
@@ -101,12 +119,6 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(assignButton)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addGap(114, 114, 114))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -114,7 +126,16 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(73, 73, 73)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(assignButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton2)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(certificateButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(revenueButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
                 .addContainerGap(130, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -128,7 +149,11 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(assignButton)
                     .addComponent(jButton2))
-                .addContainerGap(188, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(certificateButton)
+                .addGap(18, 18, 18)
+                .addComponent(revenueButton)
+                .addContainerGap(106, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     public void populateTable(){
@@ -155,6 +180,7 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         int selectedRow = BudetTable.getSelectedRow();
         
         if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Select a row"); 
             return;
         }
         
@@ -173,6 +199,7 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         int selectedRow = BudetTable.getSelectedRow();
         
         if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Select a row"); 
             return;
         }
         
@@ -188,20 +215,74 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         }
         if (org!=null){
 //            request.setSenderOrganization();
+            org.getWorkQueue().getWorkRequestList().add(request);
+            //CertificateOrganization.getWorkQueue().getWorkRequestList().add(request);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void certificateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_certificateButtonActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = BudetTable.getSelectedRow();
+        
+        if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Select a row"); 
+            return;
+        }
+        
+        WorkRequest request = (WorkRequest)BudetTable.getValueAt(selectedRow, 0);
+        Organization org = null;
+        for(Enterprise ent: network.getEnterpriseDirectory().getEnterpriseList()){
+            for (Organization organization : ent.getOrganizationDirectory().getOrganizationList()){
+                if (organization instanceof CertificateOrganization){
+                    org = organization;
+                    break;
+                }
+            }
+        }
+        if (org!=null){
+//            request.setSenderOrganization();
             certificateWorkRequest c=new certificateWorkRequest();
             request.setCertificate(c);
             c.setSenderOrganization(org);
             org.getWorkQueue().getWorkRequestList().add(request);
             //CertificateOrganization.getWorkQueue().getWorkRequestList().add(request);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_certificateButtonActionPerformed
+
+    private void revenueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_revenueButtonActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = BudetTable.getSelectedRow();
+        
+        if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Select a row"); 
+            return;
+        }
+        
+        WorkRequest request = (WorkRequest)BudetTable.getValueAt(selectedRow, 0);
+        Organization org = null;
+        for(Enterprise ent: network.getEnterpriseDirectory().getEnterpriseList()){
+            for (Organization organization : ent.getOrganizationDirectory().getOrganizationList()){
+                if (organization instanceof RevenueOrganization){
+                    org = organization;
+                    break;
+                }
+            }
+        }
+        if (org!=null){
+//            request.setSenderOrganization();
+            org.getWorkQueue().getWorkRequestList().add(request);
+            //CertificateOrganization.getWorkQueue().getWorkRequestList().add(request);
+        }
+    }//GEN-LAST:event_revenueButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable BudetTable;
     private javax.swing.JButton assignButton;
+    private javax.swing.JButton certificateButton;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton revenueButton;
     // End of variables declaration//GEN-END:variables
 }

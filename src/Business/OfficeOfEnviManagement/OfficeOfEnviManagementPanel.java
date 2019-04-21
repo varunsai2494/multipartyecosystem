@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package OfficeOfEnviManagement;
+package Business.OfficeOfEnviManagement;
 
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;

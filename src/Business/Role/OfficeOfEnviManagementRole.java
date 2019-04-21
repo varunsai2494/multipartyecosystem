@@ -13,7 +13,7 @@ import Business.Organization.OfficeOfEnviManagementOrganization;
 import Business.Organization.OfficeOfNuclearEnergyOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
-import OfficeOfEnviManagement.OfficeOfEnviManagementPanel;
+import Business.OfficeOfEnviManagement.OfficeOfEnviManagementPanel;
 import javax.swing.JPanel;
 import userInterface.OfficeOfNuclearEnergy.OfficeOfNuclearEnergyWorkAreaPanel;
 

@@ -10,10 +10,15 @@ import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
 import Business.Organization.ArmyOrganization;
+import Business.Organization.BudgetOrganization;
 import Business.Organization.Organization;
 import Business.Organization.RevenueOrganization;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.BudgetWorkRequest;
+import Business.WorkQueue.WorkRequest;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -24,8 +29,19 @@ public class RevenueWorkAreaPanel extends javax.swing.JPanel {
     /**
      * Creates new form RevenuePanel
      */
+    private JPanel userProcessContainer;
+    private RevenueOrganization organization;
+    private Enterprise enterprise;
+    private UserAccount userAccount;
+    private Network network;
     public RevenueWorkAreaPanel(JPanel userProcessContainer, UserAccount account, RevenueOrganization organization,  Enterprise enterprise, Network network) {
+        this.userProcessContainer = userProcessContainer;
+        this.organization = organization;
+        this.enterprise = enterprise;
+        this.userAccount = account;
+        this.network=network;
         initComponents();
+        populateTable();
     }
 
     /**
@@ -38,42 +54,46 @@ public class RevenueWorkAreaPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        revApproveButton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        RevJTable = new javax.swing.JTable();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Revenue Panel");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        revApproveButton.setText("approve to do");
+        revApproveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                revApproveButtonActionPerformed(evt);
+            }
+        });
+
+        RevJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "department", "organization", "funds"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-
-        jButton1.setText("approve to do");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jScrollPane2.setViewportView(RevJTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(revApproveButton)
+                .addGap(177, 177, 177))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -81,35 +101,63 @@ public class RevenueWorkAreaPanel extends javax.swing.JPanel {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(179, 179, 179)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(185, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(177, 177, 177))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(93, 93, 93)
-                .addComponent(jButton1)
-                .addContainerGap(198, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(98, 98, 98)
+                .addComponent(revApproveButton)
+                .addContainerGap(225, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void revApproveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_revApproveButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
+        int selectedRow = RevJTable.getSelectedRow();
+        
+        if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Select a row"); 
+            return;
+        }
+        
+        WorkRequest request = (WorkRequest)RevJTable.getValueAt(selectedRow, 0);
+        request.setReceiver(userAccount);
+        request.setStatus("Approved By Revenue");
+        populateTable();
+        
+        
+    }//GEN-LAST:event_revApproveButtonActionPerformed
+    
+    
+    public void populateTable(){
+    
+        DefaultTableModel dtm = (DefaultTableModel)RevJTable.getModel();
+        dtm.setRowCount(0);
+        for (WorkRequest request : organization.getWorkQueue().getWorkRequestList()){
+            Object[] row = new Object[5];
+            row[0] = request;
+            row[1] = request.getDescription();
+            row[2] = request.getStatus();
+            int alloc = ((BudgetWorkRequest) request).getAllocatedBudgetRequest();
+            row[3] = alloc;
+            int total = ((BudgetWorkRequest) request).getTotalBudgetRequest();
+            row[4] = total;
+            
+            dtm.addRow(row);
+        
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTable RevJTable;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton revApproveButton;
     // End of variables declaration//GEN-END:variables
 }
