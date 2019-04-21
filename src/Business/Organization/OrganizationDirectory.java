@@ -65,6 +65,14 @@ public class OrganizationDirectory {
             organization = new BudgetOrganization();
             organizationList.add(organization);
         }
+        else if (type.getValue().equals(Type.OfficeOfNuclearEnergy.getValue())){
+            organization = new OfficeOfNuclearEnergyOrganization();
+            organizationList.add(organization);
+        }
+        else if (type.getValue().equals(Type.OfficeOfEnviManagement.getValue())){
+            organization = new OfficeOfEnviManagementOrganization();
+            organizationList.add(organization);
+        }
         return organization;
     }
 }
