@@ -9,12 +9,13 @@ package Business.Role;
 import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
+import Business.OfficeOfEnviManagement.OfficeOfEnviManagementPanel;
 import Business.Organization.OfficeOfEnviManagementOrganization;
 import Business.Organization.OfficeOfNuclearEnergyOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
-import Business.OfficeOfEnviManagement.OfficeOfEnviManagementPanel;
 import javax.swing.JPanel;
+import userInterface.OfficeOfEnviManagement.OfficeOfEnviManagementWorkAreaJPanel;
 import userInterface.OfficeOfNuclearEnergy.OfficeOfNuclearEnergyWorkAreaPanel;
 
 /**
@@ -24,6 +25,6 @@ import userInterface.OfficeOfNuclearEnergy.OfficeOfNuclearEnergyWorkAreaPanel;
 public class OfficeOfEnviManagementRole extends Role {
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, Network network, EcoSystem business) {
-        return new OfficeOfEnviManagementPanel(userProcessContainer, account, (OfficeOfEnviManagementOrganization)organization, enterprise, network);
+        return new OfficeOfEnviManagementWorkAreaJPanel(userProcessContainer, account, (OfficeOfEnviManagementOrganization)organization, enterprise, network);
     }
 }
