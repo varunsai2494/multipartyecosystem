@@ -12,8 +12,11 @@ import Business.Organization.ArmyOrganization;
 import Business.Organization.OfficeOfNuclearEnergyOrganization;
 import Business.Organization.RevenueOrganization;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.BudgetWorkRequest;
+import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -36,6 +39,7 @@ public class OfficeOfNuclearEnergyWorkAreaPanel extends javax.swing.JPanel {
         this.enterprise = enterprise;
         this.userAccount = account;
         initComponents();
+        populateJTable();
     }
 
     /**
@@ -48,24 +52,30 @@ public class OfficeOfNuclearEnergyWorkAreaPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        OnETable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         nuclearButton = new javax.swing.JButton();
+        RefreshButton = new javax.swing.JButton();
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        OnETable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title 1", "Title 2", "Title 3", "Title 4", "Tittle 5"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, true, false, false
+            };
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(OnETable);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Office Of Nuclear Energy");
 
         nuclearButton.setText("Create Nuclear Energy Request");
@@ -75,13 +85,24 @@ public class OfficeOfNuclearEnergyWorkAreaPanel extends javax.swing.JPanel {
             }
         });
 
+        RefreshButton.setText("Refresh");
+        RefreshButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RefreshButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(nuclearButton)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(RefreshButton)
+                        .addGap(60, 60, 60)
+                        .addComponent(nuclearButton))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(84, 84, 84)
@@ -99,11 +120,29 @@ public class OfficeOfNuclearEnergyWorkAreaPanel extends javax.swing.JPanel {
                 .addGap(48, 48, 48)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(60, 60, 60)
-                .addComponent(nuclearButton)
-                .addContainerGap(154, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nuclearButton)
+                    .addComponent(RefreshButton))
+                .addContainerGap(169, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    public void populateJTable(){
+        DefaultTableModel dtm = (DefaultTableModel)OnETable.getModel();
+        dtm.setRowCount(0);
+        for (WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()){
+            Object[] row = new Object[6];
+            row[0] = request.getCategory();
+            row[1] = request;
+            row[2] = request.getDescription();
+            row[3] = request.getStatus();
+            int alloc = ((BudgetWorkRequest) request).getAllocatedBudgetRequest();
+            row[4] = alloc;
+            int total = ((BudgetWorkRequest) request).getTotalBudgetRequest();
+            row[5] = total;
+            
+            dtm.addRow(row);
+        }
+    }
     private void nuclearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuclearButtonActionPerformed
         // TODO add your handling code here:4
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
@@ -111,11 +150,17 @@ public class OfficeOfNuclearEnergyWorkAreaPanel extends javax.swing.JPanel {
         layout.next(userProcessContainer);
     }//GEN-LAST:event_nuclearButtonActionPerformed
 
+    private void RefreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshButtonActionPerformed
+        // TODO add your handling code here:
+        populateJTable();
+    }//GEN-LAST:event_RefreshButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable OnETable;
+    private javax.swing.JButton RefreshButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton nuclearButton;
     // End of variables declaration//GEN-END:variables
 }
