@@ -12,8 +12,12 @@ import Business.Organization.BudgetOrganization;
 import Business.Organization.OfficeOfEnviManagementOrganization;
 import Business.Organization.RevenueOrganization;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.BudgetWorkRequest;
+import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.util.ArrayList;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 import userInterface.OfficeOfNuclearEnergy.createNuclearBudgetRequestJpanel;
 
 /**
@@ -47,13 +51,34 @@ public class OfficeOfEnviManagementWorkAreaJPanel extends javax.swing.JPanel {
      */
     
     public void populateTable(){
-        
+        DefaultTableModel model = (DefaultTableModel) enviJTabel.getModel();
+        ArrayList<Object[]> result = new ArrayList<>();
+        ArrayList<Object[]> certificateObj = new ArrayList<>();
+        model.setRowCount(0);
+        for (WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()){
+            Object[] row = new Object[6];
+            row[0] = request.getCategory();
+            row[1] = request;
+            row[2] = request.getDescription();
+            row[3] = ((BudgetWorkRequest) request).getTotalBudgetRequest();
+            Integer aa = ((BudgetWorkRequest) request).getAllocatedBudgetRequest();
+            row[4] = aa.toString();
+            row[5] = request.getStatus();
+            if(request.getCertificate().getReports()!=null){
+                certificateObj.add(row);
+            }
+            model.addRow(row);
+        }
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         createRequestButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        enviJTabel = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         createRequestButton.setText("Create envi Budget Request");
         createRequestButton.addActionListener(new java.awt.event.ActionListener() {
@@ -62,20 +87,57 @@ public class OfficeOfEnviManagementWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        enviJTabel.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Tittle 5"
+            }
+        ));
+        jScrollPane1.setViewportView(enviJTabel);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setText("Office Of Environment Management Work Area");
+
+        jButton1.setText("Refresh");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(469, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(87, 87, 87)
                 .addComponent(createRequestButton)
                 .addGap(74, 74, 74))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(106, 106, 106)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)))
+                .addContainerGap(154, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(313, Short.MAX_VALUE)
-                .addComponent(createRequestButton)
+                .addContainerGap(73, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(55, 55, 55)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(72, 72, 72)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(createRequestButton)
+                    .addComponent(jButton1))
                 .addGap(128, 128, 128))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -87,8 +149,17 @@ public class OfficeOfEnviManagementWorkAreaJPanel extends javax.swing.JPanel {
         layout.next(userProcessContainer);
     }//GEN-LAST:event_createRequestButtonActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        populateTable();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton createRequestButton;
+    private javax.swing.JTable enviJTabel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
