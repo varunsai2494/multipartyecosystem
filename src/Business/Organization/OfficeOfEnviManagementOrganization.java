@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class OfficeOfEnviManagementOrganization extends Organization {
     public OfficeOfEnviManagementOrganization() {
-        super(Type.OfficeOfNuclearEnergy.getValue());
+        super(Type.OfficeOfEnviManagement.getValue());
     }
     
     @Override
