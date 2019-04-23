@@ -20,9 +20,11 @@ import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.LabTestWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import Business.WorkQueue.certificateWorkRequest;
+import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import userInterface.Army.createBudgetRequest;
 
 /**
  *
@@ -65,6 +67,7 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         certificateButton = new javax.swing.JButton();
         revenueButton = new javax.swing.JButton();
+        allocateButton = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Budget Panel");
@@ -115,6 +118,13 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
             }
         });
 
+        allocateButton.setText("Assing allocated Budgets");
+        allocateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                allocateButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -129,7 +139,9 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(assignButton)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(assignButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(allocateButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButton2)
@@ -152,7 +164,9 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(certificateButton)
                 .addGap(18, 18, 18)
-                .addComponent(revenueButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(revenueButton)
+                    .addComponent(allocateButton))
                 .addContainerGap(106, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -275,9 +289,17 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_revenueButtonActionPerformed
 
+    private void allocateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allocateButtonActionPerformed
+        // TODO add your handling code here:
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add("RequestLabTestJPanel", new AllocateBudgetPanel(userProcessContainer, userAccount,organization,enterprise, network));
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_allocateButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable BudetTable;
+    private javax.swing.JButton allocateButton;
     private javax.swing.JButton assignButton;
     private javax.swing.JButton certificateButton;
     private javax.swing.JButton jButton2;
