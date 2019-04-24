@@ -34,6 +34,16 @@ public class certificateViewJPanel extends javax.swing.JPanel {
         initComponents();
         this.userProcessContainer=userProcessContainer;
         this.workrequest=workrequest;
+//        Organization a = null;
+//        for(Enterprise ent: network.getEnterpriseDirectory().getEnterpriseList()){
+//            for(Organization organization : ent.getOrganizationDirectory().getOrganizationList()){
+//                if (organization instanceof ArmyOrganization){
+//                    a = organization;
+//                    break;
+//                }
+//            }
+//        }
+        this.workrequest.getCertificate().setSenderOrganization(a);
         this.account=account;
         this.enterprise=enterprise;
         this.network=network;
@@ -73,6 +83,7 @@ public class certificateViewJPanel extends javax.swing.JPanel {
         investigate = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
         addToCertificateBtn = new javax.swing.JButton();
+        reportsBtn = new javax.swing.JButton();
 
         certificateworkrequestTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -108,6 +119,13 @@ public class certificateViewJPanel extends javax.swing.JPanel {
             }
         });
 
+        reportsBtn.setText("request supporting Reports");
+        reportsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportsBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -119,26 +137,31 @@ public class certificateViewJPanel extends javax.swing.JPanel {
                 .addComponent(backBtn)
                 .addGap(45, 45, 45))
             .addGroup(layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addComponent(investigate)
-                .addGap(28, 28, 28)
-                .addComponent(addToCertificateBtn)
+                .addGap(66, 66, 66)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(reportsBtn)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(investigate)
+                        .addGap(18, 18, 18)
+                        .addComponent(addToCertificateBtn)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(103, Short.MAX_VALUE)
                 .addComponent(backBtn)
                 .addGap(260, 260, 260))
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(investigate)
                     .addComponent(addToCertificateBtn))
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(reportsBtn)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -179,6 +202,13 @@ public class certificateViewJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_investigateActionPerformed
 
+    private void reportsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportsBtnActionPerformed
+        // TODO add your handling code here:
+        
+        this.workrequest.getCertificate().getSenderOrganization().getWorkQueue().getWorkRequestList().add(workrequest);
+        
+    }//GEN-LAST:event_reportsBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addToCertificateBtn;
@@ -186,5 +216,6 @@ public class certificateViewJPanel extends javax.swing.JPanel {
     private javax.swing.JTable certificateworkrequestTable;
     private javax.swing.JButton investigate;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton reportsBtn;
     // End of variables declaration//GEN-END:variables
 }
