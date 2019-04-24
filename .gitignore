@@ -3,3 +3,4 @@
 /ecosystem/build/
 /build/
 /ecosystem/Databank.db40
+*.db40

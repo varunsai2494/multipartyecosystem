@@ -12,7 +12,9 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
@@ -89,6 +91,7 @@ public class AirForceWorkAreaJPanel extends javax.swing.JPanel {
         titleLabel = new javax.swing.JLabel();
         reportRequest = new javax.swing.JButton();
         createbtn = new javax.swing.JButton();
+        reportsbtn = new javax.swing.JButton();
 
         armyJTabel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -134,6 +137,13 @@ public class AirForceWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        reportsbtn.setText("generate reports");
+        reportsbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportsbtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -147,6 +157,8 @@ public class AirForceWorkAreaJPanel extends javax.swing.JPanel {
                         .addGap(61, 61, 61)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(reportsbtn)
+                                .addGap(41, 41, 41)
                                 .addComponent(reportRequest)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(createbtn))
@@ -163,7 +175,8 @@ public class AirForceWorkAreaJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(reportRequest)
-                    .addComponent(createbtn))
+                    .addComponent(createbtn)
+                    .addComponent(reportsbtn))
                 .addGap(34, 34, 34))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -203,6 +216,23 @@ public class AirForceWorkAreaJPanel extends javax.swing.JPanel {
         File file=location.getSelectedFile();
         String absolutePath=file.getAbsolutePath();
         request.getCertificate().setReports(absolutePath);
+        int total = 0;
+        try (BufferedReader br = new BufferedReader(new FileReader(absolutePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if(!values[0].equals("Total")){
+                    try{
+                    total+=Integer.parseInt(values[1]);
+                    }
+                    catch(Exception e){}
+                }
+            }
+            ((BudgetWorkRequest) request).setBudgetSpent(total);
+        }
+        
+        catch(Exception e){
+        }
     }//GEN-LAST:event_reportRequestActionPerformed
 
     private void reportRequestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportRequestMouseClicked
@@ -214,10 +244,16 @@ public class AirForceWorkAreaJPanel extends javax.swing.JPanel {
         
         WorkRequest request = (WorkRequest)armyJTabel.getValueAt(selectedRow, 1);
         reportRequest.setEnabled(false);
-        if(request.getCertificate()!=null){
+        if(request.getCertificate()==null){
                 reportRequest.setEnabled(true);
             }
     }//GEN-LAST:event_reportRequestMouseClicked
+
+    private void reportsbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportsbtnActionPerformed
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add("AirForceReportsJPanel", new userInterface.AirForce.reportsJPanel(userProcessContainer, userAccount,organization,enterprise, network));
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_reportsbtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -225,6 +261,7 @@ public class AirForceWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JButton createbtn;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton reportRequest;
+    private javax.swing.JButton reportsbtn;
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 }
