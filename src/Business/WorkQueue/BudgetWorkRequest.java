@@ -13,6 +13,15 @@ package Business.WorkQueue;
 public class BudgetWorkRequest extends WorkRequest{
     private int totalBudgetRequest;
     private int allocatedBudgetRequest;
+    private int budgetSpent;
+
+    public int getBudgetSpent() {
+        return budgetSpent;
+    }
+
+    public void setBudgetSpent(int budgetSpent) {
+        this.budgetSpent = budgetSpent;
+    }
 
     public int getTotalBudgetRequest() {
         return totalBudgetRequest;
