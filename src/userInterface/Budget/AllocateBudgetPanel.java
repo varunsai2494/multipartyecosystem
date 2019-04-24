@@ -63,6 +63,10 @@ public class AllocateBudgetPanel extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         categoryVal = new javax.swing.JComboBox<String>();
         categoryLabel = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        totalFundVal = new javax.swing.JTextPane();
+        priceLabel = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         jButton1.setText("<< Back");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -72,6 +76,12 @@ public class AllocateBudgetPanel extends javax.swing.JPanel {
         });
 
         categoryLabel.setText("Organization");
+
+        jScrollPane3.setViewportView(totalFundVal);
+
+        priceLabel.setText("Total Fund Request:");
+
+        jButton2.setText("Add Budget");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -83,10 +93,19 @@ public class AllocateBudgetPanel extends javax.swing.JPanel {
                 .addGap(96, 96, 96))
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(categoryLabel)
-                .addGap(166, 166, 166)
-                .addComponent(categoryVal, 0, 337, Short.MAX_VALUE)
-                .addGap(64, 64, 64))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(categoryLabel)
+                    .addComponent(priceLabel))
+                .addGap(129, 129, 129)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(categoryVal, 0, 337, Short.MAX_VALUE)
+                            .addComponent(jScrollPane3))
+                        .addGap(64, 64, 64))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -95,7 +114,13 @@ public class AllocateBudgetPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(categoryLabel)
                     .addComponent(categoryVal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 255, Short.MAX_VALUE)
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(priceLabel)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(82, 82, 82)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(44, 44, 44))
         );
@@ -117,5 +142,9 @@ public class AllocateBudgetPanel extends javax.swing.JPanel {
     private javax.swing.JLabel categoryLabel;
     private javax.swing.JComboBox<String> categoryVal;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel priceLabel;
+    private javax.swing.JTextPane totalFundVal;
     // End of variables declaration//GEN-END:variables
 }
