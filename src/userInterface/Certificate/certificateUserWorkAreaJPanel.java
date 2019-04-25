@@ -26,13 +26,14 @@ public class certificateUserWorkAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form certificateUserWorkAreaJPanel
      */
+    
     private JPanel userProcessContainer;
     private Organization organization;
     private Network network;
     private Enterprise enterprise;
     private UserAccount userAccount;
     
-    public certificateUserWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise, Network network) {
+    public certificateUserWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise,Organization organization, Network network) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.organization = organization;
@@ -53,7 +54,7 @@ public class certificateUserWorkAreaJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         viewworkRDetails = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        viewCertiBtn = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         certificateUserworkareaTable = new javax.swing.JTable();
@@ -65,7 +66,12 @@ public class certificateUserWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton3.setText("view certificates");
+        viewCertiBtn.setText("view certificates");
+        viewCertiBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewCertiBtnActionPerformed(evt);
+            }
+        });
 
         backBtn.setText("back");
         backBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -99,7 +105,7 @@ public class certificateUserWorkAreaJPanel extends javax.swing.JPanel {
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton3)
+                        .addComponent(viewCertiBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(viewworkRDetails))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -114,7 +120,7 @@ public class certificateUserWorkAreaJPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(viewCertiBtn, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(viewworkRDetails))
                 .addGap(78, 78, 78))
         );
@@ -143,6 +149,13 @@ public class certificateUserWorkAreaJPanel extends javax.swing.JPanel {
         userProcessContainer.add("certificateviewJpanel", new certificateViewJPanel(userProcessContainer,c,userAccount,enterprise,network));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_viewworkRDetailsActionPerformed
+
+    private void viewCertiBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCertiBtnActionPerformed
+        // TODO add your handling code here:
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add("certificatesviewJpanel",new certificatesViewJPanel( userProcessContainer,  userAccount,  enterprise, organization, network));
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_viewCertiBtnActionPerformed
     
     public void populateTable(){
         DefaultTableModel dtm = (DefaultTableModel)certificateUserworkareaTable.getModel();
@@ -167,8 +180,8 @@ public class certificateUserWorkAreaJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
     private javax.swing.JTable certificateUserworkareaTable;
-    private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton viewCertiBtn;
     private javax.swing.JButton viewworkRDetails;
     // End of variables declaration//GEN-END:variables
 }

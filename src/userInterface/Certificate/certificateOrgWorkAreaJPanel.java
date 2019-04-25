@@ -116,7 +116,7 @@ public class certificateOrgWorkAreaJPanel extends javax.swing.JPanel {
         
         CardLayout layout = (CardLayout)userProcessContainer.getLayout();
         
-        userProcessContainer.add("certificateUserJpanel", new certificateUserWorkAreaJPanel(userProcessContainer, account, enterprise, network));
+        userProcessContainer.add("certificateUserJpanel", new certificateUserWorkAreaJPanel(userProcessContainer, account, enterprise, organization,network));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_workareaBtnActionPerformed
 
