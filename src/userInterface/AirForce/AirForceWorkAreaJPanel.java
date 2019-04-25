@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -208,8 +209,10 @@ public class AirForceWorkAreaJPanel extends javax.swing.JPanel {
         int selectedRow = armyJTabel.getSelectedRow();
         
         if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Select a row"); 
             return;
         }
+        
         
         WorkRequest request = (WorkRequest)armyJTabel.getValueAt(selectedRow, 0);
         reportRequest.setEnabled(false);
@@ -223,9 +226,11 @@ public class AirForceWorkAreaJPanel extends javax.swing.JPanel {
     private void reportRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportRequestActionPerformed
         int selectedRow = armyJTabel.getSelectedRow();
         
-        if (selectedRow < 0){
+         if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Select a row"); 
             return;
         }
+        
         
         WorkRequest request = (WorkRequest)armyJTabel.getValueAt(selectedRow, 1);
         JFileChooser location=new JFileChooser();
@@ -255,9 +260,11 @@ public class AirForceWorkAreaJPanel extends javax.swing.JPanel {
     private void reportRequestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportRequestMouseClicked
         int selectedRow = armyJTabel.getSelectedRow();
         
-        if (selectedRow < 0){
+         if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Select a row"); 
             return;
         }
+        
         
         WorkRequest request = (WorkRequest)armyJTabel.getValueAt(selectedRow, 1);
         reportRequest.setEnabled(false);

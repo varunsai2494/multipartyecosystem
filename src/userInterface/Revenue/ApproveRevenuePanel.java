@@ -150,7 +150,7 @@ public class ApproveRevenuePanel extends javax.swing.JPanel {
     
     private void approvebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_approvebtnActionPerformed
 
-        request.setStatus("Approved by Revenue");
+        request.setStatus("Revenue Approved");
 
         ((BudgetWorkRequest) request).setAllocatedBudgetRequest(Integer.parseInt(allocatedFund.getText()));
 

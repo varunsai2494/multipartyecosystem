@@ -224,8 +224,8 @@ public class certificateViewJPanel extends javax.swing.JPanel {
 
     private void reportsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportsBtnActionPerformed
         // TODO add your handling code here:
-        
-        this.workrequest.getCertificate().getSenderOrganization().getWorkQueue().getWorkRequestList().add(workrequest);
+          this.workrequest.setStatus("Reports Requested");
+//        this.workrequest.getCertificate().getSenderOrganization().getWorkQueue().getWorkRequestList().add(workrequest);
         
         
     }//GEN-LAST:event_reportsBtnActionPerformed

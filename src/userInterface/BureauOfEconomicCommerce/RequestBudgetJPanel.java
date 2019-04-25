@@ -92,7 +92,7 @@ public class RequestBudgetJPanel extends javax.swing.JPanel {
 
     private void approvebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_approvebtnActionPerformed
         
-        request.setStatus("Approved by Bureau of Ecomonics");
+        request.setStatus("Bureau of Ecomonics Approved");
         ((BudgetWorkRequest) request).setSuggestedBudgetByBureauOfEconomics(Integer.parseInt(suggestedfundsval.getText()));
           JOptionPane.showMessageDialog(null, "Success!!"); 
     }//GEN-LAST:event_approvebtnActionPerformed

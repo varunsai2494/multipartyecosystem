@@ -219,7 +219,7 @@ public class BureauOfEconomicCommerceWorkAreaJPanel extends javax.swing.JPanel {
             return;
         }
         WorkRequest request = (WorkRequest)workRequestJTable.getValueAt(selectedRow, 0);
-        request.setStatus("Rejected By Bureau of Economics");
+        request.setStatus("Bureau of Economics Rejected");
         
     }//GEN-LAST:event_rejectbtnActionPerformed
 
