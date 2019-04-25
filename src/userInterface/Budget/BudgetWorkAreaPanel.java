@@ -83,15 +83,20 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "messgae", "description", "total budget request", "allocated budget", "status"
+                "messgae", "description", "budget request", "allocated budget", "status", "Reciver"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false, false, true
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        BudetTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BudetTableMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(BudetTable);
@@ -145,9 +150,9 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(jLabel1)
-                .addGap(33, 33, 33)
+                .addGap(40, 40, 40)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(78, 78, 78)
+                .addGap(71, 71, 71)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(assignButton)
                     .addComponent(jButton2))
@@ -163,7 +168,7 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         DefaultTableModel dtm = (DefaultTableModel)BudetTable.getModel();
         dtm.setRowCount(0);
         for (WorkRequest request : organization.getWorkQueue().getWorkRequestList()){
-            Object[] row = new Object[5];
+            Object[] row = new Object[6];
             row[0] = request;
             row[1] = request.getDescription();
             row[4] = request.getStatus();
@@ -171,6 +176,7 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
             row[3] = alloc;
             int total = ((BudgetWorkRequest) request).getTotalBudgetRequest();
             row[2] = total;
+            row[5] = request.getReceiver();
             
             dtm.addRow(row);
         }
@@ -188,7 +194,7 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         
         WorkRequest request = (WorkRequest)BudetTable.getValueAt(selectedRow, 0);
         request.setReceiver(userAccount);
-        request.setStatus("Pending");
+        JOptionPane.showMessageDialog(null, "Task assigned Sucessfully ");
         populateTable();
         
         
@@ -210,6 +216,17 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         WorkRequest request = (WorkRequest)BudetTable.getValueAt(selectedRow, 0);
         Organization org = null;
         
+        String test = request.getStatus();
+        if( test.equals("Bureau of Ecomonics Approved")|| test.equals("Revenue Approved")){
+            if(test.equals("Revenue Approved")){
+                JOptionPane.showMessageDialog(null, "Request already approved by Bureau of Ecomonics and Revenue");
+                return;
+            }
+            JOptionPane.showMessageDialog(null, "Request already approved by Bureau of Ecomonics");
+            return;
+            
+        }
+        
         for(Enterprise ent: network.getEnterpriseDirectory().getEnterpriseList()){
             for (Organization organization : ent.getOrganizationDirectory().getOrganizationList()){
                 if (organization instanceof BureauOfEconomicAnalysisOrganization){
@@ -221,6 +238,7 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         if (org!=null){
 //            request.setSenderOrganization();
             org.getWorkQueue().getWorkRequestList().add(request);
+            JOptionPane.showMessageDialog(null, "Request Sucessfully placed"); 
             //CertificateOrganization.getWorkQueue().getWorkRequestList().add(request);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -257,6 +275,7 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
 //            request.setSenderOrganization();
             org.getWorkQueue().getWorkRequestList().add(request);
             //CertificateOrganization.getWorkQueue().getWorkRequestList().add(request);
+            JOptionPane.showMessageDialog(null, "Request Sucessfully placed");
         }
     }//GEN-LAST:event_certificateButtonActionPerformed
 
@@ -276,6 +295,11 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         
         String test = request.getStatus();
         System.out.println(test);
+        if( test.equals("Revenue Approved")){
+            JOptionPane.showMessageDialog(null, "Request already approved by revenue");
+            return;
+            
+        }
         if( !test.equals("Bureau of Ecomonics Approved")){
             JOptionPane.showMessageDialog(null, "get approval from commerce first");
             return;
@@ -296,8 +320,37 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
 //            request.setSenderOrganization();
             org.getWorkQueue().getWorkRequestList().add(request);
             //CertificateOrganization.getWorkQueue().getWorkRequestList().add(request);
+            JOptionPane.showMessageDialog(null, "Request Sucessfully placed");
         }
     }//GEN-LAST:event_revenueButtonActionPerformed
+
+    private void BudetTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BudetTableMouseClicked
+         int selectedRow = BudetTable.getSelectedRow();
+        
+         if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Select a row"); 
+            return;
+        }
+        
+        
+        WorkRequest request = (WorkRequest)BudetTable.getValueAt(selectedRow, 0);
+        String test = request.getStatus();
+        certificateButton.setEnabled(false);
+        revenueButton.setEnabled(false);
+        jButton2.setEnabled(true);
+        if(test.equals("Revenue Approved")){
+            certificateButton.setEnabled(true);
+            jButton2.setEnabled(false);
+            return;
+            
+        }
+        else if(test.equals("Bureau of Ecomonics Approved")){
+            revenueButton.setEnabled(true);
+            jButton2.setEnabled(false);
+            return;
+            
+        }
+    }//GEN-LAST:event_BudetTableMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

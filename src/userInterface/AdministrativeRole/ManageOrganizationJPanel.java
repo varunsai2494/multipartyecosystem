@@ -4,6 +4,7 @@
  */
 package userInterface.AdministrativeRole;
 
+import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
 import Business.Organization.Organization.Type;
 import Business.Organization.OrganizationDirectory;
@@ -19,14 +20,15 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
 
     private OrganizationDirectory directory;
     private JPanel userProcessContainer;
-    
+    private Enterprise ent;
     /**
      * Creates new form ManageOrganizationJPanel
      */
-    public ManageOrganizationJPanel(JPanel userProcessContainer,OrganizationDirectory directory) {
+    public ManageOrganizationJPanel(JPanel userProcessContainer,OrganizationDirectory directory, Enterprise ent) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.directory = directory;
+        this.ent = ent;
         
         populateTable();
         populateCombo();
@@ -34,11 +36,99 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
     
     private void populateCombo(){
         organizationJComboBox.removeAllItems();
-        for (Type type : Organization.Type.values()){
-            if (!type.getValue().equals(Type.Admin.getValue()))
-                organizationJComboBox.addItem(type);
+//        for (Type type : Organization.Type.values()){
+//            if (!type.getValue().equals(Type.Admin.getValue())){
+//                organizationJComboBox.addItem(type);
+//                System.out.println(type.getValue());
+//            }
+//        }
+            
+//        Hospital("Hospital"),
+//        Defence("Defence"),
+//        Commerce("Commerce"),
+//        Justice("Justice"),
+//        Energy("Energy"),
+//        Treasury("Treasury");
+        String name = ent.getName();
+        if(name.equals("Defence")){
+            String a = "Army Organization";
+            String b = "AirForce Organization";
+            for (Type type : Organization.Type.values()){
+                if (!type.getValue().equals(Type.Admin.getValue())){
+                    //organizationJComboBox.addItem(type);
+                    System.out.println(type.getValue());
+                    if(a.equals(type.getValue())){
+                       organizationJComboBox.addItem(type); 
+                    }
+                    if(b.equals(type.getValue())){
+                       organizationJComboBox.addItem(type); 
+                    }
+                }
         }
-    }
+      }
+      else if(name.equals("Commerce")){
+            String a = "BureauOfEconomicAnalysis Organization";
+            for (Type type : Organization.Type.values()){
+                if (!type.getValue().equals(Type.Admin.getValue())){
+                    //organizationJComboBox.addItem(type);
+                    System.out.println(type.getValue());
+                    if(a.equals(type.getValue())){
+                       organizationJComboBox.addItem(type); 
+                    }
+                }
+        }
+      }
+      else if(name.equals("Treasury")){
+          String a = "Budget Organization";
+          String b = "Revenue Organization";
+          for (Type type : Organization.Type.values()){
+                if (!type.getValue().equals(Type.Admin.getValue())){
+                    //organizationJComboBox.addItem(type);
+                    System.out.println(type.getValue());
+                    if(a.equals(type.getValue())){
+                       organizationJComboBox.addItem(type); 
+                    }
+                    if(b.equals(type.getValue())){
+                       organizationJComboBox.addItem(type); 
+                    }
+                }
+        }
+      }
+      else if(name.equals("Energy")){
+          String a = "OfficeOfNuclearEnergy Organization";
+          String b = "OfficeOfEnviManagement Organization";
+          for (Type type : Organization.Type.values()){
+                if (!type.getValue().equals(Type.Admin.getValue())){
+                    //organizationJComboBox.addItem(type);
+                    System.out.println(type.getValue());
+                    if(a.equals(type.getValue())){
+                       organizationJComboBox.addItem(type); 
+                    }
+                    if(b.equals(type.getValue())){
+                       organizationJComboBox.addItem(type); 
+                    }
+                }
+        }
+        
+      }
+      else{
+          String a = "Certificate Organization";
+          String b = "FBI Organization";
+          for (Type type : Organization.Type.values()){
+                if (!type.getValue().equals(Type.Admin.getValue())){
+                    //organizationJComboBox.addItem(type);
+                    System.out.println(type.getValue());
+                    if(a.equals(type.getValue())){
+                       organizationJComboBox.addItem(type); 
+                    }
+                    if(b.equals(type.getValue())){
+                       organizationJComboBox.addItem(type); 
+                    }
+                }
+        }
+      }
+      
+}
 
     private void populateTable(){
         DefaultTableModel model = (DefaultTableModel) organizationJTable.getModel();

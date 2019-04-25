@@ -60,6 +60,7 @@ public class RevenueWorkAreaPanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         RevJTable = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        assignButton = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Revenue Panel");
@@ -91,6 +92,13 @@ public class RevenueWorkAreaPanel extends javax.swing.JPanel {
 
         jButton1.setText("Reject");
 
+        assignButton.setText("assign to me");
+        assignButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                assignButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -106,6 +114,8 @@ public class RevenueWorkAreaPanel extends javax.swing.JPanel {
                 .addContainerGap(39, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(assignButton, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(77, 77, 77)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(67, 67, 67)
                 .addComponent(revApproveButton)
@@ -121,7 +131,8 @@ public class RevenueWorkAreaPanel extends javax.swing.JPanel {
                 .addGap(106, 106, 106)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(revApproveButton)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(assignButton))
                 .addContainerGap(217, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -146,6 +157,21 @@ public class RevenueWorkAreaPanel extends javax.swing.JPanel {
         
         
     }//GEN-LAST:event_revApproveButtonActionPerformed
+
+    private void assignButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignButtonActionPerformed
+        int selectedRow = RevJTable.getSelectedRow();
+
+        if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Select a row");
+            return;
+        }
+
+        WorkRequest request = (WorkRequest)RevJTable.getValueAt(selectedRow, 0);
+        request.setReceiver(userAccount);
+        JOptionPane.showMessageDialog(null, "Task assigned Sucessfully ");
+        populateTable();
+
+    }//GEN-LAST:event_assignButtonActionPerformed
     
     
     public void populateTable(){
@@ -172,6 +198,7 @@ public class RevenueWorkAreaPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable RevJTable;
+    private javax.swing.JButton assignButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;

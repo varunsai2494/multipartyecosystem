@@ -13,6 +13,7 @@ import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -151,7 +152,7 @@ public class ApproveRevenuePanel extends javax.swing.JPanel {
     private void approvebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_approvebtnActionPerformed
 
         request.setStatus("Revenue Approved");
-
+        JOptionPane.showMessageDialog(null, "Request Sucessfully Approved");
         ((BudgetWorkRequest) request).setAllocatedBudgetRequest(Integer.parseInt(allocatedFund.getText()));
 
     }//GEN-LAST:event_approvebtnActionPerformed
