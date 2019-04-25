@@ -60,8 +60,11 @@ public class AirForceWorkAreaJPanel extends javax.swing.JPanel {
             row[4] = aa.toString();
             row[5] = request.getStatus();
             result.add(row); 
-            if(request.getCertificate()!=null){
+            if(request.getStatus().equals("Reports Requested")){
                 certificateObj.add(row);
+            }
+            if(!request.getStatus().equals("Success")){
+                result.add(row);
             }
         }
         for(Object[] i : certificateObj){

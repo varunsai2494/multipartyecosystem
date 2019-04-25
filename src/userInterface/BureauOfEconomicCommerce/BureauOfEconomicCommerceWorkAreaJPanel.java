@@ -208,7 +208,6 @@ public class BureauOfEconomicCommerceWorkAreaJPanel extends javax.swing.JPanel {
         
         WorkRequest request = (WorkRequest)workRequestJTable.getValueAt(selectedRow, 0);
         request.setReceiver(userAccount);
-        request.setStatus("Pending");
         populateRequestTable();
     }//GEN-LAST:event_assignbtnActionPerformed
 
