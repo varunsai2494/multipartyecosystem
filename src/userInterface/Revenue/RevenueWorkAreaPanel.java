@@ -16,9 +16,11 @@ import Business.Organization.RevenueOrganization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.WorkRequest;
+import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import userInterface.BureauOfEconomicCommerce.RequestBudgetJPanel;
 
 /**
  *
@@ -57,6 +59,7 @@ public class RevenueWorkAreaPanel extends javax.swing.JPanel {
         revApproveButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         RevJTable = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Revenue Panel");
@@ -73,11 +76,11 @@ public class RevenueWorkAreaPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Message", "Description", "Reciver", "Total Budget", "Allocated Budget", "Status", "Suggestedl"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -86,23 +89,27 @@ public class RevenueWorkAreaPanel extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(RevJTable);
 
+        jButton1.setText("Reject");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(revApproveButton)
-                .addGap(177, 177, 177))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(309, 309, 309)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(179, 179, 179)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(185, Short.MAX_VALUE))
+                        .addGap(31, 31, 31)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 746, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(39, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(67, 67, 67)
+                .addComponent(revApproveButton)
+                .addGap(84, 84, 84))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,9 +118,11 @@ public class RevenueWorkAreaPanel extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(98, 98, 98)
-                .addComponent(revApproveButton)
-                .addContainerGap(225, Short.MAX_VALUE))
+                .addGap(106, 106, 106)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(revApproveButton)
+                    .addComponent(jButton1))
+                .addContainerGap(217, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -127,9 +136,13 @@ public class RevenueWorkAreaPanel extends javax.swing.JPanel {
         }
         
         WorkRequest request = (WorkRequest)RevJTable.getValueAt(selectedRow, 0);
-        request.setReceiver(userAccount);
-        request.setStatus("Approved By Revenue");
         populateTable();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add("suggestFundsJPanel", new ApproveRevenuePanel(userProcessContainer, userAccount, enterprise, network,request));
+        layout.next(userProcessContainer);
+      
+        
+        
         
         
     }//GEN-LAST:event_revApproveButtonActionPerformed
@@ -140,14 +153,17 @@ public class RevenueWorkAreaPanel extends javax.swing.JPanel {
         DefaultTableModel dtm = (DefaultTableModel)RevJTable.getModel();
         dtm.setRowCount(0);
         for (WorkRequest request : organization.getWorkQueue().getWorkRequestList()){
-            Object[] row = new Object[5];
+            Object[] row = new Object[7];
             row[0] = request;
             row[1] = request.getDescription();
-            row[2] = request.getStatus();
+            row[2] = request.getReceiver();
             int alloc = ((BudgetWorkRequest) request).getAllocatedBudgetRequest();
             row[3] = alloc;
             int total = ((BudgetWorkRequest) request).getTotalBudgetRequest();
             row[4] = total;
+            row[5] = request.getStatus();
+            int sug = ((BudgetWorkRequest) request).getSuggestedBudgetByBureauOfEconomics();
+            row[6] = sug;
             
             dtm.addRow(row);
         
@@ -156,6 +172,7 @@ public class RevenueWorkAreaPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable RevJTable;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton revApproveButton;
