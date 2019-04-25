@@ -8,18 +8,18 @@ package userInterface.OfficeOfEnviManagement;
 
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
-import Business.Organization.BudgetOrganization;
 import Business.Organization.OfficeOfEnviManagementOrganization;
-import Business.Organization.RevenueOrganization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
-import userInterface.OfficeOfNuclearEnergy.createNuclearBudgetRequestJpanel;
 
 /**
  *
@@ -43,6 +43,7 @@ public class OfficeOfEnviManagementWorkAreaJPanel extends javax.swing.JPanel {
         this.network=network;
         initComponents();
         populateTable();
+        valueLabel.setText(this.enterprise.getName());
     }
 
     /**
@@ -54,7 +55,7 @@ public class OfficeOfEnviManagementWorkAreaJPanel extends javax.swing.JPanel {
     public void populateTable(){
         DefaultTableModel model = (DefaultTableModel) enviJTabel.getModel();
         model.setRowCount(0);
-        for (WorkRequest request : organization.getWorkQueue().getWorkRequestList()){
+        for (WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()){
             Object[] row = new Object[7];
             row[0] = request;
             row[1] = request.getDescription();
@@ -81,6 +82,10 @@ public class OfficeOfEnviManagementWorkAreaJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         assignButton = new javax.swing.JButton();
+        reportRequest = new javax.swing.JButton();
+        reportsbtn = new javax.swing.JButton();
+        enterpriseLabel = new javax.swing.JLabel();
+        valueLabel = new javax.swing.JLabel();
 
         createRequestButton.setText("Create envi Budget Request");
         createRequestButton.addActionListener(new java.awt.event.ActionListener() {
@@ -124,41 +129,79 @@ public class OfficeOfEnviManagementWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        reportRequest.setText("Upload Report");
+        reportRequest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportRequestActionPerformed(evt);
+            }
+        });
+
+        reportsbtn.setText("generate reports");
+        reportsbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportsbtnActionPerformed(evt);
+            }
+        });
+
+        enterpriseLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        enterpriseLabel.setText("EnterPrise :");
+
+        valueLabel.setText("<value>");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(assignButton, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(87, 87, 87)
-                .addComponent(createRequestButton)
-                .addGap(74, 74, 74))
+                .addGap(72, 72, 72))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(assignButton, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(createRequestButton)
+                                    .addGap(13, 13, 13)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(reportsbtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                                .addComponent(reportRequest, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(valueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(73, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(30, 30, 30)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(97, 97, 97)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(valueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(createRequestButton)
-                    .addComponent(jButton1)
-                    .addComponent(assignButton))
-                .addGap(128, 128, 128))
+                    .addComponent(jLabel1)
+                    .addComponent(jButton1))
+                .addGap(25, 25, 25)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(assignButton)
+                    .addComponent(createRequestButton))
+                .addGap(45, 45, 45)
+                .addComponent(reportRequest)
+                .addGap(36, 36, 36)
+                .addComponent(reportsbtn)
+                .addGap(58, 58, 58))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -188,13 +231,56 @@ public class OfficeOfEnviManagementWorkAreaJPanel extends javax.swing.JPanel {
         populateTable();
     }//GEN-LAST:event_assignButtonActionPerformed
 
+    private void reportRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportRequestActionPerformed
+        int selectedRow = enviJTabel.getSelectedRow();
+
+        if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Select a row");
+            return;
+        }
+
+        WorkRequest request = (WorkRequest)enviJTabel.getValueAt(selectedRow, 1);
+        JFileChooser location=new JFileChooser();
+        location.showOpenDialog(null);
+        File file=location.getSelectedFile();
+        String absolutePath=file.getAbsolutePath();
+        request.getCertificate().setReports(absolutePath);
+        int total = 0;
+        try (BufferedReader br = new BufferedReader(new FileReader(absolutePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if(!values[0].equals("Total")){
+                    try{
+                        total+=Integer.parseInt(values[1]);
+                    }
+                    catch(Exception e){}
+                }
+            }
+            ((BudgetWorkRequest) request).setBudgetSpent(total);
+        }
+
+        catch(Exception e){
+        }
+    }//GEN-LAST:event_reportRequestActionPerformed
+
+    private void reportsbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportsbtnActionPerformed
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add("ReportsJPanel", new reportsEnviJPanel(userProcessContainer, userAccount,organization,enterprise, network));
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_reportsbtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton assignButton;
     private javax.swing.JButton createRequestButton;
+    private javax.swing.JLabel enterpriseLabel;
     private javax.swing.JTable enviJTabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton reportRequest;
+    private javax.swing.JButton reportsbtn;
+    private javax.swing.JLabel valueLabel;
     // End of variables declaration//GEN-END:variables
 }

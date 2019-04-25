@@ -8,13 +8,15 @@ package userInterface.OfficeOfNuclearEnergy;
 
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
-import Business.Organization.ArmyOrganization;
 import Business.Organization.OfficeOfNuclearEnergyOrganization;
-import Business.Organization.RevenueOrganization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -41,6 +43,7 @@ public class OfficeOfNuclearEnergyWorkAreaPanel extends javax.swing.JPanel {
         this.userAccount = account;
         initComponents();
         populateJTable();
+        valueLabel.setText(this.enterprise.getName());
     }
 
     /**
@@ -58,6 +61,9 @@ public class OfficeOfNuclearEnergyWorkAreaPanel extends javax.swing.JPanel {
         nuclearButton = new javax.swing.JButton();
         RefreshButton = new javax.swing.JButton();
         assignButton = new javax.swing.JButton();
+        reportRequest = new javax.swing.JButton();
+        enterpriseLabel = new javax.swing.JLabel();
+        valueLabel = new javax.swing.JLabel();
 
         OnETable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -77,7 +83,7 @@ public class OfficeOfNuclearEnergyWorkAreaPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(OnETable);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Office Of Nuclear Energy");
 
         nuclearButton.setText("Create Nuclear Energy Request");
@@ -101,6 +107,18 @@ public class OfficeOfNuclearEnergyWorkAreaPanel extends javax.swing.JPanel {
             }
         });
 
+        reportRequest.setText("Upload Report");
+        reportRequest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportRequestActionPerformed(evt);
+            }
+        });
+
+        enterpriseLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        enterpriseLabel.setText("EnterPrise :");
+
+        valueLabel.setText("<value>");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -108,41 +126,51 @@ public class OfficeOfNuclearEnergyWorkAreaPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(assignButton, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(95, 95, 95)
-                                .addComponent(RefreshButton)
-                                .addGap(60, 60, 60)
-                                .addComponent(nuclearButton))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(355, 355, 355))))
+                        .addGap(141, 141, 141)
+                        .addComponent(assignButton, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(95, 95, 95)
+                        .addComponent(RefreshButton)
+                        .addGap(60, 60, 60)
+                        .addComponent(nuclearButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(285, 285, 285)
+                        .addComponent(reportRequest))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(50, 50, 50)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 752, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 752, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(valueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(37, 37, 37))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(valueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
                 .addComponent(jLabel1)
-                .addGap(48, 48, 48)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60)
+                .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nuclearButton)
                     .addComponent(RefreshButton)
                     .addComponent(assignButton))
-                .addContainerGap(169, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                .addComponent(reportRequest)
+                .addGap(64, 64, 64))
         );
     }// </editor-fold>//GEN-END:initComponents
     public void populateJTable(){
         DefaultTableModel dtm = (DefaultTableModel)OnETable.getModel();
         dtm.setRowCount(0);
-        for (WorkRequest request : organization.getWorkQueue().getWorkRequestList()){
+        for (WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()){
             Object[] row = new Object[7];
             row[0] = request;
             row[1] = request.getDescription();
@@ -185,13 +213,49 @@ public class OfficeOfNuclearEnergyWorkAreaPanel extends javax.swing.JPanel {
         populateJTable();
     }//GEN-LAST:event_assignButtonActionPerformed
 
+    private void reportRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportRequestActionPerformed
+        int selectedRow = OnETable.getSelectedRow();
+
+        if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Select a row");
+            return;
+        }
+
+        WorkRequest request = (WorkRequest)OnETable.getValueAt(selectedRow, 0);
+        JFileChooser location=new JFileChooser();
+        location.showOpenDialog(null);
+        File file=location.getSelectedFile();
+        String absolutePath=file.getAbsolutePath();
+        request.getCertificate().setReports(absolutePath);
+        int total = 0;
+        try (BufferedReader br = new BufferedReader(new FileReader(absolutePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if(!values[0].equals("Total")){
+                    try{
+                        total+=Integer.parseInt(values[1]);
+                    }
+                    catch(Exception e){}
+                }
+            }
+            ((BudgetWorkRequest) request).setBudgetSpent(total);
+        }
+
+        catch(Exception e){
+        }
+    }//GEN-LAST:event_reportRequestActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable OnETable;
     private javax.swing.JButton RefreshButton;
     private javax.swing.JButton assignButton;
+    private javax.swing.JLabel enterpriseLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton nuclearButton;
+    private javax.swing.JButton reportRequest;
+    private javax.swing.JLabel valueLabel;
     // End of variables declaration//GEN-END:variables
 }
