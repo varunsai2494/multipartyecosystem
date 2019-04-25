@@ -67,7 +67,6 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         certificateButton = new javax.swing.JButton();
         revenueButton = new javax.swing.JButton();
-        allocateButton = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Budget Panel");
@@ -118,13 +117,6 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
             }
         });
 
-        allocateButton.setText("Assing allocated Budgets");
-        allocateButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                allocateButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -139,9 +131,7 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(assignButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(allocateButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(assignButton, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButton2)
@@ -164,9 +154,7 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(revenueButton)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(allocateButton)
-                    .addComponent(certificateButton))
+                .addComponent(certificateButton)
                 .addContainerGap(106, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -221,10 +209,6 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         
         WorkRequest request = (WorkRequest)BudetTable.getValueAt(selectedRow, 0);
         Organization org = null;
-        BudgetWorkRequest r = (BudgetWorkRequest)request ;
-        if(r.getAllocatedBudgetRequest() == 0){
-            JOptionPane.showMessageDialog(null, "Assign Budget first"); 
-        }
         
         for(Enterprise ent: network.getEnterpriseDirectory().getEnterpriseList()){
             for (Organization organization : ent.getOrganizationDirectory().getOrganizationList()){
@@ -253,7 +237,7 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         WorkRequest request = (WorkRequest)BudetTable.getValueAt(selectedRow, 0);
         Organization org = null;
         String test = request.getStatus();
-        if(test == "Approved By Revenue"){
+        if(!test.equals("Approved by Revenue")){
             System.out.println(request.getStatus());
             JOptionPane.showMessageDialog(null, "get approval from revenue first");
             return;
@@ -294,7 +278,8 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         Organization org = null;
         
         String test = request.getStatus();
-        if( test != "Approved from commerce"){
+        System.out.println(test);
+        if( !test.equals("Approved by Bureau of Ecomonics")){
             JOptionPane.showMessageDialog(null, "get approval from commerce first");
             return;
             
@@ -317,27 +302,9 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_revenueButtonActionPerformed
 
-    private void allocateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allocateButtonActionPerformed
-        // TODO add your handling code here:
-        int selectedRow = BudetTable.getSelectedRow();
-        
-        
-        
-        if (selectedRow < 0){
-            JOptionPane.showMessageDialog(null, "Select a row"); 
-            return;
-        }
-        
-        BudgetWorkRequest request = (BudgetWorkRequest)BudetTable.getValueAt(selectedRow, 0);
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("RequestLabTestJPanel", new AllocateBudgetPanel(userProcessContainer, userAccount,organization,enterprise, network,request));
-        layout.next(userProcessContainer);
-    }//GEN-LAST:event_allocateButtonActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable BudetTable;
-    private javax.swing.JButton allocateButton;
     private javax.swing.JButton assignButton;
     private javax.swing.JButton certificateButton;
     private javax.swing.JButton jButton2;
