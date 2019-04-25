@@ -162,11 +162,11 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
                     .addComponent(assignButton)
                     .addComponent(jButton2))
                 .addGap(18, 18, 18)
-                .addComponent(certificateButton)
+                .addComponent(revenueButton)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(revenueButton)
-                    .addComponent(allocateButton))
+                    .addComponent(allocateButton)
+                    .addComponent(certificateButton))
                 .addContainerGap(106, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -179,7 +179,7 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
             row[0] = request;
             row[1] = request.getDescription();
             row[4] = request.getStatus();
-            int alloc = ((BudgetWorkRequest) request).getAllocatedBudgetRequest();
+            double alloc = ((BudgetWorkRequest) request).getAllocatedBudgetRequest();
             row[3] = alloc;
             int total = ((BudgetWorkRequest) request).getTotalBudgetRequest();
             row[2] = total;
@@ -217,8 +217,15 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
             return;
         }
         
+        
+        
         WorkRequest request = (WorkRequest)BudetTable.getValueAt(selectedRow, 0);
         Organization org = null;
+        BudgetWorkRequest r = (BudgetWorkRequest)request ;
+        if(r.getAllocatedBudgetRequest() == 0){
+            JOptionPane.showMessageDialog(null, "Assign Budget first"); 
+        }
+        
         for(Enterprise ent: network.getEnterpriseDirectory().getEnterpriseList()){
             for (Organization organization : ent.getOrganizationDirectory().getOrganizationList()){
                 if (organization instanceof BureauOfEconomicAnalysisOrganization){
@@ -245,6 +252,15 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         
         WorkRequest request = (WorkRequest)BudetTable.getValueAt(selectedRow, 0);
         Organization org = null;
+        String test = request.getStatus();
+        if(test == "Approved By Revenue"){
+            System.out.println(request.getStatus());
+            JOptionPane.showMessageDialog(null, "get approval from revenue first");
+            return;
+            
+        }
+        
+        
         for(Enterprise ent: network.getEnterpriseDirectory().getEnterpriseList()){
             for (Organization organization : ent.getOrganizationDirectory().getOrganizationList()){
                 if (organization instanceof CertificateOrganization){
@@ -267,6 +283,8 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         int selectedRow = BudetTable.getSelectedRow();
         
+        
+        
         if (selectedRow < 0){
             JOptionPane.showMessageDialog(null, "Select a row"); 
             return;
@@ -274,6 +292,14 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         
         WorkRequest request = (WorkRequest)BudetTable.getValueAt(selectedRow, 0);
         Organization org = null;
+        
+        String test = request.getStatus();
+        if( test != "Approved from commerce"){
+            JOptionPane.showMessageDialog(null, "get approval from commerce first");
+            return;
+            
+        }
+        
         for(Enterprise ent: network.getEnterpriseDirectory().getEnterpriseList()){
             for (Organization organization : ent.getOrganizationDirectory().getOrganizationList()){
                 if (organization instanceof RevenueOrganization){
@@ -282,6 +308,8 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
                 }
             }
         }
+       
+        
         if (org!=null){
 //            request.setSenderOrganization();
             org.getWorkQueue().getWorkRequestList().add(request);
@@ -291,8 +319,18 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
 
     private void allocateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allocateButtonActionPerformed
         // TODO add your handling code here:
+        int selectedRow = BudetTable.getSelectedRow();
+        
+        
+        
+        if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Select a row"); 
+            return;
+        }
+        
+        BudgetWorkRequest request = (BudgetWorkRequest)BudetTable.getValueAt(selectedRow, 0);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("RequestLabTestJPanel", new AllocateBudgetPanel(userProcessContainer, userAccount,organization,enterprise, network));
+        userProcessContainer.add("RequestLabTestJPanel", new AllocateBudgetPanel(userProcessContainer, userAccount,organization,enterprise, network,request));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_allocateButtonActionPerformed
 

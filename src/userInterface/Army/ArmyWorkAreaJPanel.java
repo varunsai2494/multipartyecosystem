@@ -12,8 +12,12 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -38,6 +42,7 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
         this.enterprise = enterprise;
         this.userAccount = account;
         initComponents();
+        valueLabel.setText(this.enterprise.getName());
         populateRequestTable();
     }
     public void populateRequestTable(){
@@ -90,6 +95,8 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
         reportRequest = new javax.swing.JButton();
         createbtn = new javax.swing.JButton();
         reportsbtn = new javax.swing.JButton();
+        enterpriseLabel = new javax.swing.JLabel();
+        valueLabel = new javax.swing.JLabel();
 
         armyJTabel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -140,6 +147,11 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        enterpriseLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        enterpriseLabel.setText("EnterPrise :");
+
+        valueLabel.setText("<value>");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -157,7 +169,11 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(createbtn))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(187, 187, 187)
+                        .addGap(15, 15, 15)
+                        .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(valueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(35, Short.MAX_VALUE))
@@ -165,8 +181,12 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
-                .addComponent(titleLabel)
+                .addContainerGap(22, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(valueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(titleLabel))
+                    .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -194,7 +214,7 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
         
         WorkRequest request = (WorkRequest)armyJTabel.getValueAt(selectedRow, 1);
         reportRequest.setEnabled(false);
-        if(request.getCertificate().getReports()!=null){
+        if(request.getCertificate().getReports()==null){
                 reportRequest.setEnabled(true);
             }
     }//GEN-LAST:event_armyJTabelMouseClicked
@@ -212,6 +232,23 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
         File file=location.getSelectedFile();
         String absolutePath=file.getAbsolutePath();
         request.getCertificate().setReports(absolutePath);
+        int total = 0;
+        try (BufferedReader br = new BufferedReader(new FileReader(absolutePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if(!values[0].equals("Total")){
+                    try{
+                    total+=Integer.parseInt(values[1]);
+                    }
+                    catch(Exception e){}
+                }
+            }
+            ((BudgetWorkRequest) request).setBudgetSpent(total);
+        }
+        
+        catch(Exception e){
+        }
     }//GEN-LAST:event_reportRequestActionPerformed
 
     private void reportsbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportsbtnActionPerformed
@@ -224,9 +261,11 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable armyJTabel;
     private javax.swing.JButton createbtn;
+    private javax.swing.JLabel enterpriseLabel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton reportRequest;
     private javax.swing.JButton reportsbtn;
     private javax.swing.JLabel titleLabel;
+    private javax.swing.JLabel valueLabel;
     // End of variables declaration//GEN-END:variables
 }

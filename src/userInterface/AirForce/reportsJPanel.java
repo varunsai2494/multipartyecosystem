@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package userInterface.Army;
+package userInterface.AirForce;
 
+import userInterface.AirForce.*;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
-import Business.Organization.ArmyOrganization;
+import Business.Organization.AirForceOrganization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.WorkRequest;
@@ -32,13 +33,13 @@ public class reportsJPanel extends javax.swing.JPanel {
     JFreeChart chart;
     private JPanel userProcessContainer;
     private Enterprise enterprise;
-    private ArmyOrganization organization;
+    private AirForceOrganization organization;
     private Network network;
     private UserAccount userAccount;
     /**
      * Creates new form testing
      */
-    public reportsJPanel(JPanel userProcessContainer, UserAccount account, ArmyOrganization organization, Enterprise enterprise, Network network) {
+    public reportsJPanel(JPanel userProcessContainer, UserAccount account, AirForceOrganization organization, Enterprise enterprise, Network network) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
@@ -150,7 +151,7 @@ public class reportsJPanel extends javax.swing.JPanel {
             dataset.addValue(Allocated_funds.get(k),k,"Allocated Funds");
         }
         JFreeChart chart = ChartFactory.createBarChart(
-        "Army Spendings", // Title
+        "AirForce Spendings", // Title
         "Departments", // x-axis Label
         "Funds Spendings", // y-axis Label
         dataset, // Dataset
@@ -183,7 +184,7 @@ public class reportsJPanel extends javax.swing.JPanel {
             dataset.addValue(Allocated_funds.get(k),k,"Excess Funds");
         }
         JFreeChart chart = ChartFactory.createBarChart(
-        "Army Spendings", // Title
+        "AirForce Excess Funds", // Title
         "Departments", // x-axis Label
         "Excess Funds", // y-axis Label
         dataset, // Dataset
@@ -200,7 +201,7 @@ public class reportsJPanel extends javax.swing.JPanel {
         plotJPanel.validate();
     }
     private void lineGraph(){
-    XYSeries series = new XYSeries("Army Spendings");
+    XYSeries series = new XYSeries("AirForce Spendings");
         for (WorkRequest request : organization.getWorkQueue().getWorkRequestList()){
             int funds = ((BudgetWorkRequest) request).getAllocatedBudgetRequest();
 //            series.add(request.getCategory(), Integer.toString(funds));
@@ -213,7 +214,7 @@ public class reportsJPanel extends javax.swing.JPanel {
 
      // Generate the graph
         JFreeChart chart = ChartFactory.createXYLineChart(
-        "Army Spendings", // Title
+        "AirForce Spendings", // Title
         "Departments", // x-axis Label
         "Funds Spendings", // y-axis Label
         dataset, // Dataset
@@ -231,7 +232,7 @@ public class reportsJPanel extends javax.swing.JPanel {
         userProcessContainer.remove(this);
         Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
-        ArmyWorkAreaJPanel dwjp = (ArmyWorkAreaJPanel) component;
+        AirForceWorkAreaJPanel dwjp = (AirForceWorkAreaJPanel) component;
         dwjp.populateRequestTable();
         CardLayout layout = (CardLayout)userProcessContainer.getLayout();
         layout.previous(userProcessContainer);

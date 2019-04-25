@@ -4,7 +4,6 @@ import Business.Enterprise.Enterprise;
 import Business.UserAccount.UserAccount;
 import Business.Organization.BureauOfEconomicAnalysisOrganization;
 import Business.WorkQueue.BudgetWorkRequest;
-import Business.WorkQueue.LabTestWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
@@ -35,6 +34,7 @@ public class BureauOfEconomicCommerceWorkAreaJPanel extends javax.swing.JPanel {
         this.enterprise = enterprise;
         this.userAccount = account;
         initComponents();
+        valueLabel.setText(this.enterprise.getName());
         populateRequestTable();
     }
 
@@ -49,11 +49,12 @@ public class BureauOfEconomicCommerceWorkAreaJPanel extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         workRequestJTable = new javax.swing.JTable();
-        requestTestJButton = new javax.swing.JButton();
+        fundallocbtn = new javax.swing.JButton();
         refreshTestJButton = new javax.swing.JButton();
         enterpriseLabel = new javax.swing.JLabel();
         valueLabel = new javax.swing.JLabel();
         assignbtn = new javax.swing.JButton();
+        rejectbtn = new javax.swing.JButton();
 
         workRequestJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -83,10 +84,10 @@ public class BureauOfEconomicCommerceWorkAreaJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(workRequestJTable);
 
-        requestTestJButton.setText("Request Budget");
-        requestTestJButton.addActionListener(new java.awt.event.ActionListener() {
+        fundallocbtn.setText("suggest fund allocation");
+        fundallocbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                requestTestJButtonActionPerformed(evt);
+                fundallocbtnActionPerformed(evt);
             }
         });
 
@@ -109,6 +110,13 @@ public class BureauOfEconomicCommerceWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        rejectbtn.setText("reject");
+        rejectbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rejectbtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -123,15 +131,15 @@ public class BureauOfEconomicCommerceWorkAreaJPanel extends javax.swing.JPanel {
                 .addGap(103, 103, 103))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(assignbtn)
-                        .addGap(18, 18, 18)
-                        .addComponent(requestTestJButton)
-                        .addGap(86, 86, 86))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rejectbtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(fundallocbtn))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,13 +154,14 @@ public class BureauOfEconomicCommerceWorkAreaJPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(requestTestJButton)
-                    .addComponent(assignbtn))
+                    .addComponent(fundallocbtn)
+                    .addComponent(assignbtn)
+                    .addComponent(rejectbtn))
                 .addContainerGap(54, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void requestTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestTestJButtonActionPerformed
+    private void fundallocbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fundallocbtnActionPerformed
         int selectedRow = workRequestJTable.getSelectedRow();
         
         if (selectedRow < 0){
@@ -160,13 +169,12 @@ public class BureauOfEconomicCommerceWorkAreaJPanel extends javax.swing.JPanel {
         }
         
         WorkRequest request = (WorkRequest)workRequestJTable.getValueAt(selectedRow, 0);
-        request.setStatus("Approved");
-//        populateRequestTable();
-//        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-//        userProcessContainer.add("RequestLabTestJPanel", new RequestBudgetJPanel(userProcessContainer, userAccount, enterprise, network));
-//        layout.next(userProcessContainer);
+        populateRequestTable();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add("suggestFundsJPanel", new RequestBudgetJPanel(userProcessContainer, userAccount, enterprise, network,request));
+        layout.next(userProcessContainer);
 
-    }//GEN-LAST:event_requestTestJButtonActionPerformed
+    }//GEN-LAST:event_fundallocbtnActionPerformed
     public void populateRequestTable(){
             DefaultTableModel model = (DefaultTableModel) workRequestJTable.getModel();
 
@@ -204,13 +212,25 @@ public class BureauOfEconomicCommerceWorkAreaJPanel extends javax.swing.JPanel {
         populateRequestTable();
     }//GEN-LAST:event_assignbtnActionPerformed
 
+    private void rejectbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejectbtnActionPerformed
+        int selectedRow = workRequestJTable.getSelectedRow();
+        
+        if (selectedRow < 0){
+            return;
+        }
+        WorkRequest request = (WorkRequest)workRequestJTable.getValueAt(selectedRow, 0);
+        request.setStatus("Rejected By Bureau of Economics");
+        
+    }//GEN-LAST:event_rejectbtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton assignbtn;
     private javax.swing.JLabel enterpriseLabel;
+    private javax.swing.JButton fundallocbtn;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton refreshTestJButton;
-    private javax.swing.JButton requestTestJButton;
+    private javax.swing.JButton rejectbtn;
     private javax.swing.JLabel valueLabel;
     private javax.swing.JTable workRequestJTable;
     // End of variables declaration//GEN-END:variables

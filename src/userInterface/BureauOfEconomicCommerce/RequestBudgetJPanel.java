@@ -11,10 +11,12 @@ import Business.Organization.BudgetOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BudgetWorkRequest;
+import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -27,16 +29,18 @@ public class RequestBudgetJPanel extends javax.swing.JPanel {
     private Enterprise enterprise;
     private Network network;
     private UserAccount userAccount;
+    private WorkRequest request;
     /**
      * Creates new form RequestLabTestJPanel
      */
-    public RequestBudgetJPanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise, Network network) {
+    public RequestBudgetJPanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise, Network network, WorkRequest request) {
         initComponents();
         
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
         this.network = network;
         this.userAccount = account;
+        this.request = request;
         valueLabel.setText(enterprise.getName());
     }
 
@@ -49,27 +53,22 @@ public class RequestBudgetJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        requestTestJButton = new javax.swing.JButton();
+        approvebtn = new javax.swing.JButton();
         backJButton = new javax.swing.JButton();
         valueLabel = new javax.swing.JLabel();
         enterpriseLabel = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        messageJTextField = new javax.swing.JTextField();
-        totalFundJTextField = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        suggestedfundsval = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        descriptionJTextField = new javax.swing.JTextField();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        requestTestJButton.setText("Request Test");
-        requestTestJButton.addActionListener(new java.awt.event.ActionListener() {
+        approvebtn.setText("approve");
+        approvebtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                requestTestJButtonActionPerformed(evt);
+                approvebtnActionPerformed(evt);
             }
         });
-        add(requestTestJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 210, -1, -1));
+        add(approvebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, -1, -1));
 
         backJButton.setText("<<Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -77,7 +76,7 @@ public class RequestBudgetJPanel extends javax.swing.JPanel {
                 backJButtonActionPerformed(evt);
             }
         });
-        add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, -1, -1));
+        add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, -1, -1));
 
         valueLabel.setText("<value>");
         add(valueLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 130, -1));
@@ -85,47 +84,18 @@ public class RequestBudgetJPanel extends javax.swing.JPanel {
         enterpriseLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         enterpriseLabel.setText("EnterPrise :");
         add(enterpriseLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 120, 30));
+        add(suggestedfundsval, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 89, -1));
 
-        jLabel2.setText("Message");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 40, -1, -1));
-        add(messageJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, 89, -1));
-        add(totalFundJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 89, -1));
-
-        jLabel3.setText("Message");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 40, -1, -1));
-
-        jLabel4.setText("Description");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, -1, -1));
-
-        jLabel1.setText("Total Fund Request");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, -1, -1));
-        add(descriptionJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 89, -1));
+        jLabel1.setText("Suggested Fund Allocation:");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void requestTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestTestJButtonActionPerformed
+    private void approvebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_approvebtnActionPerformed
         
-        String message = messageJTextField.getText();
-        
-        BudgetWorkRequest request = new BudgetWorkRequest();
-        request.setMessage(message);
-        request.setSender(userAccount);
-        request.setStatus("Sent");
-        
-        Organization org = null;
-        for(Enterprise ent: network.getEnterpriseDirectory().getEnterpriseList()){
-            for (Organization organization : ent.getOrganizationDirectory().getOrganizationList()){
-                if (organization instanceof BudgetOrganization){
-                    org = organization;
-                    break;
-                }
-            }
-        }
-        if (org!=null){
-            org.getWorkQueue().getWorkRequestList().add(request);
-            userAccount.getWorkQueue().getWorkRequestList().add(request);
-        }
-        
-    }//GEN-LAST:event_requestTestJButtonActionPerformed
+        request.setStatus("Approved by Bureau of Ecomonics");
+        ((BudgetWorkRequest) request).setSuggestedBudgetByBureauOfEconomics(Integer.parseInt(suggestedfundsval.getText()));
+          JOptionPane.showMessageDialog(null, "Success!!"); 
+    }//GEN-LAST:event_approvebtnActionPerformed
 
     private void backJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backJButtonActionPerformed
         
@@ -140,16 +110,11 @@ public class RequestBudgetJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_backJButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton approvebtn;
     private javax.swing.JButton backJButton;
-    private javax.swing.JTextField descriptionJTextField;
     private javax.swing.JLabel enterpriseLabel;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField messageJTextField;
-    private javax.swing.JButton requestTestJButton;
-    private javax.swing.JTextField totalFundJTextField;
+    private javax.swing.JTextField suggestedfundsval;
     private javax.swing.JLabel valueLabel;
     // End of variables declaration//GEN-END:variables
 }
