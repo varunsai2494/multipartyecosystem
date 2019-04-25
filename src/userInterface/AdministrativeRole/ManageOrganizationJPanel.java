@@ -11,6 +11,7 @@ import Business.Organization.OrganizationDirectory;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import java.lang.*;
 
 /**
  *
@@ -49,7 +50,9 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
 //        Justice("Justice"),
 //        Energy("Energy"),
 //        Treasury("Treasury");
-        String name = ent.getName();
+        String name = ent.getEnterpriseType().getValue();
+        System.out.println(name);
+        
         if(name.equals("Defence")){
             String a = "Army Organization";
             String b = "AirForce Organization";
@@ -66,17 +69,22 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
                 }
         }
       }
-      else if(name.equals("Commerce")){
-            String a = "BureauOfEconomicAnalysis Organization";
-            for (Type type : Organization.Type.values()){
+      else if(name.equals("Justice")){
+           String a = "Certificate Organization";
+          String b = "FBI Organization";
+          for (Type type : Organization.Type.values()){
                 if (!type.getValue().equals(Type.Admin.getValue())){
                     //organizationJComboBox.addItem(type);
                     System.out.println(type.getValue());
                     if(a.equals(type.getValue())){
                        organizationJComboBox.addItem(type); 
                     }
+                    if(b.equals(type.getValue())){
+                       organizationJComboBox.addItem(type); 
+                    }
                 }
         }
+            
       }
       else if(name.equals("Treasury")){
           String a = "Budget Organization";
@@ -111,21 +119,18 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         }
         
       }
-      else{
-          String a = "Certificate Organization";
-          String b = "FBI Organization";
-          for (Type type : Organization.Type.values()){
+      else {
+          String a = "BureauOfEconomicAnalysis Organization";
+            for (Type type : Organization.Type.values()){
                 if (!type.getValue().equals(Type.Admin.getValue())){
                     //organizationJComboBox.addItem(type);
                     System.out.println(type.getValue());
                     if(a.equals(type.getValue())){
                        organizationJComboBox.addItem(type); 
                     }
-                    if(b.equals(type.getValue())){
-                       organizationJComboBox.addItem(type); 
-                    }
                 }
         }
+         
       }
       
 }
