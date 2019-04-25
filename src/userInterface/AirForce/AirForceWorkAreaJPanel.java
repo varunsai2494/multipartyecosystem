@@ -271,7 +271,7 @@ public class AirForceWorkAreaJPanel extends javax.swing.JPanel {
         
         WorkRequest request = (WorkRequest)armyJTabel.getValueAt(selectedRow, 1);
         reportRequest.setEnabled(false);
-        if(request.getCertificate()==null){
+        if(request.getCertificate().equals("Reports Requested")){
                 reportRequest.setEnabled(true);
             }
     }//GEN-LAST:event_reportRequestMouseClicked

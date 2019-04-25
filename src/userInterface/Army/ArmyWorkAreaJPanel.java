@@ -43,6 +43,7 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
         this.enterprise = enterprise;
         this.userAccount = account;
         initComponents();
+        armyJTabel.setAutoResizeMode(4);
         valueLabel.setText(this.enterprise.getName());
         populateRequestTable();
     }
@@ -63,7 +64,10 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
             if(request.getStatus().equals("Reports Requested")){
                 certificateObj.add(row);
             }
-            result.add(row);
+            if(!request.getStatus().equals("Success")){
+                result.add(row);
+            }
+            
 //            model.addRow(row);
         }
         for(Object[] i : certificateObj){
@@ -219,7 +223,7 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
         
         WorkRequest request = (WorkRequest)armyJTabel.getValueAt(selectedRow, 1);
         reportRequest.setEnabled(false);
-        if(request.getCertificate().getReports()==null){
+        if(request.getStatus().equals("Reports Requested")){
                 reportRequest.setEnabled(true);
             }
     }//GEN-LAST:event_armyJTabelMouseClicked

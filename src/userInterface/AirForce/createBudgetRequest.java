@@ -176,7 +176,7 @@ public class createBudgetRequest extends javax.swing.JPanel {
         request.setDescription(description);
         request.setTotalBudgetRequest(Integer.parseInt(totalFundRequest));
         request.setSender(userAccount);
-        request.setStatus("Sent");
+        request.setStatus("Budget Requested");
         request.setCategory(categoryVal.getSelectedItem().toString());
         certificateWorkRequest c=new certificateWorkRequest();
         c.setSenderOrganization(organization);
