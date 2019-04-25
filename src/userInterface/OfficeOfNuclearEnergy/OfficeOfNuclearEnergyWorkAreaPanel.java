@@ -15,6 +15,7 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -56,17 +57,18 @@ public class OfficeOfNuclearEnergyWorkAreaPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         nuclearButton = new javax.swing.JButton();
         RefreshButton = new javax.swing.JButton();
+        assignButton = new javax.swing.JButton();
 
         OnETable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Tittle 5"
+                "Message", "Description", "Request", "Budget request", "allocated Budget", "Status", "Suggested"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, true, false, false
+                true, false, true, false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -92,25 +94,35 @@ public class OfficeOfNuclearEnergyWorkAreaPanel extends javax.swing.JPanel {
             }
         });
 
+        assignButton.setText("assign to me");
+        assignButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                assignButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(RefreshButton)
-                        .addGap(60, 60, 60)
-                        .addComponent(nuclearButton))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(84, 84, 84)
-                            .addComponent(jLabel1))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(120, 120, 120)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(136, 136, 136))
+                        .addGap(84, 84, 84)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(assignButton, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(95, 95, 95)
+                                .addComponent(RefreshButton)
+                                .addGap(60, 60, 60)
+                                .addComponent(nuclearButton))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(355, 355, 355))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 752, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(37, 37, 37))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,25 +134,29 @@ public class OfficeOfNuclearEnergyWorkAreaPanel extends javax.swing.JPanel {
                 .addGap(60, 60, 60)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nuclearButton)
-                    .addComponent(RefreshButton))
+                    .addComponent(RefreshButton)
+                    .addComponent(assignButton))
                 .addContainerGap(169, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     public void populateJTable(){
         DefaultTableModel dtm = (DefaultTableModel)OnETable.getModel();
         dtm.setRowCount(0);
-        for (WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()){
-            Object[] row = new Object[6];
-            row[0] = request.getCategory();
-            row[1] = request;
-            row[2] = request.getDescription();
-            row[3] = request.getStatus();
+        for (WorkRequest request : organization.getWorkQueue().getWorkRequestList()){
+            Object[] row = new Object[7];
+            row[0] = request;
+            row[1] = request.getDescription();
+            row[2] = request.getReceiver();
             int alloc = ((BudgetWorkRequest) request).getAllocatedBudgetRequest();
-            row[4] = alloc;
+            row[3] = alloc;
             int total = ((BudgetWorkRequest) request).getTotalBudgetRequest();
-            row[5] = total;
+            row[4] = total;
+            row[5] = request.getStatus();
+            int sug = ((BudgetWorkRequest) request).getSuggestedBudgetByBureauOfEconomics();
+            row[6] = sug;
             
             dtm.addRow(row);
+        
         }
     }
     private void nuclearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuclearButtonActionPerformed
@@ -155,10 +171,25 @@ public class OfficeOfNuclearEnergyWorkAreaPanel extends javax.swing.JPanel {
         populateJTable();
     }//GEN-LAST:event_RefreshButtonActionPerformed
 
+    private void assignButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignButtonActionPerformed
+        int selectedRow = OnETable.getSelectedRow();
+
+        if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Select a row");
+            return;
+        }
+
+        WorkRequest request = (WorkRequest)OnETable.getValueAt(selectedRow, 0);
+        request.setReceiver(userAccount);
+        JOptionPane.showMessageDialog(null, "Task assigned Sucessfully ");
+        populateJTable();
+    }//GEN-LAST:event_assignButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable OnETable;
     private javax.swing.JButton RefreshButton;
+    private javax.swing.JButton assignButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton nuclearButton;

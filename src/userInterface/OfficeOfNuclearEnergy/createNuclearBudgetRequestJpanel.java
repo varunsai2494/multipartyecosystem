@@ -17,6 +17,7 @@ import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.certificateWorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import userInterface.Army.ArmyWorkAreaJPanel;
 
@@ -203,6 +204,7 @@ public class createNuclearBudgetRequestJpanel extends javax.swing.JPanel {
             org.getWorkQueue().getWorkRequestList().add(request);
             userAccount.getWorkQueue().getWorkRequestList().add(request);
         }
+        JOptionPane.showMessageDialog(null, "Request sucessfully created ");
     }//GEN-LAST:event_createbtnActionPerformed
 
 

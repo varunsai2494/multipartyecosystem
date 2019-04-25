@@ -16,6 +16,7 @@ import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import userInterface.OfficeOfNuclearEnergy.createNuclearBudgetRequestJpanel;
@@ -52,22 +53,22 @@ public class OfficeOfEnviManagementWorkAreaJPanel extends javax.swing.JPanel {
     
     public void populateTable(){
         DefaultTableModel model = (DefaultTableModel) enviJTabel.getModel();
-        ArrayList<Object[]> result = new ArrayList<>();
-        ArrayList<Object[]> certificateObj = new ArrayList<>();
         model.setRowCount(0);
-        for (WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()){
-            Object[] row = new Object[6];
-            row[0] = request.getCategory();
-            row[1] = request;
-            row[2] = request.getDescription();
-            row[3] = ((BudgetWorkRequest) request).getTotalBudgetRequest();
-            Integer aa = ((BudgetWorkRequest) request).getAllocatedBudgetRequest();
-            row[4] = aa.toString();
+        for (WorkRequest request : organization.getWorkQueue().getWorkRequestList()){
+            Object[] row = new Object[7];
+            row[0] = request;
+            row[1] = request.getDescription();
+            row[2] = request.getReceiver();
+            int alloc = ((BudgetWorkRequest) request).getAllocatedBudgetRequest();
+            row[3] = alloc;
+            int total = ((BudgetWorkRequest) request).getTotalBudgetRequest();
+            row[4] = total;
             row[5] = request.getStatus();
-            if(request.getCertificate().getReports()!=null){
-                certificateObj.add(row);
-            }
+            int sug = ((BudgetWorkRequest) request).getSuggestedBudgetByBureauOfEconomics();
+            row[6] = sug;
+            
             model.addRow(row);
+        
         }
     }
     @SuppressWarnings("unchecked")
@@ -79,6 +80,7 @@ public class OfficeOfEnviManagementWorkAreaJPanel extends javax.swing.JPanel {
         enviJTabel = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        assignButton = new javax.swing.JButton();
 
         createRequestButton.setText("Create envi Budget Request");
         createRequestButton.addActionListener(new java.awt.event.ActionListener() {
@@ -92,9 +94,17 @@ public class OfficeOfEnviManagementWorkAreaJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Tittle 5"
+                "Message", "Description", "Recivier", "Budget Request", "Allocated Budget", "status", "Suggested"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(enviJTabel);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -107,12 +117,21 @@ public class OfficeOfEnviManagementWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        assignButton.setText("assign to me");
+        assignButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                assignButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(assignButton, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54)
                 .addComponent(jButton1)
                 .addGap(87, 87, 87)
                 .addComponent(createRequestButton)
@@ -120,24 +139,25 @@ public class OfficeOfEnviManagementWorkAreaJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(106, 106, 106)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel1)))
-                .addContainerGap(154, Short.MAX_VALUE))
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(73, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(55, 55, 55)
+                .addGap(30, 30, 30)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72)
+                .addGap(97, 97, 97)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(createRequestButton)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(assignButton))
                 .addGap(128, 128, 128))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -154,8 +174,23 @@ public class OfficeOfEnviManagementWorkAreaJPanel extends javax.swing.JPanel {
         populateTable();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void assignButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignButtonActionPerformed
+        int selectedRow = enviJTabel.getSelectedRow();
+
+        if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Select a row");
+            return;
+        }
+
+        WorkRequest request = (WorkRequest)enviJTabel.getValueAt(selectedRow, 0);
+        request.setReceiver(userAccount);
+        JOptionPane.showMessageDialog(null, "Task assigned Sucessfully ");
+        populateTable();
+    }//GEN-LAST:event_assignButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton assignButton;
     private javax.swing.JButton createRequestButton;
     private javax.swing.JTable enviJTabel;
     private javax.swing.JButton jButton1;
