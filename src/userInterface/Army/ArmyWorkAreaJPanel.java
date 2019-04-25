@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -59,10 +60,11 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
             Integer aa = ((BudgetWorkRequest) request).getAllocatedBudgetRequest();
             row[4] = aa.toString();
             row[5] = request.getStatus();
-            if(request.getCertificate().getReports()!=null){
+            if(request.getStatus().equals("Reports Requested")){
                 certificateObj.add(row);
             }
-            model.addRow(row);
+            result.add(row);
+//            model.addRow(row);
         }
         for(Object[] i : certificateObj){
             int index = result.indexOf(i);
@@ -159,10 +161,7 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 89, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(139, Short.MAX_VALUE)
                         .addComponent(reportsbtn)
                         .addGap(18, 18, 18)
                         .addComponent(reportRequest)
@@ -176,7 +175,11 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addGap(35, 35, 35))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,9 +211,11 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         int selectedRow = armyJTabel.getSelectedRow();
         
-        if (selectedRow < 0){
+         if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Select a row"); 
             return;
         }
+        
         
         WorkRequest request = (WorkRequest)armyJTabel.getValueAt(selectedRow, 1);
         reportRequest.setEnabled(false);
@@ -223,8 +228,10 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
         int selectedRow = armyJTabel.getSelectedRow();
         
         if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Select a row"); 
             return;
         }
+        
         
         WorkRequest request = (WorkRequest)armyJTabel.getValueAt(selectedRow, 1);
         JFileChooser location=new JFileChooser();

@@ -237,7 +237,7 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         WorkRequest request = (WorkRequest)BudetTable.getValueAt(selectedRow, 0);
         Organization org = null;
         String test = request.getStatus();
-        if(!test.equals("Approved by Revenue")){
+        if(!test.equals("Revenue Approved")){
             System.out.println(request.getStatus());
             JOptionPane.showMessageDialog(null, "get approval from revenue first");
             return;
@@ -255,9 +255,6 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         }
         if (org!=null){
 //            request.setSenderOrganization();
-            certificateWorkRequest c=new certificateWorkRequest();
-            request.setCertificate(c);
-            c.setSenderOrganization(org);
             org.getWorkQueue().getWorkRequestList().add(request);
             //CertificateOrganization.getWorkQueue().getWorkRequestList().add(request);
         }
@@ -279,7 +276,7 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         
         String test = request.getStatus();
         System.out.println(test);
-        if( !test.equals("Approved by Bureau of Ecomonics")){
+        if( !test.equals("Bureau of Ecomonics Approved")){
             JOptionPane.showMessageDialog(null, "get approval from commerce first");
             return;
             
