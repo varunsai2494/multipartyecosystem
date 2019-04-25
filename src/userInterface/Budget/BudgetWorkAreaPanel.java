@@ -271,9 +271,9 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         }
         if (org!=null){
 //            request.setSenderOrganization();
-            certificateWorkRequest c=new certificateWorkRequest();
-            request.setCertificate(c);
-            c.setSenderOrganization(org);
+//            certificateWorkRequest c=new certificateWorkRequest();
+//            request.setCertificate(c);
+//            c.setSenderOrganization(org);
             org.getWorkQueue().getWorkRequestList().add(request);
             //CertificateOrganization.getWorkQueue().getWorkRequestList().add(request);
         }

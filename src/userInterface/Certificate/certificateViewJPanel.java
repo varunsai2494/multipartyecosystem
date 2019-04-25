@@ -8,6 +8,7 @@ package userInterface.Certificate;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
 import Business.Organization.FBI;
+import Business.Organization.CertificateOrganization;
 import Business.Organization.Organization;
 import javax.swing.JPanel;
 import Business.WorkQueue.BudgetWorkRequest;
@@ -43,7 +44,7 @@ public class certificateViewJPanel extends javax.swing.JPanel {
 //                }
 //            }
 //        }
-        this.workrequest.getCertificate().setSenderOrganization(a);
+//        this.workrequest.getCertificate().setSenderOrganization(a);
         this.account=account;
         this.enterprise=enterprise;
         this.network=network;
@@ -178,6 +179,25 @@ public class certificateViewJPanel extends javax.swing.JPanel {
 
     private void addToCertificateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToCertificateBtnActionPerformed
         // TODO add your handling code here:
+        Organization org = null;
+        for(Enterprise ent: network.getEnterpriseDirectory().getEnterpriseList()){
+            for(Organization organization : ent.getOrganizationDirectory().getOrganizationList()){
+                if (organization instanceof CertificateOrganization){
+                    org = organization;
+                    break;
+                }
+            }
+        }
+        if (org!=null){
+            ((CertificateOrganization)org).getOrgcertificates().add(workrequest);
+            account.getWorkQueue().getWorkRequestList().remove(workrequest);
+            addToCertificateBtn.setEnabled(false);
+            reportsBtn.setEnabled(false);
+            investigate.setEnabled(false);
+            
+//            account.getWorkQueue().getWorkRequestList().add(request);
+        }
+        
     }//GEN-LAST:event_addToCertificateBtnActionPerformed
 
     private void investigateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_investigateActionPerformed
@@ -206,6 +226,7 @@ public class certificateViewJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         
         this.workrequest.getCertificate().getSenderOrganization().getWorkQueue().getWorkRequestList().add(workrequest);
+        
         
     }//GEN-LAST:event_reportsBtnActionPerformed
 

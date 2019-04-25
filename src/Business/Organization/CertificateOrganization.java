@@ -8,15 +8,26 @@ import Business.Role.AdminRole;
 import Business.Role.Role;
 import Business.Role.certificateOrgRole;
 import java.util.ArrayList;
+import Business.WorkQueue.BudgetWorkRequest;
 
 /**
  *
  * @author imperio2494
  */
 public class CertificateOrganization extends Organization {
+    public ArrayList<BudgetWorkRequest>Orgcertificates;
     public CertificateOrganization(){
    super(Type.Certificate.getValue());
+   Orgcertificates=new ArrayList<BudgetWorkRequest>();
    }
+
+    public ArrayList<BudgetWorkRequest> getOrgcertificates() {
+        return Orgcertificates;
+    }
+
+    public void setOrgcertificates(ArrayList<BudgetWorkRequest> Orgcertificates) {
+        this.Orgcertificates = Orgcertificates;
+    }
    
    @Override
     public ArrayList<Role> getSupportedRole() {
