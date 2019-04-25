@@ -51,7 +51,7 @@ HashMap<String,HashMap<String,Integer>> datamap=(new networkAnalyticsFuns(system
     private void populateNetworkCB(){
         networkCB.removeAllItems();
         for(Network n:system.getNetworkList())
-        {networkCB.addItem(n.getName());}
+        {networkCB.addItem(n.getName().toString());}
         
     
     }
@@ -153,13 +153,18 @@ HashMap<String,HashMap<String,Integer>> datamap=(new networkAnalyticsFuns(system
     }// </editor-fold>//GEN-END:initComponents
 
     private void networkCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_networkCBActionPerformed
-        // TODO add your handling code here:
+//         TODO add your handling code here:
+        try{
         if(reportTypeCB.getSelectedItem().toString()=="Employees")
         populateEmployeeCountGraph(networkCB.getSelectedItem().toString());
         else if(reportTypeCB.getSelectedItem().toString()=="Certificates")
         {
         
-        }
+        }}
+        catch(Exception e){
+//     populateEmployeeCountGraph(networkCB.getSelectedItem().toString());
+    }
+        finally{}
             
     }//GEN-LAST:event_networkCBActionPerformed
 
