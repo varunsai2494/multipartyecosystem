@@ -47,7 +47,12 @@ HashMap<String,HashMap<String,Integer>> datamap=(new networkAnalyticsFuns(system
                 }
              }
             }
-    
+    private void populateAllocatedBudgetGraph(String networkSelected){
+
+DefaultCategoryDataset dataset=(new networkAnalyticsFuns(system)).getAllocatedBudgetByOrganization(networkSelected);
+         
+            barGraph(dataset,"Allocated Funds By Origanization","Origanizations","Total Allocated Funds");
+            }
     private void populateNetworkCB(){
         networkCB.removeAllItems();
         for(Network n:system.getNetworkList())
@@ -60,12 +65,13 @@ HashMap<String,HashMap<String,Integer>> datamap=(new networkAnalyticsFuns(system
     
     reportTypeCB.addItem("Employees");
     reportTypeCB.addItem("Certificates");
+    reportTypeCB.addItem("Allocated Budget");
     
     }
     
     private void barGraph(DefaultCategoryDataset dataset,String tHeader,String bHeader,String lHeader){
 
-        JFreeChart chart = ChartFactory.createBarChart(
+        JFreeChart chart = ChartFactory.createBarChart3D(
         tHeader, // Title
         bHeader, // x-axis Label
         lHeader, // y-axis Label
@@ -117,6 +123,12 @@ HashMap<String,HashMap<String,Integer>> datamap=(new networkAnalyticsFuns(system
 
         jLabel2.setText("Type : ");
 
+        reportTypeCB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportTypeCBActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -156,17 +168,39 @@ HashMap<String,HashMap<String,Integer>> datamap=(new networkAnalyticsFuns(system
 //         TODO add your handling code here:
         try{
         if(reportTypeCB.getSelectedItem().toString()=="Employees")
-        populateEmployeeCountGraph(networkCB.getSelectedItem().toString());
+            populateEmployeeCountGraph(networkCB.getSelectedItem().toString());
         else if(reportTypeCB.getSelectedItem().toString()=="Certificates")
         {
         
-        }}
+        }
+        else if(reportTypeCB.getSelectedItem().toString()=="Allocated Budget"){
+            populateAllocatedBudgetGraph(networkCB.getSelectedItem().toString());
+        }
+        }
         catch(Exception e){
 //     populateEmployeeCountGraph(networkCB.getSelectedItem().toString());
     }
         finally{}
             
     }//GEN-LAST:event_networkCBActionPerformed
+
+    private void reportTypeCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportTypeCBActionPerformed
+        try{
+        if(reportTypeCB.getSelectedItem().toString()=="Employees")
+            populateEmployeeCountGraph(networkCB.getSelectedItem().toString());
+        else if(reportTypeCB.getSelectedItem().toString()=="Certificates")
+        {
+        
+        }
+        else if(reportTypeCB.getSelectedItem().toString()=="Allocated Budget"){
+            populateAllocatedBudgetGraph(networkCB.getSelectedItem().toString());
+        }
+        }
+        catch(Exception e){
+//     populateEmployeeCountGraph(networkCB.getSelectedItem().toString());
+    }
+        finally{}
+    }//GEN-LAST:event_reportTypeCBActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
