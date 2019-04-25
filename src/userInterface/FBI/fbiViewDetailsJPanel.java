@@ -11,8 +11,11 @@ import Business.Organization.FBI;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BudgetWorkRequest;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -36,7 +39,43 @@ public class fbiViewDetailsJPanel extends javax.swing.JPanel {
         this.enterprise=enterprise;
         this.network=network;
         populateTable();
+        
+        if(workrequest.getCertificate().getReports()!=null)
+        {
+        ReportsTable.setVisible(true);
+        populateReportTable(workrequest.getCertificate().getReports());
+        }
+        else
+            ReportsTable.setVisible(false);
     }
+    
+    public void populateReportTable(String filepath){
+        ReportsTable.setAutoResizeMode(4);
+    DefaultTableModel dtm = (DefaultTableModel)ReportsTable.getModel();
+    dtm.setRowCount(0);
+    
+    try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
+        String line;
+//        ReportsTable 
+        boolean columnnames=false;
+        while ((line = br.readLine()) != null){
+            String[] values = line.split(",");
+            if(!columnnames){
+//            dtm.setColumnCount(values.length);
+             columnnames=true;
+            }
+            else{
+               dtm.addRow(new Object[]{values[0],values[1]});
+                
+            }
+            
+        }
+    
+    }catch(Exception e){}
+//    dtm.setColumnCount(SOMEBITS);
+    
+    }
+    
     
     public void populateTable(){
         DefaultTableModel dtm = (DefaultTableModel)fbiviewdetailsTable.getModel();
@@ -52,9 +91,6 @@ public class fbiViewDetailsJPanel extends javax.swing.JPanel {
         dtm.addRow(new Object[]{"allocatedbudget",workrequest.getAllocatedBudgetRequest()});
         dtm.addRow(new Object[]{"reports",workrequest.getCertificate().getReports()});
         dtm.addRow(new Object[]{"status",workrequest.getStatus()});
-        
-        
-    
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -69,6 +105,9 @@ public class fbiViewDetailsJPanel extends javax.swing.JPanel {
         fbiviewdetailsTable = new javax.swing.JTable();
         fraudBtn = new javax.swing.JButton();
         transpBtn = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        ReportsTable = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
 
         fbiviewdetailsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -97,6 +136,21 @@ public class fbiViewDetailsJPanel extends javax.swing.JPanel {
             }
         });
 
+        ReportsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Message", "Amount"
+            }
+        ));
+        jScrollPane2.setViewportView(ReportsTable);
+
+        jLabel1.setText("REPORTS");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -111,7 +165,15 @@ public class fbiViewDetailsJPanel extends javax.swing.JPanel {
                         .addComponent(fraudBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(transpBtn)))
-                .addContainerGap(131, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(159, 159, 159)
+                        .addComponent(jLabel1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,7 +184,13 @@ public class fbiViewDetailsJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(fraudBtn)
                     .addComponent(transpBtn))
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addContainerGap(212, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -155,9 +223,12 @@ public class fbiViewDetailsJPanel extends javax.swing.JPanel {
         
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable ReportsTable;
     private javax.swing.JTable fbiviewdetailsTable;
     private javax.swing.JButton fraudBtn;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton transpBtn;
     // End of variables declaration//GEN-END:variables
 }

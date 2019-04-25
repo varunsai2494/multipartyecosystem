@@ -12,6 +12,7 @@ import Business.Organization.Organization;
  */
 public class certificateWorkRequest{
     private Organization senderOrganization;
+    private String certificateId;
     private boolean isFraud ;
 
     public boolean isIsFraud() {
