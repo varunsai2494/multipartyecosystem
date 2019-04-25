@@ -181,6 +181,23 @@ public class createEnviBudgetRequest extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void createbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createbtnActionPerformed
+        if(messageVal.getText().equals("")||descriptionVal.getText().equals("")
+                    ||totalFundVal.getText().equals(""))
+            {   
+              JOptionPane.showMessageDialog(null, "One or more feilds empty");  
+              return;
+            }
+            int avail;
+            try
+            {
+               avail = Integer.parseInt(totalFundVal.getText());
+            }
+            catch(NumberFormatException e)
+            {
+                JOptionPane.showMessageDialog(null, "Enter a number for Fund Request");
+                return;
+            }
+        
         String message = messageVal.getText();
         String description = descriptionVal.getText();
         String totalFundRequest = totalFundVal.getText();
