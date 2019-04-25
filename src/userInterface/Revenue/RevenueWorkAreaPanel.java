@@ -126,10 +126,25 @@ public class RevenueWorkAreaPanel extends javax.swing.JPanel {
             return;
         }
         
-        WorkRequest request = (WorkRequest)RevJTable.getValueAt(selectedRow, 0);
-        request.setReceiver(userAccount);
-        request.setStatus("Approved By Revenue");
-        populateTable();
+        BudgetWorkRequest request = (BudgetWorkRequest)RevJTable.getValueAt(selectedRow, 0);
+        
+        int alloc = request.getAllocatedBudgetRequest();
+        
+        int req = request.getTotalBudgetRequest();
+        
+        if(alloc > req){
+           request.setReceiver(userAccount);
+        
+            request.setStatus("Approved By Revenue");
+            populateTable(); 
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "request greater than allocated cannot process");
+            request.setStatus("request more than allocated");
+        }
+      
+        
+        
         
         
     }//GEN-LAST:event_revApproveButtonActionPerformed
