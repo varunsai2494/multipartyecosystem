@@ -12,15 +12,13 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -56,6 +54,8 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
 
         }
         catch(Exception e){}
+        Color color = new Color(198,248,250);
+        this.setBackground(color);
     }
     public void populateRequestTable(){
         DefaultTableModel model = (DefaultTableModel) armyJTabel.getModel();
