@@ -14,6 +14,15 @@ public class BudgetWorkRequest extends WorkRequest{
     private int totalBudgetRequest;
     private int allocatedBudgetRequest;
     private int budgetSpent;
+    private int suggestedBudgetByBureauOfEconomics;
+
+    public int getSuggestedBudgetByBureauOfEconomics() {
+        return suggestedBudgetByBureauOfEconomics;
+    }
+
+    public void setSuggestedBudgetByBureauOfEconomics(int suggestedBudgetByBureauOfEconomics) {
+        this.suggestedBudgetByBureauOfEconomics = suggestedBudgetByBureauOfEconomics;
+    }
 
     public int getBudgetSpent() {
         return budgetSpent;

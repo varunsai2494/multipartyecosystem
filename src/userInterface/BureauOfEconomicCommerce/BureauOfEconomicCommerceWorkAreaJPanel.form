@@ -27,18 +27,17 @@
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" attributes="0">
                       <Component id="assignbtn" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="requestTestJButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="rejectbtn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="fundallocbtn" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="jScrollPane1" min="-2" pref="497" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="jScrollPane1" min="-2" pref="497" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -57,8 +56,9 @@
               <Component id="jScrollPane1" min="-2" pref="97" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="requestTestJButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="fundallocbtn" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="assignbtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="rejectbtn" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="54" max="32767" attributes="0"/>
           </Group>
@@ -126,12 +126,12 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="requestTestJButton">
+    <Component class="javax.swing.JButton" name="fundallocbtn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Request Budget"/>
+        <Property name="text" type="java.lang.String" value="suggest fund allocation"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="requestTestJButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fundallocbtnActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="refreshTestJButton">
@@ -161,6 +161,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="assignbtnActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="rejectbtn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="reject"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rejectbtnActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
