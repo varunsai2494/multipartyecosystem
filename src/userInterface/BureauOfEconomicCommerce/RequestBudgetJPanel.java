@@ -16,6 +16,7 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -93,7 +94,7 @@ public class RequestBudgetJPanel extends javax.swing.JPanel {
         
         request.setStatus("Approved by Bureau of Ecomonics");
         ((BudgetWorkRequest) request).setSuggestedBudgetByBureauOfEconomics(Integer.parseInt(suggestedfundsval.getText()));
-        
+        JOptionPane.showMessageDialog(null, "Success!!"); 
         
     }//GEN-LAST:event_approvebtnActionPerformed
 
