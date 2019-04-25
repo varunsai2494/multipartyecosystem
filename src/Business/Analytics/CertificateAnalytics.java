@@ -6,16 +6,22 @@
 package Business.Analytics;
 
 import Business.EcoSystem;
+import Business.WorkQueue.BudgetWorkRequest;
+import java.util.ArrayList;
 
 /**
  *
  * @author imperio2494
  */
+
+
 public class CertificateAnalytics {
     private EcoSystem system;
+    public ArrayList<BudgetWorkRequest> certificaterequests;
     public CertificateAnalytics(EcoSystem system){
     this.system=system;
     }
+//    public 
     
     
     
