@@ -45,10 +45,6 @@ public class OrganizationDirectory {
             organization = new AirForceOrganization();
             organizationList.add(organization);
         }
-         else if (type.getValue().equals(Type.Navy.getValue())){
-            organization = new NavyOrganization();
-            organizationList.add(organization);
-        }
          else if (type.getValue().equals(Type.PatentAndLicenses.getValue())){
             organization = new PatentAndTradeMarkOrganization();
             organizationList.add(organization);
