@@ -17,6 +17,7 @@ import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.certificateWorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import userInterface.Army.ArmyWorkAreaJPanel;
 
@@ -112,7 +113,10 @@ public class createEnviBudgetRequest extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(92, 92, 92)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addGap(221, 221, 221)
+                                .addComponent(createbtn))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(priceLabel)
@@ -134,11 +138,6 @@ public class createEnviBudgetRequest extends javax.swing.JPanel {
                         .addGap(193, 193, 193)
                         .addComponent(titleLabel)))
                 .addContainerGap(234, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(289, 376, Short.MAX_VALUE)
-                    .addComponent(createbtn)
-                    .addGap(252, 252, 252)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,13 +162,10 @@ public class createEnviBudgetRequest extends javax.swing.JPanel {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(priceLabel))
                 .addGap(57, 57, 57)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(createbtn))
                 .addGap(96, 96, 96))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(287, 287, 287)
-                    .addComponent(createbtn)
-                    .addContainerGap(95, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -185,6 +181,23 @@ public class createEnviBudgetRequest extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void createbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createbtnActionPerformed
+        if(messageVal.getText().equals("")||descriptionVal.getText().equals("")
+                    ||totalFundVal.getText().equals(""))
+            {   
+              JOptionPane.showMessageDialog(null, "One or more feilds empty");  
+              return;
+            }
+            int avail;
+            try
+            {
+               avail = Integer.parseInt(totalFundVal.getText());
+            }
+            catch(NumberFormatException e)
+            {
+                JOptionPane.showMessageDialog(null, "Enter a number for Fund Request");
+                return;
+            }
+        
         String message = messageVal.getText();
         String description = descriptionVal.getText();
         String totalFundRequest = totalFundVal.getText();
@@ -211,6 +224,8 @@ public class createEnviBudgetRequest extends javax.swing.JPanel {
             org.getWorkQueue().getWorkRequestList().add(request);
             userAccount.getWorkQueue().getWorkRequestList().add(request);
         }
+        
+        JOptionPane.showMessageDialog(null, "Budget Request Successfull ");
     }//GEN-LAST:event_createbtnActionPerformed
 
 

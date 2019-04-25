@@ -10,9 +10,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import Business.EcoSystem;
 import Business.Employee.Employee;
+import Business.Organization.*;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
 import Business.Organization.Organization;
+import Business.WorkQueue.BudgetWorkRequest;
+import Business.WorkQueue.WorkRequest;
+import org.jfree.data.category.DefaultCategoryDataset;
 /**
  *
  * @author imperio2494
@@ -57,6 +61,58 @@ public class networkAnalyticsFuns {
 
             System.out.print("asdf");
         return ent;
+        
+    
+    }
+    
+    public DefaultCategoryDataset getAllocatedBudgetByOrganization(String networkSel){
+        String temp;
+        HashMap<String,HashMap<String,Integer>> ent=null;
+        
+        final DefaultCategoryDataset dataset = new DefaultCategoryDataset( ); 
+        for(Network network:system.getNetworkList()){
+             ent= new HashMap<String,HashMap<String,Integer>>();
+                if(networkSel==null)
+                    temp=system.getNetworkList().get(0).getName();
+                else
+                    temp=networkSel;
+                //Step 2.a: check against each enterprise
+                for(Enterprise enterprise:network.getEnterpriseDirectory().getEnterpriseList()){
+            
+                    for(Organization organization: enterprise.getOrganizationDirectory().getOrganizationList()){
+                        HashMap<String, Integer> Allocated_funds = new HashMap<>(); 
+                        if(organization instanceof ArmyOrganization || organization instanceof AirForceOrganization || organization instanceof OfficeOfEnviManagementOrganization || organization instanceof OfficeOfNuclearEnergyOrganization){
+                            for(UserAccount userAccount:organization.getUserAccountDirectory().getUserAccountList()){
+                            for (WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()){
+                                    int funds = ((BudgetWorkRequest) request).getTotalBudgetRequest();
+                                    int allocated_funds = ((BudgetWorkRequest) request).getAllocatedBudgetRequest();
+                                    String category = request.getCategory()==null ? "UNN" : request.getCategory();
+
+                                    if(Allocated_funds.get(category)==null){
+                                        Allocated_funds.put(category, allocated_funds);
+                                    }
+                                    else{
+                                        Allocated_funds.put(category, Allocated_funds.get(category)+allocated_funds);
+                                    }
+
+                                }
+                            }
+                                for(String k: Allocated_funds.keySet()){
+                                    dataset.addValue(Allocated_funds.get(k),k,organization.getName());
+                                }
+                        }
+                    }
+                
+                }
+                  
+                if(temp==network.getName())
+                    return dataset;
+                
+                }
+        
+
+            System.out.print("asdf");
+        return dataset;
         
     
     }
