@@ -34,6 +34,7 @@ public class BureauOfEconomicCommerceWorkAreaJPanel extends javax.swing.JPanel {
         this.enterprise = enterprise;
         this.userAccount = account;
         initComponents();
+        valueLabel.setText(this.enterprise.getName());
         populateRequestTable();
     }
 
