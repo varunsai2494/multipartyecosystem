@@ -49,7 +49,7 @@ public class createNuclearBudgetRequestJpanel extends javax.swing.JPanel {
         categoryVal.addItem("Staff Procurement");
         categoryVal.addItem("Machine Repair / Machine Manufacture");
         categoryVal.addItem("Research & Development");
-        Color color = new Color(198,248,250);
+        Color color = new Color(211, 247, 255);
         this.setBackground(color);
     }
 
