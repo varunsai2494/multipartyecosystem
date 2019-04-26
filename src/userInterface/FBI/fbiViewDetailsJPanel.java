@@ -12,6 +12,7 @@ import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BudgetWorkRequest;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -41,6 +42,8 @@ public class fbiViewDetailsJPanel extends javax.swing.JPanel {
         this.enterprise=enterprise;
         this.network=network;
         populateTable();
+        Color color = new Color(211, 247, 255);
+        this.setBackground(color);
         
         if(workrequest.getCertificate().getReports()!=null)
         {

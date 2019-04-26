@@ -7,6 +7,7 @@ package userInterface.Reports;
 
 import Business.EcoSystem;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JPanel;
 
@@ -26,6 +27,8 @@ public class ReportTypeJPanel extends javax.swing.JPanel {
         initComponents();
         this.system=system;
         this.userProcessContainer=userProcessContainer;
+        Color color = new Color(211, 247, 255);
+        this.setBackground(color);
     }
 
     /**

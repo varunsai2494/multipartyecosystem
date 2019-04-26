@@ -12,6 +12,7 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -38,6 +39,8 @@ public class fbiuserWorkAreaPanel extends javax.swing.JPanel {
         this.enterprise = enterprise;
         this.userAccount = account;
         populateTable();
+        Color color = new Color(211, 247, 255);
+        this.setBackground(color);
     }
      public void populateTable(){
       DefaultTableModel dtm = (DefaultTableModel)fbiuserWATable.getModel();

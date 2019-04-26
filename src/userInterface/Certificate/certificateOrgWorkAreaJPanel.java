@@ -15,6 +15,7 @@ import java.awt.CardLayout;
 import javax.swing.JPanel;
 import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.certificateWorkRequest;
+import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -41,6 +42,8 @@ public class certificateOrgWorkAreaJPanel extends javax.swing.JPanel {
         this.network=network;
         this.ecosystem=ecosystem;
         populateRequestTable();
+        Color color = new Color(211, 247, 255);
+        this.setBackground(color);
     }
 
     /**
