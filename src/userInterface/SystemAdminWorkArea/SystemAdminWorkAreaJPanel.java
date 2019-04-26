@@ -7,6 +7,7 @@ package userInterface.SystemAdminWorkArea;
 
 import Business.EcoSystem;
 import java.awt.CardLayout;
+import java.awt.Color;
 import javax.swing.JPanel;
 import userInterface.SystemAdminWorkArea.ManageEnterpriseAdminJPanel;
 import userInterface.SystemAdminWorkArea.ManageEnterpriseJPanel;
@@ -27,6 +28,8 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         initComponents();
         this.userProcessContainer=userProcessContainer;
         this.ecosystem=ecosystem;
+        Color color = new Color(211, 247, 255);
+        this.setBackground(color);
         
     }
 

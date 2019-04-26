@@ -61,7 +61,7 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="assignBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="assignBtn" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="proceedWABtn" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
