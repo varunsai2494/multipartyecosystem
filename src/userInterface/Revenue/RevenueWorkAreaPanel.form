@@ -28,21 +28,26 @@
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="309" max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" pref="175" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" min="-2" pref="746" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       <Component id="enterpriseLabel" min="-2" pref="127" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="valueLabel" min="-2" pref="158" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
+                      <Component id="ImgLable" min="-2" pref="402" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="278" max="-2" attributes="0"/>
+                              <Component id="jLabel1" min="-2" pref="175" max="-2" attributes="0"/>
+                              <EmptySpace min="293" pref="293" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jScrollPane2" alignment="0" min="-2" pref="746" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="39" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -51,20 +56,21 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="valueLabel" alignment="0" min="-2" pref="26" max="-2" attributes="0"/>
                   <Component id="enterpriseLabel" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="valueLabel" alignment="0" min="-2" pref="26" max="-2" attributes="0"/>
+                  <Component id="ImgLable" alignment="0" min="-2" pref="80" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jScrollPane2" min="-2" pref="92" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="revApproveButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="assignButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="197" max="32767" attributes="0"/>
+              <EmptySpace pref="165" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -177,6 +183,8 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&lt;value&gt;"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="ImgLable">
     </Component>
   </SubComponents>
 </Form>
