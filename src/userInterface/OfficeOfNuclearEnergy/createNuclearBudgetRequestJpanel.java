@@ -16,6 +16,7 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.certificateWorkRequest;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -48,6 +49,8 @@ public class createNuclearBudgetRequestJpanel extends javax.swing.JPanel {
         categoryVal.addItem("Staff Procurement");
         categoryVal.addItem("Machine Repair / Machine Manufacture");
         categoryVal.addItem("Research & Development");
+        Color color = new Color(198,248,250);
+        this.setBackground(color);
     }
 
     /**

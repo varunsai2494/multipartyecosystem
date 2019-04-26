@@ -13,6 +13,7 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.File;
@@ -53,6 +54,8 @@ public class OfficeOfNuclearEnergyWorkAreaPanel extends javax.swing.JPanel {
 
         }
         catch(Exception e){}
+        Color color = new Color(198,248,250);
+        this.setBackground(color);
     }
 
     /**

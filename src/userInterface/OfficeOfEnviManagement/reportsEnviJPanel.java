@@ -14,6 +14,7 @@ import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.util.HashMap;
 import javax.swing.JPanel;
@@ -47,6 +48,8 @@ public class reportsEnviJPanel extends javax.swing.JPanel {
         this.network = network;
         this.userAccount = account;
         barGraph();
+        Color color = new Color(198,248,250);
+        this.setBackground(color);
         
             }
 
