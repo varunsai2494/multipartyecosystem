@@ -65,6 +65,13 @@ HashMap<String,HashMap<String,Integer>> datamap=(new networkAnalyticsFuns(system
          
             pieChart(dataset,"Allocated Funds By Origanization");
     }
+    
+    private void FraudRequestsGraph(String networkSelected){
+
+        DefaultPieDataset dataset=(new networkAnalyticsFuns(system)).getTotalFraudByOrganization(networkSelected);
+         
+            pieChart(dataset,"Allocated Funds By Origanization");
+    }
     private void populateNetworkCB(){
         networkCB.removeAllItems();
         for(Network n:system.getNetworkList())
@@ -80,6 +87,8 @@ HashMap<String,HashMap<String,Integer>> datamap=(new networkAnalyticsFuns(system
     reportTypeCB.addItem("Allocated Budget");
     
     reportTypeCB.addItem("Organization Budget Allocation");
+    
+    reportTypeCB.addItem("Fraud Requests");
     
     }
     
@@ -207,6 +216,9 @@ HashMap<String,HashMap<String,Integer>> datamap=(new networkAnalyticsFuns(system
         else if(reportTypeCB.getSelectedItem().toString()=="Organization Budget Allocation"){
             organizationBudgetAllocationGraph(networkCB.getSelectedItem().toString());
         }
+        else if(reportTypeCB.getSelectedItem().toString()=="Fraud Requests"){
+            organizationBudgetAllocationGraph(networkCB.getSelectedItem().toString());
+        }
         }
         catch(Exception e){
 //     populateEmployeeCountGraph(networkCB.getSelectedItem().toString());
@@ -224,6 +236,9 @@ HashMap<String,HashMap<String,Integer>> datamap=(new networkAnalyticsFuns(system
             populateAllocatedBudgetGraph(networkCB.getSelectedItem().toString());
         }
         else if(reportTypeCB.getSelectedItem().toString()=="Organization Budget Allocation"){
+            organizationBudgetAllocationGraph(networkCB.getSelectedItem().toString());
+        }
+        else if(reportTypeCB.getSelectedItem().toString()=="Fraud Requests"){
             organizationBudgetAllocationGraph(networkCB.getSelectedItem().toString());
         }
         }
