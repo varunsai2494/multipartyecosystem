@@ -107,7 +107,7 @@
     </Container>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="fasdfsdf"/>
+        <Property name="text" type="java.lang.String" value="USER WORK AREA"/>
       </Properties>
     </Component>
   </SubComponents>
