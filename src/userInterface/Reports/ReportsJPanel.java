@@ -17,6 +17,7 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
 /**
  *
  * @author imperio2494
@@ -53,10 +54,17 @@ HashMap<String,HashMap<String,Integer>> datamap=(new networkAnalyticsFuns(system
             }
     private void populateAllocatedBudgetGraph(String networkSelected){
 
-DefaultCategoryDataset dataset=(new networkAnalyticsFuns(system)).getAllocatedBudgetByOrganization(networkSelected);
+        DefaultCategoryDataset dataset=(new networkAnalyticsFuns(system)).getAllocatedBudgetByOrganization(networkSelected);
          
             barGraph(dataset,"Allocated Funds By Origanization","Origanizations","Total Allocated Funds");
-            }
+    }
+    
+    private void organizationBudgetAllocationGraph(String networkSelected){
+
+        DefaultPieDataset dataset=(new networkAnalyticsFuns(system)).getTotalBudgetdistributionByOrganization(networkSelected);
+         
+            pieChart(dataset,"Allocated Funds By Origanization");
+    }
     private void populateNetworkCB(){
         networkCB.removeAllItems();
         for(Network n:system.getNetworkList())
@@ -71,6 +79,8 @@ DefaultCategoryDataset dataset=(new networkAnalyticsFuns(system)).getAllocatedBu
     
     reportTypeCB.addItem("Allocated Budget");
     
+    reportTypeCB.addItem("Organization Budget Allocation");
+    
     }
     
     
@@ -82,6 +92,22 @@ DefaultCategoryDataset dataset=(new networkAnalyticsFuns(system)).getAllocatedBu
         lHeader, // y-axis Label
         dataset, // Dataset
         PlotOrientation.VERTICAL, // Plot Orientation
+        true, // Show Legend
+        true, // Use tooltips
+        false // Configure chart to generate URLs?
+     );
+        plotJPanel.removeAll();
+        plotJPanel.setLayout(new java.awt.BorderLayout());
+        ChartPanel CP = new ChartPanel(chart);
+        plotJPanel.add(CP,BorderLayout.CENTER);
+        plotJPanel.validate();
+    }
+    
+        private void pieChart(DefaultPieDataset dataset,String tHeader){
+
+        JFreeChart chart = ChartFactory.createPieChart3D(
+        tHeader, // Title
+        dataset, // Dataset
         true, // Show Legend
         true, // Use tooltips
         false // Configure chart to generate URLs?
@@ -178,6 +204,9 @@ DefaultCategoryDataset dataset=(new networkAnalyticsFuns(system)).getAllocatedBu
         else if(reportTypeCB.getSelectedItem().toString()=="Allocated Budget"){
             populateAllocatedBudgetGraph(networkCB.getSelectedItem().toString());
         }
+        else if(reportTypeCB.getSelectedItem().toString()=="Organization Budget Allocation"){
+            organizationBudgetAllocationGraph(networkCB.getSelectedItem().toString());
+        }
         }
         catch(Exception e){
 //     populateEmployeeCountGraph(networkCB.getSelectedItem().toString());
@@ -193,6 +222,9 @@ DefaultCategoryDataset dataset=(new networkAnalyticsFuns(system)).getAllocatedBu
         
         else if(reportTypeCB.getSelectedItem().toString()=="Allocated Budget"){
             populateAllocatedBudgetGraph(networkCB.getSelectedItem().toString());
+        }
+        else if(reportTypeCB.getSelectedItem().toString()=="Organization Budget Allocation"){
+            organizationBudgetAllocationGraph(networkCB.getSelectedItem().toString());
         }
         }
         catch(Exception e){
