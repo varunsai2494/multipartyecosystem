@@ -14,6 +14,7 @@ import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import userInterface.Reports.ReportTypeJPanel;
 import userInterface.Reports.ReportsJPanel;
 /**
  *
@@ -235,7 +236,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private void publicReportsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_publicReportsBtnActionPerformed
         // TODO add your handling code here:
         CardLayout layout=(CardLayout)container.getLayout();
-        container.add("publicReports",new ReportsJPanel(container,system));
+        container.add("publicReports",new ReportTypeJPanel(container,system));
         layout.next(container); 
     }//GEN-LAST:event_publicReportsBtnActionPerformed
 

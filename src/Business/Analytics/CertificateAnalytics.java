@@ -6,8 +6,13 @@
 package Business.Analytics;
 
 import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
+import Business.Network.Network;
+import Business.Organization.Organization;
+import Business.Organization.CertificateOrganization;
 import Business.WorkQueue.BudgetWorkRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -21,8 +26,31 @@ public class CertificateAnalytics {
     public CertificateAnalytics(EcoSystem system){
     this.system=system;
     }
-//    public 
+    public ArrayList<BudgetWorkRequest> getCertificates(String networkSel){
+        String temp;
+                if(networkSel==null)
+                    temp=system.getNetworkList().get(0).getName();
+                else
+                    temp=networkSel;
+    for(Network network:system.getNetworkList()){
+        
+        if(temp==network.getName()){
     
-    
+             
+                //Step 2.a: check against each enterprise
+                for(Enterprise enterprise:network.getEnterpriseDirectory().getEnterpriseList()){
+            
+                    for(Organization organization: enterprise.getOrganizationDirectory().getOrganizationList()){
+                        if(organization instanceof CertificateOrganization){
+                        return ((CertificateOrganization)organization).getOrgcertificates();
+                        
+                        }
+                    }   }
+    }
+        
+                }   
+        return null;        
+                    
+    }
     
 }
