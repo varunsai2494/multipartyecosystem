@@ -258,7 +258,7 @@ public class OfficeOfEnviManagementWorkAreaJPanel extends javax.swing.JPanel {
             return;
         }
 
-        WorkRequest request = (WorkRequest)enviJTabel.getValueAt(selectedRow, 1);
+        WorkRequest request = (WorkRequest)enviJTabel.getValueAt(selectedRow, 0);
         JFileChooser location=new JFileChooser();
         location.showOpenDialog(null);
         File file=location.getSelectedFile();
