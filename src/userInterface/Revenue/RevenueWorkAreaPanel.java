@@ -49,6 +49,12 @@ public class RevenueWorkAreaPanel extends javax.swing.JPanel {
         initComponents();
         populateTable();
         valueLabel.setText(this.enterprise.getName());
+        try{
+        ImageIcon iconLogo = new ImageIcon(Paths.get("imgs/revenue.png").toAbsolutePath().toString());
+        ImgLable.setIcon(new ImageIcon(iconLogo.getImage().getScaledInstance(400, 80, Image.SCALE_DEFAULT)));
+
+        }
+        catch(Exception e){}
         Color color = new Color(211, 247, 255);
         this.setBackground(color);
     }
@@ -66,7 +72,6 @@ public class RevenueWorkAreaPanel extends javax.swing.JPanel {
         revApproveButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         RevJTable = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
         assignButton = new javax.swing.JButton();
         enterpriseLabel = new javax.swing.JLabel();
         valueLabel = new javax.swing.JLabel();
@@ -100,8 +105,6 @@ public class RevenueWorkAreaPanel extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(RevJTable);
 
-        jButton1.setText("Reject");
-
         assignButton.setText("assign to me");
         assignButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,9 +124,7 @@ public class RevenueWorkAreaPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(assignButton, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67)
+                .addGap(240, 240, 240)
                 .addComponent(revApproveButton)
                 .addGap(84, 84, 84))
             .addGroup(layout.createSequentialGroup()
@@ -140,8 +141,7 @@ public class RevenueWorkAreaPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(278, 278, 278)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(293, 293, 293))
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 746, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -160,7 +160,6 @@ public class RevenueWorkAreaPanel extends javax.swing.JPanel {
                 .addGap(76, 76, 76)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(revApproveButton)
-                    .addComponent(jButton1)
                     .addComponent(assignButton))
                 .addContainerGap(165, Short.MAX_VALUE))
         );
@@ -230,7 +229,6 @@ public class RevenueWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JTable RevJTable;
     private javax.swing.JButton assignButton;
     private javax.swing.JLabel enterpriseLabel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton revApproveButton;
