@@ -12,6 +12,7 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -44,6 +45,8 @@ public class ApproveRevenuePanel extends javax.swing.JPanel {
     
         String g = Integer.toString(s);
         suggestedfundsval.setText(g);
+        Color color = new Color(198,248,250);
+        this.setBackground(color);
     }
 
     /**
