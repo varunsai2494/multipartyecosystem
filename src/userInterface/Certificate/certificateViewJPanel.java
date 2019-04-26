@@ -68,6 +68,7 @@ public class certificateViewJPanel extends javax.swing.JPanel {
         dtm.addRow(new Object[]{"resolvedate",(workrequest.getResolveDate()!=null)?workrequest.getResolveDate().toString():null});
         dtm.addRow(new Object[]{"requestedbudget",workrequest.getTotalBudgetRequest()});
         dtm.addRow(new Object[]{"allocatedbudget",workrequest.getAllocatedBudgetRequest()});
+        dtm.addRow(new Object[]{"budget spent",workrequest.getBudgetSpent()});
         dtm.addRow(new Object[]{"reports",workrequest.getCertificate().getReports()});
         dtm.addRow(new Object[]{"status",workrequest.getStatus()});
         
@@ -131,38 +132,37 @@ public class certificateViewJPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
-                .addComponent(backBtn)
-                .addGap(45, 45, 45))
             .addGroup(layout.createSequentialGroup()
-                .addGap(66, 66, 66)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(reportsBtn)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(investigate)
-                        .addGap(18, 18, 18)
-                        .addComponent(addToCertificateBtn)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(67, 67, 67)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47)
+                        .addComponent(backBtn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(66, 66, 66)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(reportsBtn)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(investigate)
+                                .addGap(18, 18, 18)
+                                .addComponent(addToCertificateBtn)))))
+                .addContainerGap(171, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(103, Short.MAX_VALUE)
-                .addComponent(backBtn)
-                .addGap(260, 260, 260))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(backBtn))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(investigate)
                     .addComponent(addToCertificateBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(reportsBtn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
