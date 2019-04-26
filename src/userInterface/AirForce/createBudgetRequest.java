@@ -16,6 +16,7 @@ import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.certificateWorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import userInterface.BureauOfEconomicCommerce.BureauOfEconomicCommerceWorkAreaJPanel;
 
@@ -171,6 +172,12 @@ public class createBudgetRequest extends javax.swing.JPanel {
         String message = messageVal.getText();
         String description = descriptionVal.getText();
         String totalFundRequest = totalFundVal.getText();
+        try{
+            Integer.parseInt(totalFundRequest);
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "error total funds should be integer"); 
+        }
         BudgetWorkRequest request = new BudgetWorkRequest();
         request.setMessage(message);
         request.setDescription(description);
@@ -194,6 +201,7 @@ public class createBudgetRequest extends javax.swing.JPanel {
             org.getWorkQueue().getWorkRequestList().add(request);
             userAccount.getWorkQueue().getWorkRequestList().add(request);
         }
+        JOptionPane.showMessageDialog(null, "Budget Request Successfull "); 
     }//GEN-LAST:event_createbtnActionPerformed
 
     private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
