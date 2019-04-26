@@ -54,7 +54,7 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
 
         }
         catch(Exception e){}
-        Color color = new Color(198,248,250);
+        Color color = new Color(251, 252, 217);
         this.setBackground(color);
     }
     public void populateRequestTable(){
