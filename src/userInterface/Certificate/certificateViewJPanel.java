@@ -86,6 +86,7 @@ public class certificateViewJPanel extends javax.swing.JPanel {
         backBtn = new javax.swing.JButton();
         addToCertificateBtn = new javax.swing.JButton();
         reportsBtn = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         certificateworkrequestTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -128,6 +129,8 @@ public class certificateViewJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setText("WORK REQUEST MICRO VIEW");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -135,24 +138,29 @@ public class certificateViewJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(67, 67, 67)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47)
-                        .addComponent(backBtn))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
+                        .addGap(112, 112, 112)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(47, 47, 47)
+                                .addComponent(backBtn))
                             .addComponent(reportsBtn)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(investigate)
                                 .addGap(18, 18, 18)
-                                .addComponent(addToCertificateBtn)))))
-                .addContainerGap(171, Short.MAX_VALUE))
+                                .addComponent(addToCertificateBtn))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(230, 230, 230)
+                        .addComponent(jLabel1)))
+                .addContainerGap(240, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(backBtn))
@@ -162,7 +170,7 @@ public class certificateViewJPanel extends javax.swing.JPanel {
                     .addComponent(addToCertificateBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(reportsBtn)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addGap(81, 81, 81))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -236,6 +244,7 @@ public class certificateViewJPanel extends javax.swing.JPanel {
     private javax.swing.JButton backBtn;
     private javax.swing.JTable certificateworkrequestTable;
     private javax.swing.JButton investigate;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton reportsBtn;
     // End of variables declaration//GEN-END:variables

@@ -94,7 +94,7 @@ public class certificateUserWorkAreaJPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(certificateUserworkareaTable);
 
-        jLabel1.setText("fasdfsdf");
+        jLabel1.setText("USER WORK AREA");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
