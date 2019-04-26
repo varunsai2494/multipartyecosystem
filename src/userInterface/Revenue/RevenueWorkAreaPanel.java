@@ -49,13 +49,8 @@ public class RevenueWorkAreaPanel extends javax.swing.JPanel {
         initComponents();
         populateTable();
         valueLabel.setText(this.enterprise.getName());
-        try{
-        ImageIcon iconLogo = new ImageIcon(Paths.get("imgs/revenue.png").toAbsolutePath().toString());
-        ImgLable.setIcon(new ImageIcon(iconLogo.getImage().getScaledInstance(400, 80, Image.SCALE_DEFAULT)));
-
-        }
-        catch(Exception e){}
-        Color color = new Color(198,248,250);
+        
+        Color color = new Color(211, 247, 255);
         this.setBackground(color);
     }
 
