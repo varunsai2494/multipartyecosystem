@@ -89,6 +89,7 @@ public class fbiViewDetailsJPanel extends javax.swing.JPanel {
         dtm.addRow(new Object[]{"resolvedate",(workrequest.getResolveDate()!=null)?workrequest.getResolveDate().toString():null});
         dtm.addRow(new Object[]{"requestedbudget",workrequest.getTotalBudgetRequest()});
         dtm.addRow(new Object[]{"allocatedbudget",workrequest.getAllocatedBudgetRequest()});
+        dtm.addRow(new Object[]{"budget spent",workrequest.getBudgetSpent()});
         dtm.addRow(new Object[]{"reports",workrequest.getCertificate().getReports()});
         dtm.addRow(new Object[]{"status",workrequest.getStatus()});
     }

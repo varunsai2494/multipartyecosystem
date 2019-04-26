@@ -47,11 +47,11 @@ public class fbiuserWorkAreaPanel extends javax.swing.JPanel {
             row[0] =  ((BudgetWorkRequest) request).getCertificate().getSenderOrganization();
             row[1]=request;
             row[2] = request.getDescription();
-            row[3] = request.getStatus();
+            row[5] = request.getStatus();
             int alloc = ((BudgetWorkRequest) request).getAllocatedBudgetRequest();
             row[4] = alloc;
             int total = ((BudgetWorkRequest) request).getTotalBudgetRequest();
-            row[5] = total;
+            row[3] = total;
             
             dtm.addRow(row);}
    }
