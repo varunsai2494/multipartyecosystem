@@ -15,6 +15,7 @@ import Business.WorkQueue.BudgetWorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
 import Business.UserAccount.UserAccount;
+import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -49,6 +50,8 @@ public class certificateViewJPanel extends javax.swing.JPanel {
         this.enterprise=enterprise;
         this.network=network;
         populateWorkrequest();
+        Color color = new Color(211, 247, 255);
+        this.setBackground(color);
     }
 
     /**

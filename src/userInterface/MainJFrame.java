@@ -12,6 +12,7 @@ import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import userInterface.Reports.ReportTypeJPanel;
@@ -32,6 +33,9 @@ public class MainJFrame extends javax.swing.JFrame {
         initComponents();
         system = dB4OUtil.retrieveSystem();
         logoutJButton.setEnabled(false);
+        Color color = new Color(211, 247, 255);
+        this.setBackground(color);
+        
 //        this.setSize(1680, 1050);
     }
     /**

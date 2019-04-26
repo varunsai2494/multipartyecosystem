@@ -15,6 +15,7 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import javax.swing.JPanel;
 import Business.WorkQueue.BudgetWorkRequest;
+import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -42,6 +43,8 @@ public class certificateUserWorkAreaJPanel extends javax.swing.JPanel {
         this.userAccount = account;
         
         populateTable();
+        Color color = new Color(211, 247, 255);
+        this.setBackground(color);
     }
 
     /**

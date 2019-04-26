@@ -15,6 +15,7 @@ import Business.Organization.OfficeOfNuclearEnergyOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BudgetWorkRequest;
+import java.awt.Color;
 import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -42,6 +43,8 @@ public class certificatesViewJPanel extends javax.swing.JPanel {
         this.organization=organization;
         populateComboBox();
         populateTable();
+        Color color = new Color(211, 247, 255);
+        this.setBackground(color);
     }
 
     public void populateComboBox(){

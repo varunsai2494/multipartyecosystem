@@ -14,6 +14,7 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -35,6 +36,8 @@ public class fbiFraudsJPanel extends javax.swing.JPanel {
         this.userProcessContainer=userProcessContainer;
         this.organization=organization;
         populateTable();
+        Color color = new Color(211, 247, 255);
+        this.setBackground(color);
     }
     
     public void populateTable(){
