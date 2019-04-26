@@ -54,7 +54,7 @@ public class OfficeOfNuclearEnergyWorkAreaPanel extends javax.swing.JPanel {
 
         }
         catch(Exception e){}
-        Color color = new Color(198,248,250);
+        Color color = new Color(211, 247, 255);
         this.setBackground(color);
     }
 

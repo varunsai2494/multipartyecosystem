@@ -51,7 +51,7 @@ public class BudgetWorkAreaPanel extends javax.swing.JPanel {
         initComponents();
         populateTable();
         valueLabel.setText(this.enterprise.getName());
-        Color color = new Color(198,248,250);
+        Color color = new Color(211, 247, 255);
         this.setBackground(color);
     }
 

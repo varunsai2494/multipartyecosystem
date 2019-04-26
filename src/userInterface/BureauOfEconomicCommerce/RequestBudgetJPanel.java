@@ -13,6 +13,7 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,6 +43,8 @@ public class RequestBudgetJPanel extends javax.swing.JPanel {
         this.userAccount = account;
         this.request = request;
         valueLabel.setText(enterprise.getName());
+        Color color = new Color(211, 247, 255);
+        this.setBackground(color);
     }
 
     /**
@@ -93,6 +96,12 @@ public class RequestBudgetJPanel extends javax.swing.JPanel {
     private void approvebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_approvebtnActionPerformed
         
         request.setStatus("Bureau of Ecomonics Approved");
+        try{
+            Integer.parseInt(suggestedfundsval.getText());
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "error total funds should be integer"); 
+        }
         ((BudgetWorkRequest) request).setSuggestedBudgetByBureauOfEconomics(Integer.parseInt(suggestedfundsval.getText()));
           JOptionPane.showMessageDialog(null, "Success!!"); 
     }//GEN-LAST:event_approvebtnActionPerformed

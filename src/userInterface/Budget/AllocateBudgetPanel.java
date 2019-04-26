@@ -16,6 +16,7 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JPanel;
 import userInterface.Army.ArmyWorkAreaJPanel;
@@ -43,6 +44,8 @@ public class AllocateBudgetPanel extends javax.swing.JPanel {
         this.userAccount = account;
         this.request = request;
         initComponents();
+        Color color = new Color(211, 247, 255);
+        this.setBackground(color);
         
        
 //        categoryVal.addItem("");

@@ -45,7 +45,7 @@ public class ApproveRevenuePanel extends javax.swing.JPanel {
     
         String g = Integer.toString(s);
         suggestedfundsval.setText(g);
-        Color color = new Color(198,248,250);
+        Color color = new Color(211, 247, 255);
         this.setBackground(color);
     }
 

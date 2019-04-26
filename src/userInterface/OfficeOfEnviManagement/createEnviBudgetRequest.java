@@ -48,7 +48,7 @@ public class createEnviBudgetRequest extends javax.swing.JPanel {
         categoryVal.addItem("Procure Vheicles/ maintain veheicles");
         categoryVal.addItem("Recruit man power");
         categoryVal.addItem("Research & Development");
-        Color color = new Color(198,248,250);
+        Color color = new Color(211, 247, 255);
         this.setBackground(color);
     }
 
