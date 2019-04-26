@@ -77,6 +77,7 @@ public class OfficeOfNuclearEnergyWorkAreaPanel extends javax.swing.JPanel {
         enterpriseLabel = new javax.swing.JLabel();
         valueLabel = new javax.swing.JLabel();
         ImgLable = new javax.swing.JLabel();
+        reportRequest1 = new javax.swing.JButton();
 
         OnETable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -132,19 +133,19 @@ public class OfficeOfNuclearEnergyWorkAreaPanel extends javax.swing.JPanel {
 
         valueLabel.setText("<value>");
 
+        reportRequest1.setText("Upload Report");
+        reportRequest1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportRequest1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(141, 141, 141)
-                        .addComponent(assignButton, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(95, 95, 95)
-                        .addComponent(RefreshButton)
-                        .addGap(60, 60, 60)
-                        .addComponent(nuclearButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(285, 285, 285)
                         .addComponent(reportRequest))
@@ -160,7 +161,19 @@ public class OfficeOfNuclearEnergyWorkAreaPanel extends javax.swing.JPanel {
                                         .addGap(30, 30, 30)
                                         .addComponent(valueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(95, 95, 95)
-                                .addComponent(ImgLable, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(ImgLable, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(reportRequest1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(141, 141, 141)
+                                .addComponent(assignButton, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(95, 95, 95)
+                        .addComponent(RefreshButton)
+                        .addGap(60, 60, 60)
+                        .addComponent(nuclearButton)))
                 .addGap(37, 37, 37))
         );
         layout.setVerticalGroup(
@@ -182,7 +195,9 @@ public class OfficeOfNuclearEnergyWorkAreaPanel extends javax.swing.JPanel {
                     .addComponent(nuclearButton)
                     .addComponent(RefreshButton)
                     .addComponent(assignButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(reportRequest1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addComponent(reportRequest)
                 .addGap(64, 64, 64))
         );
@@ -266,6 +281,39 @@ public class OfficeOfNuclearEnergyWorkAreaPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_reportRequestActionPerformed
 
+    private void reportRequest1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportRequest1ActionPerformed
+        int selectedRow = OnETable.getSelectedRow();
+
+        if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Select a row");
+            return;
+        }
+
+        WorkRequest request = (WorkRequest)OnETable.getValueAt(selectedRow, 0);
+        JFileChooser location=new JFileChooser();
+        location.showOpenDialog(null);
+        File file=location.getSelectedFile();
+        String absolutePath=file.getAbsolutePath();
+        request.getCertificate().setReports(absolutePath);
+        int total = 0;
+        try (BufferedReader br = new BufferedReader(new FileReader(absolutePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if(!values[0].equals("Total")){
+                    try{
+                        total+=Integer.parseInt(values[1]);
+                    }
+                    catch(Exception e){}
+                }
+            }
+            ((BudgetWorkRequest) request).setBudgetSpent(total);
+        }
+
+        catch(Exception e){
+        }
+    }//GEN-LAST:event_reportRequest1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ImgLable;
@@ -277,6 +325,7 @@ public class OfficeOfNuclearEnergyWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton nuclearButton;
     private javax.swing.JButton reportRequest;
+    private javax.swing.JButton reportRequest1;
     private javax.swing.JLabel valueLabel;
     // End of variables declaration//GEN-END:variables
 }
