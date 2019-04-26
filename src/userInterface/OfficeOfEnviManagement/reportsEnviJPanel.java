@@ -48,8 +48,6 @@ public class reportsEnviJPanel extends javax.swing.JPanel {
         this.network = network;
         this.userAccount = account;
         barGraph();
-        Color color = new Color(211, 247, 255);
-        this.setBackground(color);
         
             }
 
