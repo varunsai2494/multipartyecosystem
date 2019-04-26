@@ -131,6 +131,11 @@ public class certificatesViewJPanel extends javax.swing.JPanel {
         jScrollPane2.setViewportView(WRViewTable);
 
         OrgCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        OrgCB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OrgCBActionPerformed(evt);
+            }
+        });
 
         backBtn.setText("back");
 
@@ -201,6 +206,12 @@ public class certificatesViewJPanel extends javax.swing.JPanel {
         dtm.addRow(new Object[]{"reports",workrequest.getCertificate().getReports()});
         dtm.addRow(new Object[]{"status",workrequest.getStatus()});
     }//GEN-LAST:event_viewBtnActionPerformed
+
+    private void OrgCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OrgCBActionPerformed
+        // TODO add your handling code here:
+        populateTable();
+        System.out.print("asdf");
+    }//GEN-LAST:event_OrgCBActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
