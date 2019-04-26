@@ -15,6 +15,7 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.certificateWorkRequest;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -47,6 +48,8 @@ public class createBudgetRequest extends javax.swing.JPanel {
         categoryVal.addItem("Procurement");
         categoryVal.addItem("Machine Manufacturing");
         categoryVal.addItem("Research & Development");
+        Color color = new Color(211, 247, 255);
+        this.setBackground(color);
         
     }
 

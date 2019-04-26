@@ -12,6 +12,7 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.File;
@@ -54,6 +55,8 @@ public class AirForceWorkAreaJPanel extends javax.swing.JPanel {
 
         }
         catch(Exception e){}
+                Color color = new Color(211, 247, 255);
+        this.setBackground(color);
     }
     public void populateRequestTable(){
         DefaultTableModel model = (DefaultTableModel) armyJTabel.getModel();

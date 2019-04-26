@@ -14,6 +14,7 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.certificateWorkRequest;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -46,6 +47,8 @@ public class createBudgetRequest extends javax.swing.JPanel {
         categoryVal.addItem("Procurement");
         categoryVal.addItem("Machine Manufacturing");
         categoryVal.addItem("Research & Development");
+        Color color = new Color(211, 247, 255);
+        this.setBackground(color);
         
     }
 
@@ -171,6 +174,12 @@ public class createBudgetRequest extends javax.swing.JPanel {
         String message = messageVal.getText();
         String description = descriptionVal.getText();
         String totalFundRequest = totalFundVal.getText();
+        try{
+            Integer.parseInt(totalFundRequest);
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "error total funds should be integer"); 
+        }
         BudgetWorkRequest request = new BudgetWorkRequest();
         request.setMessage(message);
         request.setDescription(description);

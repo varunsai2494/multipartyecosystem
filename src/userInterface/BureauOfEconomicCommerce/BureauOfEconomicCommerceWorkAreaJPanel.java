@@ -6,6 +6,7 @@ import Business.Organization.BureauOfEconomicAnalysisOrganization;
 import Business.WorkQueue.BudgetWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Image;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -46,6 +47,8 @@ public class BureauOfEconomicCommerceWorkAreaJPanel extends javax.swing.JPanel {
 
         }
         catch(Exception e){}
+                Color color = new Color(211, 247, 255);
+        this.setBackground(color);
     }
 
     /**
