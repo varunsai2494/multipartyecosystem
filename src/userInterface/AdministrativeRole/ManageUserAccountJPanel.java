@@ -10,6 +10,7 @@ import Business.Organization.Organization;
 import Business.Role.Role;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -33,6 +34,8 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         popOrganizationComboBox();
        // employeeJComboBox.removeAllItems();
         popData();
+        Color color = new Color(211, 247, 255);
+        this.setBackground(color);
     }
 
     public void popOrganizationComboBox() {

@@ -8,6 +8,7 @@ import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -32,6 +33,8 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
 
         populateTable();
         populateComboBox();
+        Color color = new Color(211, 247, 255);
+        this.setBackground(color);
     }
 
     private void populateTable() {

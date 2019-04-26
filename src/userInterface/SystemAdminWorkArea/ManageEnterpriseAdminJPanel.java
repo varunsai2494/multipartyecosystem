@@ -11,6 +11,7 @@ import Business.Network.Network;
 import Business.Role.AdminRole;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -35,6 +36,8 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
 
         populateTable();
         populateNetworkComboBox();
+        Color color = new Color(211, 247, 255);
+        this.setBackground(color);
     }
 
     private void populateTable() {

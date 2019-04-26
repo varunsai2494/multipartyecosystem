@@ -9,6 +9,7 @@ import Business.Organization.Organization;
 import Business.Organization.Organization.Type;
 import Business.Organization.OrganizationDirectory;
 import java.awt.CardLayout;
+import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import java.lang.*;
@@ -33,6 +34,8 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         
         populateTable();
         populateCombo();
+        Color color = new Color(211, 247, 255);
+        this.setBackground(color);
     }
     
     private void populateCombo(){
