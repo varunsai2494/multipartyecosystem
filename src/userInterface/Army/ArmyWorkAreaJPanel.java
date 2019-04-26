@@ -54,7 +54,7 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
 
         }
         catch(Exception e){}
-        Color color = new Color(251, 252, 217);
+        Color color = new Color(211, 247, 255);
         this.setBackground(color);
     }
     public void populateRequestTable(){
@@ -143,6 +143,7 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
 
         titleLabel.setText("Army Work Area");
 
+        reportRequest.setForeground(new java.awt.Color(80, 89, 144));
         reportRequest.setText("Upload Report");
         reportRequest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -150,6 +151,7 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        createbtn.setForeground(new java.awt.Color(78, 79, 170));
         createbtn.setText("Create budget Request");
         createbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -157,6 +159,7 @@ public class ArmyWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        reportsbtn.setForeground(new java.awt.Color(86, 86, 181));
         reportsbtn.setText("generate reports");
         reportsbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

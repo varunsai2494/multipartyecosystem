@@ -166,6 +166,54 @@ public class networkAnalyticsFuns {
         
     
     }
+        public DefaultPieDataset getTotalFraudByOrganization(String networkSel){
+        String temp;
+        HashMap<String,HashMap<String,Integer>> ent=null;
+        
+        DefaultPieDataset dataset = new DefaultPieDataset( ); 
+        for(Network network:system.getNetworkList()){
+             ent= new HashMap<String,HashMap<String,Integer>>();
+                if(networkSel==null)
+                    temp=system.getNetworkList().get(0).getName();
+                else
+                    temp=networkSel;
+                //Step 2.a: check against each enterprise
+                for(Enterprise enterprise:network.getEnterpriseDirectory().getEnterpriseList()){
+            
+                    for(Organization organization: enterprise.getOrganizationDirectory().getOrganizationList()){
+                        HashMap<String, Integer> Allocated_funds = new HashMap<>(); 
+                        if(organization instanceof ArmyOrganization || organization instanceof AirForceOrganization || organization instanceof OfficeOfEnviManagementOrganization || organization instanceof OfficeOfNuclearEnergyOrganization){
+                            for(UserAccount userAccount:organization.getUserAccountDirectory().getUserAccountList()){
+                            for (WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()){
+                                    if(request.getCertificate().isIsFraud()){
+                                        if(Allocated_funds.get(organization.getName())==null){
+                                            Allocated_funds.put(organization.getName(), 1);
+                                        }
+                                        else{
+                                            Allocated_funds.put(organization.getName(), Allocated_funds.get(organization.getName())+1);
+                                        }
+                                    }
+                                }
+                            }
+                                for(String k: Allocated_funds.keySet()){
+                                    dataset.setValue(k,Allocated_funds.get(k));
+                                }
+                        }
+                    }
+                
+                }
+                  
+                if(temp==network.getName())
+                    return dataset;
+                
+                }
+        
+
+            System.out.print("asdf");
+        return dataset;
+        
+    
+    }
     
 }
 
