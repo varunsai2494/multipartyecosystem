@@ -49,7 +49,6 @@ public class RevenueWorkAreaPanel extends javax.swing.JPanel {
         initComponents();
         populateTable();
         valueLabel.setText(this.enterprise.getName());
-        
         Color color = new Color(211, 247, 255);
         this.setBackground(color);
     }
