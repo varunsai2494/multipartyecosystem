@@ -11,6 +11,7 @@ import Business.Analytics.networkAnalyticsFuns;
 import Business.Network.Network;
 import java.awt.BorderLayout;
 import java.util.HashMap;
+import javax.swing.JTable;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -25,10 +26,13 @@ public class ReportsJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ReportsJPanel
      */
+    
     private EcoSystem system;
+    private JPanel userProcessContainer;
     public ReportsJPanel(JPanel userProcessContainer,EcoSystem system) {
         initComponents();
         this.system=system;
+        this.userProcessContainer=userProcessContainer;
         populateNetworkCB();
         populateReportType();
         populateEmployeeCountGraph(null);
@@ -64,10 +68,11 @@ DefaultCategoryDataset dataset=(new networkAnalyticsFuns(system)).getAllocatedBu
     private void populateReportType(){
     
     reportTypeCB.addItem("Employees");
-    reportTypeCB.addItem("Certificates");
+    
     reportTypeCB.addItem("Allocated Budget");
     
     }
+    
     
     private void barGraph(DefaultCategoryDataset dataset,String tHeader,String bHeader,String lHeader){
 
@@ -169,10 +174,7 @@ DefaultCategoryDataset dataset=(new networkAnalyticsFuns(system)).getAllocatedBu
         try{
         if(reportTypeCB.getSelectedItem().toString()=="Employees")
             populateEmployeeCountGraph(networkCB.getSelectedItem().toString());
-        else if(reportTypeCB.getSelectedItem().toString()=="Certificates")
-        {
-        
-        }
+       
         else if(reportTypeCB.getSelectedItem().toString()=="Allocated Budget"){
             populateAllocatedBudgetGraph(networkCB.getSelectedItem().toString());
         }
@@ -188,10 +190,7 @@ DefaultCategoryDataset dataset=(new networkAnalyticsFuns(system)).getAllocatedBu
         try{
         if(reportTypeCB.getSelectedItem().toString()=="Employees")
             populateEmployeeCountGraph(networkCB.getSelectedItem().toString());
-        else if(reportTypeCB.getSelectedItem().toString()=="Certificates")
-        {
         
-        }
         else if(reportTypeCB.getSelectedItem().toString()=="Allocated Budget"){
             populateAllocatedBudgetGraph(networkCB.getSelectedItem().toString());
         }
