@@ -204,9 +204,9 @@ public class RevenueWorkAreaPanel extends javax.swing.JPanel {
             row[1] = request.getDescription();
             row[2] = request.getReceiver();
             int alloc = ((BudgetWorkRequest) request).getAllocatedBudgetRequest();
-            row[3] = alloc;
+            row[4] = alloc;
             int total = ((BudgetWorkRequest) request).getTotalBudgetRequest();
-            row[4] = total;
+            row[3] = total;
             row[5] = request.getStatus();
             int sug = ((BudgetWorkRequest) request).getSuggestedBudgetByBureauOfEconomics();
             row[6] = sug;
