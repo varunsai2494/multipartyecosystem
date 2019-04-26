@@ -153,7 +153,31 @@ public class ApproveRevenuePanel extends javax.swing.JPanel {
     
     
     private void approvebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_approvebtnActionPerformed
-
+        if(allocatedFund.getText().equals("")||suggestedfundsval.getText().equals("")
+                    )
+            {   
+              JOptionPane.showMessageDialog(null, "One or more feilds empty");  
+              return;
+            }
+            int avail;
+            try
+            {
+               avail = Integer.parseInt(suggestedfundsval.getText());
+            }
+            catch(NumberFormatException e)
+            {
+                JOptionPane.showMessageDialog(null, "Enter a number for Fund Request");
+                return;
+            }
+            try
+            {
+               avail = Integer.parseInt(allocatedFund.getText());
+            }
+            catch(NumberFormatException e)
+            {
+                JOptionPane.showMessageDialog(null, "Enter a number for Fund Request");
+                return;
+            }
         request.setStatus("Revenue Approved");
         JOptionPane.showMessageDialog(null, "Request Sucessfully Approved");
         ((BudgetWorkRequest) request).setAllocatedBudgetRequest(Integer.parseInt(allocatedFund.getText()));
